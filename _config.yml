@@ -1,0 +1,52 @@
+# ─────────────────────────────────────────────────────────────
+#  Technical settings. You normally DON'T need to edit this file.
+#  技术设置，一般不用改。名字、简介、链接请改 site.md。
+# ─────────────────────────────────────────────────────────────
+
+# Your public web address (no trailing slash).
+# 你的网站地址。如果仓库名叫 lizilizi0422-cmd.github.io，就保持下面这样。
+url: "https://lizilizi0422-cmd.github.io"
+# Leave empty if the repository is named <username>.github.io (recommended).
+# 如果仓库名不是 <用户名>.github.io，例如叫 portfolio，这里改成 "/portfolio"
+baseurl: ""
+
+lang: en
+markdown: kramdown
+kramdown:
+  input: GFM
+  auto_ids: true
+  hard_wrap: false
+
+collections:
+  sections:            # the 4 big project areas · 4 个大的作品板块
+    output: true
+    permalink: /projects/:name/
+  projects:            # sub-projects, one folder per section · 子项目，每个板块一个文件夹
+    output: true
+    permalink: /projects/:path/
+
+  beliefs:             # Home “How I work with kids” cards, one file per belief · 首页信念卡片，每张卡一个文件
+    output: false
+  reflections:         # class & lab reflections, one file each · 课堂/实验室反思，每篇一个文件
+    output: true
+    permalink: /reflections/:name/
+
+defaults:
+  - scope: { path: "", type: sections }
+    values: { layout: section }
+  - scope: { path: "", type: projects }
+    values: { layout: project }
+  - scope: { path: "", type: reflections }
+    values: { layout: reflection }
+
+exclude:
+  - EDITING.md
+  - README.md
+  - screenshots
+  - research            # design research & reference study — never published · 设计研究资料，不会发布
+  - ".pages.yml"
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - "*.zip"

@@ -1,0 +1,15 @@
+<!doctype html>
+<html class="no-js" lang="{{ page.lang | default: site.lang | default: 'en' }}">
+<head>
+{% include head.html %}
+</head>
+<body class="l-{{ page.layout }}{% if page.body_class %} {{ page.body_class }}{% endif %}">
+{%- comment -%} Crayon texture used by every hand-drawn doodle · 所有手绘线条共用的蜡笔质感 {%- endcomment -%}
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><filter id="crayon" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.4" xChannelSelector="R" yChannelSelector="G" result="d"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.4 2.05" result="sp"/><feComposite in="d" in2="sp" operator="in"/></filter></svg>
+{% include header.html %}
+<main id="main" tabindex="-1">
+{{ content }}
+</main>
+{% include footer.html %}
+</body>
+</html>

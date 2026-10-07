@@ -1,0 +1,31 @@
+{%- comment -%}
+  Wraps each word of a sentence in a span so it can slide up word-by-word.
+  The words are real text in the HTML (nothing is added by JavaScript).
+  Words between *stars* are emphasised (bold) and get a hand-drawn underline.
+  Usage: {% include split.html text=s.hero_question %}
+{%- endcomment -%}
+{%- assign segs = include.text | split: "*" -%}
+{%- assign n = 0 -%}{%- assign first = true -%}{%- assign skip_first = false -%}
+{%- for seg in segs -%}
+  {%- assign odd = forloop.index0 | modulo: 2 -%}
+  {%- assign lead = seg | slice: 0, 1 -%}
+  {%- assign ws = seg | split: " " -%}
+  {%- if odd == 1 -%}
+    {%- comment -%} punctuation right after the stars (e.g. "?") sticks to the last word {%- endcomment -%}
+    {%- assign glue = "" -%}
+    {%- assign nxt = segs[forloop.index] -%}
+    {%- if nxt -%}{%- assign nlead = nxt | slice: 0, 1 -%}{%- if nlead != " " -%}{%- assign glue = nxt | split: " " | first -%}{%- assign skip_first = true -%}{%- endif -%}{%- endif -%}
+    {%- for w in ws -%}
+      {%- unless first -%}{{ " " }}{%- endunless -%}
+      <span class="sw sw-em" style="--i:{{ n }}"><span><em>{{ w }}</em>{% include art/underline.svg %}{% if forloop.last %}{{ glue }}{% endif %}</span></span>
+      {%- assign n = n | plus: 1 -%}{%- assign first = false -%}
+    {%- endfor -%}
+  {%- else -%}
+    {%- for w in ws -%}
+      {%- if forloop.first and skip_first -%}{%- assign skip_first = false -%}{%- continue -%}{%- endif -%}
+      {%- if first == false -%}{{ " " }}{%- endif -%}
+      <span class="sw" style="--i:{{ n }}"><span>{{ w }}</span></span>
+      {%- assign n = n | plus: 1 -%}{%- assign first = false -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endfor -%}

@@ -1,0 +1,20 @@
+---
+layout: default
+---
+{%- assign lab = site.sections | where: "show_reflections", true | first -%}
+<article class="reflection">
+  <header class="phero no-media">
+    <div class="wrap phero-inner">
+      <p class="crumb" data-reveal><a href="{{ '/projects/' | relative_url }}">Projects</a>{% if lab %} <span aria-hidden="true">/</span> <a href="{{ lab.url | relative_url }}#reflections">Reflections</a>{% endif %}</p>
+      <p class="kicker" data-reveal>{{ page.course }}{% if page.type %} · {{ page.type }}{% endif %}{% if page.term %} · {{ page.term }}{% endif %}</p>
+      <h1 class="display" data-split>{% include split.html text=page.title %}</h1>
+      {% if page.key_idea %}<p class="phero-lede" data-reveal>{{ page.key_idea }}</p>{% endif %}
+      {% if page.theories %}<ul class="tags" aria-label="Theories and readings" data-reveal>{% for t in page.theories %}<li>{{ t }}</li>{% endfor %}</ul>{% endif %}
+    </div>
+  </header>
+  <div class="wrap narrow prose refl-body" data-reveal>
+    {{ content }}
+    {% if page.related_project and page.related_project != "" %}<p class="related"><a class="link-u" href="{{ page.related_project | relative_url }}">Where this shows up in my work →</a></p>{% endif %}
+  </div>
+  {%- if page.photos %}<section class="blk blk-gallery" aria-label="Photos"><div class="wrap">{% include folder-gallery.html photos=page.photos %}</div></section>{% endif %}
+</article>

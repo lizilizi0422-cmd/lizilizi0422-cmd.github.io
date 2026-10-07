@@ -1,0 +1,13 @@
+{%- comment -%} Small "Role / Context / Timeline…" line under a project title · 项目标题下的小信息栏 {%- endcomment -%}
+{%- assign p = include.p -%}
+{%- if p.role or p.context or p.timeline or p.users or p.age or p.materials or p.tools -%}
+<dl class="facts" data-reveal>
+  {%- if p.role and p.role != "" %}<div><dt>Role</dt><dd>{{ p.role }}</dd></div>{% endif %}
+  {%- if p.context and p.context != "" %}<div><dt>Context</dt><dd>{{ p.context }}</dd></div>{% endif %}
+  {%- if p.timeline and p.timeline != "" %}<div><dt>Timeline</dt><dd>{{ p.timeline }}</dd></div>{% endif %}
+  {%- if p.users and p.users != "" %}<div><dt>Designed for</dt><dd>{{ p.users }}</dd></div>{% endif %}
+  {%- if p.age and p.age != "" %}<div><dt>Age</dt><dd>{{ p.age }}</dd></div>{% endif %}
+  {%- if p.materials and p.materials != "" %}<div><dt>Materials</dt><dd>{{ p.materials }}</dd></div>{% endif %}
+  {%- if p.tools and p.tools != "" %}<div><dt>Tools</dt><dd>{{ p.tools }}</dd></div>{% endif %}
+</dl>
+{%- endif -%}

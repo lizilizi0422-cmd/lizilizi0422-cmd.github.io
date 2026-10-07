@@ -1,0 +1,17 @@
+{%- comment -%}
+  Finds the sub-projects of one project area and stores them in the variable "subs".
+  A project belongs to an area by its "area" setting (chosen in Pages CMS); if that is
+  empty, by the folder it lives in (_projects/<area>/).
+  找出一个板块下的子项目：优先看 area 设置，没有的话看所在文件夹。
+  Usage: {% include get-subs.html slug=sec.slug %}  → then use {{ subs }}
+{%- endcomment -%}
+{%- assign subs = "" | split: "" -%}
+{%- assign gs_key = "/" | append: include.slug | append: "/" -%}
+{%- for gs_p in site.projects -%}
+  {%- if gs_p.area and gs_p.area != "" -%}
+    {%- if gs_p.area == include.slug -%}{%- assign subs = subs | push: gs_p -%}{%- endif -%}
+  {%- elsif gs_p.relative_path contains gs_key -%}
+    {%- assign subs = subs | push: gs_p -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- assign subs = subs | sort: "order" -%}

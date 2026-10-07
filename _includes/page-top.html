@@ -1,0 +1,16 @@
+{%- comment -%}
+  Top of a section / project page + all its blocks.
+  If the first block is a "hero", it becomes the page top; otherwise a default hero is drawn.
+  如果第一个模块是"大标题"，它就是页面顶部；否则自动生成一个。
+{%- endcomment -%}
+{%- assign p = include.p -%}
+{%- assign first = p.blocks | first -%}
+{%- if first.type != "hero" -%}
+  {%- assign dt = p.display_title | default: p.title -%}
+  {% include page-hero.html h=1 kicker=p.part title=dt text=p.tagline image=p.cover alt=p.cover_alt caption=p.cover_caption crumb=include.crumb facts=p %}
+{%- endif -%}
+{%- assign dt = p.display_title | default: p.title -%}
+{% include blocks.html list=p.blocks title=dt text=p.tagline facts=p crumb=include.crumb %}
+{%- if include.content and include.content != "" %}
+<section class="blk blk-text align-center"><div class="wrap bt-grid"><div class="bt-body prose" data-reveal>{{ include.content }}</div></div></section>
+{%- endif -%}

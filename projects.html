@@ -1,0 +1,67 @@
+---
+layout: default
+title: Projects
+permalink: /projects/
+description: "Ziqi Li's projects: art and learning design for early childhood, a teaching and learning lab practicum, FindMy Voice (an AI chatbot for bilingual students), and toy design."
+---
+{%- include settings.html -%}
+{%- assign secs = site.sections | sort: "order" -%}
+<header class="phero no-media projects-hero">
+  <div class="phero-marks" aria-hidden="true">
+    <div class="pm pm-a" data-draw data-speed="-0.06">{% include art/scatter-a.svg %}</div>
+    <div class="pm pm-b" data-draw data-speed="0.05">{% include art/scatter-b.svg %}</div>
+  </div>
+  <div class="wrap phero-inner">
+    <p class="kicker" data-reveal>{{ secs.size }} areas of work</p>
+    <h1 class="display" data-split>{% include split.html text=s.projects_title %}</h1>
+    <p class="phero-lede" data-reveal>{{ s.projects_question }}</p>
+  </div>
+</header>
+
+{%- comment -%} The four project areas, alternating and loosely overlapped · 四个作品板块，左右交替、错落叠放 {%- endcomment -%}
+{%- assign adood = "block,chestnut,kite,star" | split: "," -%}
+<ol class="areas">
+{%- for sec in secs %}
+  {%- include get-subs.html slug=sec.slug -%}
+  {%- assign ai = forloop.index0 | modulo: 4 -%}{%- capture dp -%}art/d-{{ adood[ai] }}.svg{%- endcapture -%}
+  <li class="area area-{{ forloop.index }}">
+    <div class="wrap area-grid">
+      <a class="area-img" href="{{ sec.url | relative_url }}" tabindex="-1" aria-hidden="true">
+        {% include img.html src=sec.cover alt="" ratio="4/3" loading="eager" %}
+        <span class="area-img-2">{% include img.html src="" alt="" ratio="4/5" %}</span>
+      </a>
+      <div class="area-text">
+        <div class="area-doodle" data-draw aria-hidden="true">{% include {{ dp }} %}</div>
+        <span class="dir-num" aria-hidden="true">0{{ forloop.index }}</span>
+        <h2 class="h2" id="sec-{{ sec.slug }}"><a href="{{ sec.url | relative_url }}">{{ sec.title }}</a></h2>
+        {% if sec.tagline %}<p class="area-tagline">{{ sec.tagline }}</p>{% endif %}
+        <p>{{ sec.summary }}</p>
+        {%- if subs.size > 0 or sec.show_reflections %}
+        <ul class="sub-links" aria-label="Inside {{ sec.title }}">
+          {%- if sec.show_reflections %}<li><a href="{{ sec.url | relative_url }}#reflections">Reflection</a></li>{% endif %}
+          {%- for p in subs %}<li><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>{% endfor %}
+        </ul>
+        {%- endif %}
+        <a class="btn btn-line" href="{{ sec.url | relative_url }}">Open <span class="visually-hidden">{{ sec.title }}</span><span class="arr" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </li>
+{%- endfor %}
+</ol>
+
+<div class="blk-strip projects-page-strip" aria-hidden="true"><div class="strip" data-strip>{% include art/strip.svg %}</div></div>
+
+<section class="wrap index" aria-labelledby="all-title">
+  <div class="sec-head"><p class="kicker" data-reveal>Index</p><h2 id="all-title" class="h1" data-split>{% include split.html text="Everything, in one list" %}</h2></div>
+  <ol class="index-rows">
+  {%- for sec in secs %}
+    {%- include get-subs.html slug=sec.slug -%}
+    {%- if subs.size == 0 %}
+    <li data-reveal><a href="{{ sec.url | relative_url }}"><span class="ir-area">{{ sec.title }}</span><span class="ir-title">{{ sec.display_title | default: sec.title }}</span><span class="arr" aria-hidden="true">→</span></a></li>
+    {%- endif %}
+    {%- for p in subs %}
+    <li data-reveal><a href="{{ p.url | relative_url }}"><span class="ir-area">{{ sec.title }}</span><span class="ir-title">{{ p.title }}</span><span class="arr" aria-hidden="true">→</span></a></li>
+    {%- endfor %}
+  {%- endfor %}
+  </ol>
+</section>

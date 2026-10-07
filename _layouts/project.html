@@ -1,0 +1,24 @@
+---
+layout: default
+---
+{%- include settings.html -%}
+{%- assign bits = page.relative_path | split: "/" -%}
+{%- assign sec_slug = page.area | default: bits[1] -%}
+{%- assign sec = site.sections | where: "slug", sec_slug | first -%}
+{%- include get-subs.html slug=sec_slug -%}{%- assign sibs = subs -%}
+{%- capture crumb -%}{% include crumb.html sec=sec %}{%- endcapture -%}
+<article class="page-case">
+  {% include page-top.html p=page crumb=crumb content=content %}
+
+  {%- capture gal -%}{% include folder-gallery.html folder=page.photos_folder skip=page.cover label="Project photos" %}{%- endcapture -%}
+  {%- if gal != "" %}
+  <section class="blk blk-gallery" aria-label="More photos"><div class="wrap">{{ gal }}</div></section>
+  {%- endif %}
+
+  {%- for p in sibs -%}{%- if p.url == page.url -%}{%- assign i = forloop.index0 -%}{%- endif -%}{%- endfor -%}
+  {%- if sibs.size > 1 -%}{%- assign next_i = i | plus: 1 | modulo: sibs.size -%}{%- assign nxt = sibs[next_i] -%}{%- endif %}
+  <nav class="next" aria-label="More projects">
+    {% if nxt %}<a href="{{ nxt.url | relative_url }}"><span class="kicker">Next in {{ sec.title }}</span><span class="next-title">{{ nxt.title }} <span class="arr" aria-hidden="true">→</span></span></a>
+    {% else %}<a href="{{ sec.url | relative_url }}"><span class="kicker">Back to</span><span class="next-title">{{ sec.title }} <span class="arr" aria-hidden="true">→</span></span></a>{% endif %}
+  </nav>
+</article>

@@ -1,0 +1,13 @@
+---
+layout: default
+---
+<header class="phero no-media">
+  <div class="wrap phero-inner">
+    {% if page.kicker %}<p class="kicker">{{ page.kicker }}</p>{% endif %}
+    <h1 class="display">{{ page.heading | default: page.title }}</h1>
+    {% if page.intro %}<p class="phero-lede">{{ page.intro }}</p>{% endif %}
+  </div>
+</header>
+<div class="wrap narrow prose page-body">
+{{ content }}
+</div>

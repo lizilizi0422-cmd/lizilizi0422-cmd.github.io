@@ -1,0 +1,20 @@
+---
+layout: null
+sitemap: false
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{%- assign pages = site.pages | where_exp: "p", "p.sitemap != false" -%}
+{%- for p in pages -%}{%- if p.url contains ".css" or p.url contains ".js" or p.url contains "404" -%}{%- continue -%}{%- endif %}
+  <url><loc>{{ p.url | absolute_url }}</loc></url>
+{%- endfor -%}
+{%- for p in site.projects -%}{%- if p.sitemap == false or p.example or p.status == "placeholder" -%}{%- continue -%}{%- endif %}
+  <url><loc>{{ p.url | absolute_url }}</loc></url>
+{%- endfor -%}
+{%- for p in site.sections -%}{%- if p.sitemap == false or p.example or p.status == "placeholder" -%}{%- continue -%}{%- endif %}
+  <url><loc>{{ p.url | absolute_url }}</loc></url>
+{%- endfor %}
+{%- for p in site.reflections -%}{%- if p.sitemap == false or p.status == "placeholder" -%}{%- continue -%}{%- endif %}
+  <url><loc>{{ p.url | absolute_url }}</loc></url>
+{%- endfor %}
+</urlset>

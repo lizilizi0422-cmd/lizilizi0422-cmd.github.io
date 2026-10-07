@@ -1,0 +1,69 @@
+---
+layout: default
+---
+{%- include settings.html -%}
+{%- include get-subs.html slug=page.slug -%}
+{%- capture crumb -%}{% include crumb.html %}{%- endcapture -%}
+<article class="page-section">
+  {% include page-top.html p=page crumb=crumb content=content %}
+
+  {%- if page.show_reflections %}
+  {%- assign refl = site.reflections | sort: "order" -%}
+  {%- assign courses = refl | map: "course" | uniq -%}
+  <section class="reflections" id="reflections" aria-labelledby="refl-title">
+    <div class="wrap sec-head">
+      <p class="kicker" data-reveal>Notes from class and lab</p>
+      <h2 id="refl-title" class="h1" data-split>{% assign rt = page.reflections_title | default: "Reflections" %}{% include split.html text=rt %}</h2>
+      {% if page.reflections_intro %}<p class="sec-lede" data-reveal>{{ page.reflections_intro }}</p>{% endif %}
+      <div class="filters" role="group" aria-label="Filter reflections by course" hidden>
+        <button type="button" class="chip" aria-pressed="true" data-filter="all">All</button>
+        {%- for c in courses %}<button type="button" class="chip" aria-pressed="false" data-filter="{{ c | escape }}">{{ c }}</button>{% endfor %}
+      </div>
+      <p class="filter-status visually-hidden" aria-live="polite"></p>
+    </div>
+    <ul class="notes wrap">
+      {%- for r in refl %}
+      <li class="note" data-course="{{ r.course | escape }}" data-reveal>
+        <a href="{{ r.url | relative_url }}">
+          <span class="note-meta">{{ r.course }}{% if r.term %} · {{ r.term }}{% endif %}</span>
+          <span class="note-title">{{ r.title }}</span>
+          {% if r.key_idea %}<span class="note-idea">{{ r.key_idea }}</span>{% endif %}
+          <span class="arr" aria-hidden="true">→</span>
+        </a>
+      </li>
+      {%- endfor %}
+    </ul>
+  </section>
+  {%- endif %}
+
+  {%- if subs.size > 0 %}
+  <section class="subprojects{% if page.list_style == 'grid' %} sub-grid{% else %} sub-split{% endif %}" aria-labelledby="subs-title">
+    <div class="wrap sec-head">
+      <p class="kicker" data-reveal>{{ subs.size }} project{% if subs.size > 1 %}s{% endif %}</p>
+      <h2 id="subs-title" class="h1" data-split>{% include split.html text="Projects in this area" %}</h2>
+    </div>
+    <ul class="sub-list wrap">
+      {%- for p in subs %}
+      <li class="sub sub-{{ forloop.index }}">
+        <a class="sub-img" href="{{ p.url | relative_url }}" tabindex="-1" aria-hidden="true">{% assign m = forloop.index0 | modulo: 2 %}{% if page.list_style == 'grid' %}{% if m == 0 %}{% assign rr = "4/5" %}{% else %}{% assign rr = "1/1" %}{% endif %}{% else %}{% assign rr = "4/3" %}{% endif %}{% include img.html src=p.cover alt="" ratio=rr %}</a>
+        <div class="sub-text">
+          {% if p.part %}<p class="kicker">{{ p.part }}</p>{% endif %}
+          <h3 class="h2"><a href="{{ p.url | relative_url }}">{{ p.title }}</a></h3>
+          {% if p.tagline %}<p class="sub-tag">{{ p.tagline }}</p>{% endif %}
+          {% if p.summary and page.list_style != 'grid' %}<p>{{ p.summary }}</p>{% endif %}
+          <span class="link-u" aria-hidden="true">View project <span class="arr">→</span></span>
+        </div>
+      </li>
+      {%- endfor %}
+    </ul>
+  </section>
+  {%- endif %}
+
+  {%- assign all = site.sections | sort: "order" -%}
+  {%- for x in all -%}{%- if x.url == page.url -%}{%- assign i = forloop.index0 -%}{%- endif -%}{%- endfor -%}
+  {%- assign next_i = i | plus: 1 | modulo: all.size -%}
+  {%- assign nxt = all[next_i] -%}
+  <nav class="next" aria-label="Next project area">
+    <a href="{{ nxt.url | relative_url }}"><span class="kicker">Next area</span><span class="next-title">{{ nxt.title }} <span class="arr" aria-hidden="true">→</span></span></a>
+  </nav>
+</article>

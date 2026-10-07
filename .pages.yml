@@ -1,0 +1,472 @@
+# ============================================================
+# Pages CMS configuration · Pages CMS 设置文件
+# https://pagescms.org/docs/configuration/
+# Log in at https://app.pagescms.org with GitHub, open this repository,
+# and everything below appears as forms in Chinese + English.
+# 用 GitHub 登录 app.pagescms.org，打开这个仓库，下面的内容都会变成中英文表单。
+# Field "name" values must match the front-matter keys used by the templates —
+# don't rename them. 字段的 name 必须和模板里用的一致，请不要改名。
+# ============================================================
+
+media:
+  - name: images
+    label: 全部图片 · All images
+    input: images
+    output: /images
+    categories: [image]
+    rename: safe
+  - name: home
+    label: 首页图片 · Home photos
+    input: images/home
+    output: /images/home
+    categories: [image]
+    rename: safe
+  - name: early-childhood
+    label: 早期儿童 · Early Childhood images
+    input: images/early-childhood
+    output: /images/early-childhood
+    categories: [image]
+    rename: safe
+  - name: lab-practicum
+    label: 实验室实践 · Lab Practicum images
+    input: images/lab-practicum
+    output: /images/lab-practicum
+    categories: [image]
+    rename: safe
+  - name: findmy-voice
+    label: FindMy Voice 图片 · images
+    input: images/findmy-voice
+    output: /images/findmy-voice
+    categories: [image]
+    rename: safe
+  - name: toy-design
+    label: 玩具设计 · Toy Design images
+    input: images/toy-design
+    output: /images/toy-design
+    categories: [image]
+    rename: safe
+  - name: reflections
+    label: 反思图片 · Reflection images
+    input: images/reflections
+    output: /images/reflections
+    categories: [image]
+    rename: safe
+  - name: site
+    label: 网站通用图片 · Site images (portrait, share image)
+    input: images/site
+    output: /images/site
+    categories: [image]
+    rename: safe
+
+# ---------- Reusable field groups · 可重复使用的字段组 ----------
+components:
+  seo_title:
+    type: string
+    label: 搜索标题 · Search title
+    description: 可选。留空 = “标题 | 一句话 | Ziqi Li” · Optional. Blank = "Title | Tagline | Ziqi Li".
+  seo_description:
+    type: text
+    label: 一句话简介 · Search description
+    description: 可选。显示在 Google 搜索结果里，约 150 字符；留空 = 网站简介 · Optional, ~150 characters. Blank = site description.
+  photos:
+    type: object
+    label: 照片（带描述和说明）· Photos (with description + caption)
+    description: 孩子的照片只用有家长/学校同意的，或看不到脸的（背影、小手）。· Only post children's photos with parent/school consent, or faceless angles (backs, hands).
+    list:
+      collapsible:
+        collapsed: true
+        summary: "{caption}"
+    fields:
+      - name: image
+        type: image
+        label: 图片 · Image
+      - name: alt
+        type: string
+        label: 图片描述（给看不见的人）· Description (alt text)
+        description: 例如 “孩子们在幼儿园工作室里玩黏土” · e.g. "children exploring clay in a preschool studio"
+      - name: caption
+        type: string
+        label: 图片说明（显示在图下）· Caption (shown under the photo)
+  # ── PAGE BUILDER · 页面模块 ──────────────────────────────────
+  # One list of blocks per page. "type" = the block's layout. Add / delete / drag to reorder.
+  # 每个页面一组模块；type 就是版式。可以新增、删除、拖动排序。
+  page_blocks:
+    type: block
+    label: 页面模块（可增删、拖动排序）· Page blocks (add, delete, drag to reorder)
+    description: 每个模块是页面的一段。图片空着会显示灰色占位框。· Each block is one part of the page. Empty images show a grey placeholder box.
+    list: true
+    blockKey: type
+    blocks:
+      - name: hero
+        label: ① 大标题（居中）· Hero (centered)
+        fields:
+          - { name: kicker, type: string, label: 小标签（可选）· Small label (optional) }
+          - { name: title, type: string, label: 标题（留空 = 页面标题）· Title (blank = page title) }
+          - { name: text, type: text, label: 一句话（留空 = 一句话简介）· Line under the title (blank = tagline) }
+          - { name: image, type: image, label: 大图 · Image }
+          - { name: image_alt, type: string, label: 图片描述 · Image description (alt text) }
+          - { name: caption, type: string, label: 图片说明 · Caption }
+          - { name: hide_image, type: boolean, label: 不显示大图 · Hide the image }
+      - name: text
+        label: ② 文字 · Text
+        fields:
+          - { name: kicker, type: string, label: 小标签（如 01）· Small label (e.g. 01) }
+          - { name: title, type: string, label: 标题 · Heading }
+          - { name: body, type: rich-text, label: 正文 · Text }
+          - name: align
+            type: select
+            label: 排版 · Layout
+            options: { values: [{ name: left, label: 左标题 + 右正文 · Heading left, text right }, { name: center, label: 居中 · Centered }, { name: wide, label: 宽栏 · Wide column }] }
+      - name: media_left
+        label: ③ 左图 + 右文 · Image left + text
+        fields: &media_fields
+          - { name: kicker, type: string, label: 小标签 · Small label }
+          - { name: title, type: string, label: 标题 · Heading }
+          - { name: body, type: rich-text, label: 正文 · Text }
+          - { name: image, type: image, label: 图片 · Image }
+          - { name: image_alt, type: string, label: 图片描述 · Image description (alt text) }
+          - { name: caption, type: string, label: 图片说明 · Caption }
+          - name: image_shape
+            type: select
+            label: 图片形状 · Image shape
+            options: { values: [{ name: landscape, label: 横 4:3 · Landscape }, { name: portrait, label: 竖 4:5 · Portrait }, { name: square, label: 方 · Square }, { name: wide, label: 宽 16:10 · Wide }] }
+          - name: doodle
+            type: select
+            label: 手绘小插画 · Little crayon drawing
+            options: { values: [none, block, chestnut, kite, star, sun, heart, arch, pencil, plane, spiral] }
+          - { name: button_label, type: string, label: 按钮文字（可选）· Button text (optional) }
+          - { name: button_link, type: string, label: 按钮链接 · Button link }
+      - name: media_right
+        label: ④ 左文 + 右图 · Text + image right
+        fields: *media_fields
+      - name: image_full
+        label: ⑤ 通栏大图 · Full-width image
+        fields:
+          - { name: image, type: image, label: 图片 · Image }
+          - { name: image_alt, type: string, label: 图片描述 · Image description (alt text) }
+          - { name: caption, type: string, label: 图片说明 · Caption }
+      - name: images_2
+        label: ⑥ 两张错落图片 · 2 staggered images
+        fields: &images_fields
+          - { name: kicker, type: string, label: 小标签（可选）· Small label (optional) }
+          - { name: title, type: string, label: 标题（可选）· Heading (optional) }
+          - name: images
+            type: object
+            label: 图片 · Images
+            list: { collapsible: { collapsed: true, summary: "{caption}" } }
+            fields:
+              - { name: image, type: image, label: 图片 · Image }
+              - { name: alt, type: string, label: 图片描述 · Description (alt text) }
+              - { name: caption, type: string, label: 图片说明 · Caption }
+      - name: images_3
+        label: ⑦ 三张错落图片 · 3 staggered images
+        fields: *images_fields
+      - name: quote
+        label: ⑧ 引言 / 信念 · Quote / belief
+        fields:
+          - { name: quote, type: text, label: 引言 · Quote }
+          - { name: source, type: string, label: 出处（可选）· Who said it (optional) }
+      - name: theory
+        label: ⑨ 理论 → 设计决策表 · Theory → design table
+        fields:
+          - { name: kicker, type: string, label: 小标签 · Small label }
+          - { name: title, type: string, label: 标题 · Heading }
+          - { name: intro, type: text, label: 介绍（可选）· Intro (optional) }
+          - name: rows
+            type: object
+            label: 行 · Rows
+            list: { collapsible: { collapsed: true, summary: "{principle}" } }
+            fields:
+              - { name: principle, type: string, label: 理论/原则 · Principle (theory + source) }
+              - { name: observed, type: text, label: 我观察到的 · What I observed }
+              - { name: decision, type: text, label: 设计决策 · Design decision }
+      - name: gallery
+        label: ⑩ 照片墙 · Gallery
+        fields: *images_fields
+      - name: numbers
+        label: ⑪ 大数字 · Big numbers
+        fields:
+          - { name: kicker, type: string, label: 小标签 · Small label }
+          - { name: title, type: string, label: 标题 · Heading }
+          - name: items
+            type: object
+            label: 数字 · Numbers
+            list: { collapsible: { collapsed: true, summary: "{number} — {label}" } }
+            fields:
+              - { name: number, type: string, label: 数字 · Number (e.g. 11–15, 4) }
+              - { name: label, type: string, label: 说明 · Label }
+              - { name: text, type: text, label: 补充一句（可选）· Extra sentence (optional) }
+      - name: doodles
+        label: ⑫ 蜡笔小人横条 · Crayon children strip
+        fields:
+          - { name: note, type: string, hidden: true }
+  status:
+    type: select
+    label: 内容状态 · Content status
+    description: placeholder = 显示“草稿”标签，搜索引擎不收录 · shows a "Draft" badge and hides it from Google
+    options:
+      values:
+        - name: placeholder
+          label: 草稿 / 还在写 · Placeholder
+        - name: ready
+          label: 完成 · Ready
+  published:
+    type: boolean
+    label: 公开 · Published
+    description: 关掉 = 草稿，网站上完全不显示 · Turn off to hide this page from the site completely (draft).
+  area:
+    type: select
+    label: 所属板块 · Project area
+    options:
+      values:
+        - name: early-childhood
+          label: 早期儿童艺术与学习设计 · Art and Learning Design for Early Childhood
+        - name: lab-practicum
+          label: 教学实验室实践 · Teaching and Learning Lab Practicum
+        - name: findmy-voice
+          label: FindMy Voice
+        - name: toy-design
+          label: 玩具设计 · Toy Design
+
+content:
+  # ---------------- Site settings & home page ----------------
+  - name: site
+    label: 网站设置 + 首页 · Site settings & Home
+    type: file
+    path: site.md
+    fields:
+      - { name: layout, type: string, hidden: true }
+      - { name: permalink, type: string, hidden: true }
+      - { name: sitemap, type: boolean, hidden: true }
+      - { name: my_name, type: string, label: 名字 · Name }
+      - { name: roles, type: string, list: true, label: 身份标签 · Roles }
+      - { name: email, type: string, label: 邮箱 · Email }
+      - { name: linkedin, type: string, label: LinkedIn 链接 · LinkedIn URL }
+      - { name: instagram, type: string, label: Instagram 链接（可选）· Instagram URL (optional) }
+      - { name: cv_file, type: string, label: 简历 PDF 路径（可选）· CV PDF path (optional) }
+      - { name: location, type: string, label: 所在地（可选）· Location (optional) }
+      - { name: seo_title, type: string, label: 网站搜索标题 · Site search title }
+      - { name: seo_description, type: text, label: 网站简介（搜索结果里显示）· Site description (search results) }
+      - { name: keywords, type: text, label: 关键词（用逗号分开）· Keywords (comma separated) }
+      - { name: og_image, type: image, label: 分享图片 · Share image, options: { media: site } }
+      - { name: job_title, type: string, label: 职位（给搜索引擎）· Job title (for search engines) }
+      - { name: alumni_of, type: string, list: true, label: 毕业学校（给搜索引擎）· Schools (for search engines) }
+      - { name: hero_tag, type: string, label: ① 名字上方的小标签（可留空）· ① Small label above your name (optional) }
+      - { name: hero_question, type: text, label: ① 首屏问题 · ① Hero question, description: "*星号中间的词* 会加粗并有手绘下划线 · Words between *stars* get bold + a hand-drawn underline" }
+      - { name: intro, type: text, label: ① 简短介绍 · ① Short intro }
+      - name: education
+        label: ② 教育背景 · ② Education
+        type: object
+        list: true
+        fields:
+          - { name: school, type: string, label: 学校 · School }
+          - { name: program, type: string, label: 专业/项目 · Program }
+      - { name: directions_kicker, type: string, label: ③ 研究方向小标签 · ③ Directions small label }
+      - { name: directions_title, type: string, label: ③ 研究方向标题 · ③ Directions title }
+      - { name: directions_text, type: text, label: ③ 研究方向介绍 · ③ Directions intro }
+      - name: directions
+        label: ③ 研究方向卡片 · ③ Research direction cards
+        type: object
+        list: { collapsible: { collapsed: true, summary: "{title}" } }
+        fields:
+          - { name: title, type: string, label: 标题 · Title }
+          - name: doodle
+            type: select
+            label: 小插画 · Little drawing
+            options: { values: [block, chestnut, kite, star, sun, heart, arch, pencil, plane, spiral] }
+          - { name: text, type: text, label: 介绍 · Text }
+          - { name: image, type: image, label: 图片（空着 = 灰色占位框）· Image (empty = grey placeholder), options: { media: home } }
+          - { name: link, type: string, label: 链接 · Link (e.g. /projects/toy-design/) }
+          - name: projects
+            label: 卡片下面的小链接 · Small links under the card
+            type: object
+            list: true
+            fields:
+              - { name: label, type: string, label: 文字 · Label }
+              - { name: url, type: string, label: 链接 · Link }
+      - name: home_blocks
+        component: page_blocks
+        label: ③½ 首页自定义模块（研究方向下面）· ③½ Your home blocks (below Research directions)
+      - { name: kids_kicker, type: string, label: ④ 小标签 · ④ Small label }
+      - { name: kids_title, type: string, label: ④ “我如何和孩子们一起工作”标题 · ④ "How I work with kids" title }
+      - { name: kids_question, type: text, label: ④ 开头的提问 · ④ Opening question }
+      - { name: kids_text, type: text, label: ④ 介绍（信念卡在“信念卡片”里编辑）· ④ Intro (edit cards under "Belief cards") }
+      - { name: contact_title, type: string, label: ⑤ 联系标题 · ⑤ Contact title }
+      - { name: contact_text, type: text, label: ⑤ 联系介绍 · ⑤ Contact text }
+      - { name: gallery_title, type: string, label: ⑤ 照片墙标题 · ⑤ Gallery title }
+      - { name: gallery_folder, type: string, label: ⑤ 照片墙文件夹 · ⑤ Gallery folder, description: 上传到这个文件夹的照片会自动显示 · Photos uploaded here appear automatically }
+      - name: kids_gallery
+        label: ⑤ 照片墙（带描述和说明）· ⑤ Gallery photos (description + caption)
+        description: 只用有家长/学校同意的照片，或看不到脸的角度（背影、小手）。· Only photos with parent/school consent, or faceless angles (backs, hands).
+        type: object
+        list: { collapsible: { collapsed: true, summary: "{caption}" } }
+        fields:
+          - { name: image, type: image, label: 图片 · Image, options: { media: home } }
+          - { name: alt, type: string, label: 图片描述 · Description (alt text) }
+          - { name: caption, type: string, label: 图片说明 · Caption }
+      - { name: projects_title, type: string, label: 作品页标题 · Projects page title }
+      - { name: projects_question, type: text, label: 作品页介绍 · Projects page intro }
+      - { name: footer_note, type: string, label: 页脚一句话 · Footer note }
+
+  # ---------------- About ----------------
+  - name: about
+    label: 关于我 · About
+    type: file
+    path: about.md
+    fields:
+      - { name: layout, type: string, hidden: true }
+      - { name: permalink, type: string, hidden: true }
+      - { name: title, type: string, label: 页面标题 · Page title }
+      - { name: description, type: text, label: 搜索简介 · Search description }
+      - { name: heading, type: string, label: 大标题 · Heading }
+      - { name: portrait, type: image, label: 头像 · Portrait, options: { media: site } }
+      - { name: portrait_alt, type: string, label: 头像描述 · Portrait description (alt text) }
+      - name: cv
+        label: 简历 · CV
+        type: object
+        list: { collapsible: { collapsed: true, summary: "{section}" } }
+        fields:
+          - { name: section, type: string, label: 分类（如 教育）· Section (e.g. Education) }
+          - name: items
+            label: 条目 · Items
+            type: object
+            list: true
+            fields:
+              - { name: when, type: string, label: 时间 · When }
+              - { name: what, type: string, label: 内容 · What }
+              - { name: where, type: string, label: 地点/机构 · Where }
+              - { name: note, type: string, label: 备注 · Note }
+      - name: blocks
+        component: page_blocks
+        label: 页面模块（自我介绍和简历之间）· Page blocks (between intro and CV)
+      - { name: body, type: rich-text, label: 自我介绍 · Bio }
+
+  # ---------------- Belief cards (Home ④) ----------------
+  - name: beliefs
+    label: 信念卡片 · Belief cards (Home)
+    type: collection
+    path: _beliefs
+    filename: "{primary}.md"
+    view: { primary: belief, fields: [belief, order], sort: [order], default: { sort: order, order: asc } }
+    fields:
+      - { name: order, type: number, label: 顺序 · Order }
+      - { name: belief, type: text, label: 我相信 · What I believe, required: true, description: 你自己的一句话 · Your own sentence }
+      - { name: source, type: text, label: 来自哪里（理论 + 课程/实验室）· Where it comes from (theory + class/lab) }
+      - { name: design, type: text, label: 它如何改变我的设计 · How it changes my design }
+      - { name: link, type: string, label: 项目链接（可选）· Project link (optional) }
+      - { name: link_text, type: string, label: 链接文字 · Link text }
+
+  # ---------------- Reflections ----------------
+  - name: reflections
+    label: 反思 · Reflections
+    type: collection
+    path: _reflections
+    filename: "{primary}.md"
+    view: { primary: title, fields: [title, course, term], sort: [order], default: { sort: order, order: asc } }
+    fields:
+      - { name: title, type: string, label: 标题 · Title, required: true }
+      - name: course
+        type: select
+        label: 课程 · Course
+        description: 用于筛选。需要新课程？请在 .pages.yml 里加一个选项 · Used for the filter. New course? Add an option in .pages.yml
+        options:
+          values: ["Teaching and Learning Lab Practicum", "Art & Learning", "T550", "AI course"]
+      - { name: type, type: string, label: 类型（如 读书反思、实验室笔记）· Type (e.g. reading response, lab notes) }
+      - { name: term, type: string, label: 学期 · Term }
+      - { name: order, type: number, label: 顺序 · Order }
+      - { name: key_idea, type: text, label: 核心观点（一句话）· Key idea (one sentence) }
+      - { name: theories, type: string, list: true, label: 理论/阅读 · Theories & readings }
+      - { name: related_project, type: string, label: 相关项目链接（可选）· Related project link (optional) }
+      - { name: status, component: status }
+      - { name: published, component: published }
+      - name: photos
+        component: photos
+      - { name: body, type: rich-text, label: 正文 · Text }
+
+  # ---------------- Project areas (the 4 big sections) ----------------
+  - name: sections
+    label: 作品板块（4 个）· Project areas (4)
+    type: collection
+    path: _sections
+    filename: "{primary}.md"
+    view: { primary: title, fields: [title, tagline, order], sort: [order], default: { sort: order, order: asc } }
+    fields:
+      - { name: title, type: string, label: 标题 · Title, required: true }
+      - { name: display_title, type: string, label: 页面大标题（可选，更长）· Page heading (optional, longer) }
+      - { name: tagline, type: string, label: 一句话 · Tagline }
+      - { name: seo_title, component: seo_title }
+      - { name: seo_description, component: seo_description }
+      - { name: summary, type: text, label: 简介 · Summary }
+      - { name: status, component: status }
+      - { name: order, type: number, label: 顺序 · Order }
+      - { name: cover, type: image, label: 封面图（空着 = 灰色占位框）· Cover image (empty = grey placeholder) }
+      - { name: cover_alt, type: string, label: 封面图描述 · Cover description (alt text) }
+      - { name: cover_caption, type: string, label: 封面图说明（可选）· Cover caption (optional) }
+      - { name: share_image, type: image, label: 分享图片（可选）· Share image (optional) }
+      - name: list_style
+        type: select
+        label: 子项目显示方式 · How sub-projects are shown
+        options: { values: [{ name: grid, label: 卡片网格 · Card grid }, { name: split, label: 左右交替 · Alternating rows }] }
+      - { name: show_reflections, type: boolean, label: 显示反思列表 · Show reflections list }
+      - { name: reflections_title, type: string, label: 反思标题 · Reflections title }
+      - { name: reflections_intro, type: text, label: 反思介绍 · Reflections intro }
+      - { name: role, type: string, label: 我的角色 · My role }
+      - { name: context, type: string, label: 背景 · Context }
+      - { name: timeline, type: string, label: 时间 · Timeline }
+      - { name: users, type: string, label: 为谁设计 · Designed for }
+      - { name: tools, type: string, label: 工具 · Tools }
+      - { name: photos_folder, type: string, label: 照片文件夹（可选）· Photo folder (optional) }
+      - { name: blocks, component: page_blocks }
+      - { name: body, type: rich-text, label: 额外文字（可选，显示在模块后面）· Extra text (optional, shown after the blocks) }
+
+  # ---------------- Sub-projects, one folder per area ----------------
+  - name: projects
+    label: 子项目 · Projects
+    type: group
+    items:
+      - name: toy-design
+        label: 🧸 玩具设计 · Toy Design
+        type: collection
+        path: _projects/toy-design
+        filename: "{primary}.md"
+        view: { primary: title, fields: [title, tagline, order, status], sort: [order, title], default: { sort: order, order: asc } }
+        # These fields are shared by all project folders (the "&project_fields" name is reused below).
+        # 这些字段所有子项目文件夹共用（下面用 *project_fields 引用）。
+        fields: &project_fields
+          - { name: title, type: string, label: 标题 · Title, required: true }
+          - { name: tagline, type: string, label: 一句话（解决了什么问题）· Tagline (the problem it solves) }
+          - { name: area, component: area }
+          - { name: published, component: published }
+          - { name: status, component: status }
+          - { name: order, type: number, label: 顺序（1 在最前）· Order (1 = first) }
+          - { name: part, type: string, label: 小标签（可选，如 Part A）· Small label (optional, e.g. Part A) }
+          - { name: summary, type: text, label: 简介（卡片上显示）· Summary (shown on cards) }
+          - { name: cover, type: image, label: 封面图（空着 = 灰色占位框）· Cover image (empty = grey placeholder) }
+          - { name: cover_alt, type: string, label: 封面图描述 · Cover description (alt text) }
+          - { name: cover_caption, type: string, label: 封面图说明（可选）· Cover caption (optional) }
+          - { name: seo_title, component: seo_title }
+          - { name: seo_description, component: seo_description }
+          - { name: role, type: string, label: 我的角色 · My role }
+          - { name: context, type: string, label: 背景（课程/机构）· Context (class / place) }
+          - { name: timeline, type: string, label: 时间 · Timeline }
+          - { name: users, type: string, label: 为谁设计 · Designed for }
+          - { name: age, type: string, label: 适合年龄 · Age }
+          - { name: materials, type: string, label: 材料 · Materials }
+          - { name: tools, type: string, label: 工具 · Tools }
+          - { name: photos_folder, type: string, label: 照片文件夹（自动显示里面的图片）· Photo folder (all images inside appear automatically) }
+          - { name: blocks, component: page_blocks }
+          - { name: body, type: rich-text, label: 额外文字（可选，显示在模块后面）· Extra text (optional, shown after the blocks) }
+      - name: early-childhood
+        label: 早期儿童艺术与学习设计 · Early Childhood
+        type: collection
+        path: _projects/early-childhood
+        filename: "{primary}.md"
+        view: { primary: title, fields: [title, tagline, order, status], sort: [order, title], default: { sort: order, order: asc } }
+        fields: *project_fields
+      - name: lab-practicum
+        label: 教学实验室实践 · Lab Practicum
+        type: collection
+        path: _projects/lab-practicum
+        filename: "{primary}.md"
+        view: { primary: title, fields: [title, tagline, order, status], sort: [order, title], default: { sort: order, order: asc } }
+        fields: *project_fields

@@ -1,0 +1,3 @@
+{%- if include.kicker and include.kicker != "" %}<p class="kicker" data-reveal>{{ include.kicker }}</p>{% endif %}
+{%- if include.title and include.title != "" %}<h2 class="h2" data-split>{% include split.html text=include.title %}</h2>{% endif %}
+{%- if include.intro and include.intro != "" %}<p class="blk-intro" data-reveal>{{ include.intro }}</p>{% endif %}

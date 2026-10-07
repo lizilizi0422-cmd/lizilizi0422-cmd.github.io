@@ -1,0 +1,20 @@
+<footer class="site-footer">
+  <div class="footer-marks" data-draw aria-hidden="true">{% include art/footer-marks.svg %}</div>
+  <div class="wrap footer-grid">
+    <div class="footer-id">
+      <p class="footer-name">{{ s.my_name }}</p>
+      <p class="footer-note">{{ s.footer_note }}</p>
+    </div>
+    <ul class="footer-nav" aria-label="Footer">
+      <li><a href="{{ '/' | relative_url }}">Home</a></li>
+      <li><a href="{{ '/projects/' | relative_url }}">Projects</a></li>
+      <li><a href="{{ '/about/' | relative_url }}">About</a></li>
+    </ul>
+    <div class="footer-connect">
+      <p class="mini">Connect with me</p>
+      <p><a href="mailto:{{ s.email }}">{{ s.email }}</a></p>
+      {%- if s.linkedin and s.linkedin != "" %}<p><a href="{{ s.linkedin }}" rel="me noopener" target="_blank">LinkedIn<span class="visually-hidden"> (opens in a new tab)</span> ↗</a></p>{% endif %}
+    </div>
+  </div>
+  <p class="copyright wrap"><span>© <span data-year>{{ site.time | date: "%Y" }}</span> {{ s.my_name }}</span> <a href="#main">Back to top ↑</a></p>
+</footer>

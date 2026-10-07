@@ -1,0 +1,52 @@
+---
+layout: default
+---
+{%- include settings.html -%}
+<section class="about-hero">
+  <div class="phero-marks" aria-hidden="true">
+    <div class="pm pm-a" data-draw data-speed="-0.06">{% include art/scatter-a.svg %}</div>
+    <div class="pm pm-b" data-draw data-speed="0.05">{% include art/scatter-b.svg %}</div>
+  </div>
+  <div class="wrap about-grid">
+    <div class="about-photo">{% include img.html src=page.portrait alt=page.portrait_alt ratio="4/5" loading="eager" %}</div>
+    <div class="about-text">
+      <p class="kicker" data-reveal>About</p>
+      <h1 class="display" data-split>{% assign ah = page.heading | default: s.my_name %}{% include split.html text=ah %}</h1>
+      <ul class="hero-roles left" aria-label="Roles" data-reveal>{% for r in s.roles %}<li>{{ r }}</li>{% endfor %}</ul>
+      <div class="prose" data-reveal>{{ content }}</div>
+      <p class="about-actions" data-reveal>
+        <a class="btn" href="mailto:{{ s.email }}">Email me <span class="arr" aria-hidden="true">→</span></a>
+        {% if s.linkedin and s.linkedin != "" %}<a class="btn btn-line" href="{{ s.linkedin }}" rel="me noopener" target="_blank">LinkedIn<span class="visually-hidden"> (opens in a new tab)</span> <span class="arr" aria-hidden="true">↗</span></a>{% endif %}
+        {% if s.cv_file and s.cv_file != "" %}<a class="btn btn-line" href="{{ s.cv_file | relative_url }}">Download CV (PDF)</a>{% endif %}
+      </p>
+    </div>
+  </div>
+</section>
+
+{% include blocks.html list=page.blocks %}
+
+<section class="cv" aria-labelledby="cv-title">
+  <div class="wrap cv-grid">
+    <div class="cv-head"><p class="kicker" data-reveal>Experience</p><h2 id="cv-title" class="h1" data-split>CV</h2></div>
+    <div class="cv-body">
+    {%- for group in page.cv %}
+    <div class="cv-group" data-reveal>
+      <h3 class="mini">{{ group.section }}</h3>
+      <ul>
+        {%- for item in group.items %}
+        <li class="cv-item"><span class="cv-when">{{ item.when }}</span><span class="cv-what"><strong>{{ item.what }}</strong>{% if item.where and item.where != "" %}<span class="cv-where">{{ item.where }}</span>{% endif %}{% if item.note and item.note != "" %}<span class="cv-note">{{ item.note }}</span>{% endif %}</span></li>
+        {%- endfor %}
+      </ul>
+    </div>
+    {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="contact contact-sm" aria-labelledby="contact-title">
+  <div class="contact-loop" data-draw aria-hidden="true">{% include art/loop.svg %}</div>
+  <div class="wrap sec-head center">
+    <h2 id="contact-title" class="h1" data-split>{% include split.html text=s.contact_title %}</h2>
+    <p class="sec-lede" data-reveal><a href="mailto:{{ s.email }}">{{ s.email }}</a>{% if s.location and s.location != "" %} · {{ s.location }}{% endif %}</p>
+  </div>
+</section>

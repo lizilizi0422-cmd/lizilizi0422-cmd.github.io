@@ -1,0 +1,20 @@
+{%- comment -%}
+  ONE image slot, used everywhere · 全站唯一的图片位
+  If "src" is set → the real image. If empty → a grey wireframe box with an X (until you upload a photo).
+  有图片路径就显示图片；空着就显示灰色带叉号的占位框。
+  Usage: include img.html src=… alt=… ratio="4/3" caption=… class=…
+{%- endcomment -%}
+{%- assign _src = include.src | default: "" | strip -%}
+<figure class="media{% if include.class %} {{ include.class }}{% endif %}" style="--ratio:{{ include.ratio | default: '4/3' }}"{% unless include.static %} data-media{% endunless %}>
+  <div class="media-frame">
+  {%- if _src != "" %}
+    <img src="{{ _src | relative_url }}" alt="{{ include.alt | escape }}" loading="{{ include.loading | default: 'lazy' }}" decoding="async">
+  {%- else %}
+    <div class="ph" role="img" aria-label="Image placeholder{% if include.alt and include.alt != '' %}: {{ include.alt | escape }}{% endif %}">
+      <svg class="ph-x" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><line x1="0" y1="0" x2="100" y2="100"/><line x1="100" y1="0" x2="0" y2="100"/></svg>
+      <span class="ph-label" aria-hidden="true">Image</span>
+    </div>
+  {%- endif %}
+  </div>
+  {%- if include.caption and include.caption != "" %}<figcaption>{{ include.caption }}</figcaption>{% endif %}
+</figure>

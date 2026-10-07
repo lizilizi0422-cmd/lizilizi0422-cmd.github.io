@@ -1,0 +1,122 @@
+{%- comment -%}
+  PAGE BUILDER · 页面模块
+  Renders the "blocks" list from a page's settings, top to bottom. Each block has a "type"
+  (its layout). Add, delete, reorder or change blocks in Pages CMS → the page follows.
+  按顺序显示页面设置里的 blocks 列表；每个模块的 type 就是它的版式。
+  Types · 版式: hero, text, media_left, media_right, image_full, images_2, images_3,
+                quote, theory, gallery, numbers, doodles
+  Usage: include blocks.html list=page.blocks title=page.title text=page.tagline facts=page crumb=crumb
+{%- endcomment -%}
+{%- assign shapes = "portrait:4/5,landscape:4/3,square:1/1,wide:16/10" | split: "," -%}
+{%- for b in include.list -%}
+{%- assign t = b.type -%}
+{%- assign bid = b.title | default: b.kicker | default: t | slugify -%}
+{%- case t -%}
+
+{%- when "hero" -%}
+  {%- assign ht = b.title | default: include.title -%}{%- assign hx = b.text | default: include.text -%}
+  {%- if forloop.first -%}{%- assign hl = 1 -%}{%- assign hc = include.crumb -%}{%- assign hf = include.facts -%}{%- else -%}{%- assign hl = 2 -%}{%- assign hc = "" -%}{%- assign hf = nil -%}{%- endif -%}
+  {% include page-hero.html h=hl kicker=b.kicker title=ht text=hx image=b.image alt=b.image_alt caption=b.caption hide_image=b.hide_image crumb=hc facts=hf %}
+
+{%- when "text" -%}
+  <section class="blk blk-text align-{{ b.align | default: 'left' }}" id="{{ bid }}">
+    <div class="wrap bt-grid">
+      <div class="bt-head">{% include blk-head.html kicker=b.kicker title=b.title %}</div>
+      <div class="bt-body prose" data-reveal>{{ b.body | markdownify }}</div>
+    </div>
+  </section>
+
+{%- when "media_left" or "media_right" -%}
+  {%- assign r = "4/3" -%}{%- for sh in shapes -%}{%- assign kv = sh | split: ":" -%}{%- if kv[0] == b.image_shape -%}{%- assign r = kv[1] -%}{%- endif -%}{%- endfor -%}
+  <section class="blk blk-media {{ t | replace: '_', '-' }} shape-{{ b.image_shape | default: 'landscape' }}" id="{{ bid }}">
+    <div class="wrap bm-grid">
+      <div class="bm-img">{% include img.html src=b.image alt=b.image_alt caption=b.caption ratio=r %}</div>
+      <div class="bm-text">
+        {% include blk-head.html kicker=b.kicker title=b.title %}
+        {%- if b.body and b.body != "" %}<div class="prose" data-reveal>{{ b.body | markdownify }}</div>{% endif %}
+        {%- if b.button_label and b.button_label != "" %}<p data-reveal><a class="btn" href="{{ b.button_link | default: '#' | relative_url }}">{{ b.button_label }} <span class="arr" aria-hidden="true">→</span></a></p>{% endif %}
+      </div>
+      {%- if b.doodle and b.doodle != "" and b.doodle != "none" %}{%- capture dp -%}art/d-{{ b.doodle }}.svg{%- endcapture -%}<div class="bm-doodle" data-draw data-speed="-0.08" aria-hidden="true">{% include {{ dp }} %}</div>{% endif %}
+    </div>
+  </section>
+
+{%- when "image_full" -%}
+  <section class="blk blk-full" id="{{ bid }}">
+    {% include img.html src=b.image alt=b.image_alt caption=b.caption ratio="21/9" class="media-full" %}
+  </section>
+
+{%- when "images_2" or "images_3" -%}
+  {%- if t == "images_2" -%}{%- assign need = 2 -%}{%- assign rs = "4/3,4/5" | split: "," -%}{%- else -%}{%- assign need = 3 -%}{%- assign rs = "4/5,4/3,1/1" | split: "," -%}{%- endif -%}
+  <section class="blk blk-stagger n{{ need }}" id="{{ bid }}">
+    <div class="wrap">
+      {%- if b.title or b.kicker %}<div class="blk-headrow">{% include blk-head.html kicker=b.kicker title=b.title %}</div>{% endif %}
+      <div class="stagger">
+        {%- for i in (1..need) -%}{%- assign k = forloop.index0 -%}{%- assign im = b.images[k] -%}{%- assign rr = rs[k] -%}
+        <div class="st-item st-{{ forloop.index }}">{% include img.html src=im.image alt=im.alt caption=im.caption ratio=rr %}</div>
+        {%- endfor %}
+      </div>
+    </div>
+  </section>
+
+{%- when "quote" -%}
+  <section class="blk blk-quote" id="{{ bid }}">
+    <div class="wrap narrow">
+      <div class="q-mark" data-draw aria-hidden="true">{% include art/d-spiral.svg %}</div>
+      <blockquote>
+        <p class="q-text" data-split>{% include split.html text=b.quote %}</p>
+        {%- if b.source and b.source != "" %}<footer data-reveal>{{ b.source }}</footer>{% endif %}
+      </blockquote>
+    </div>
+  </section>
+
+{%- when "theory" -%}
+  <section class="blk blk-theory" id="{{ bid }}">
+    <div class="wrap">
+      <div class="blk-headrow">{% include blk-head.html kicker=b.kicker title=b.title intro=b.intro %}</div>
+      <ol class="tt">
+        <li class="tt-row tt-labels" aria-hidden="true"><span></span><span>Theory / principle</span><span>What I observed</span><span>Design decision</span></li>
+        {%- for row in b.rows %}
+        <li class="tt-row" data-reveal>
+          <span class="tt-n">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
+          <div><p class="mini">Theory / principle</p><p class="tt-p">{{ row.principle }}</p></div>
+          <div><p class="mini">What I observed</p><p>{{ row.observed }}</p></div>
+          <div><p class="mini">Design decision</p><p>{{ row.decision }}</p></div>
+        </li>
+        {%- endfor %}
+      </ol>
+    </div>
+  </section>
+
+{%- when "gallery" -%}
+  {%- assign rs = "4/5,4/3,1/1,3/4,16/10,4/5" | split: "," -%}
+  {%- assign gimgs = b.images -%}{%- assign gn = gimgs.size | default: 0 -%}{%- if gn == 0 -%}{%- assign gn = 6 -%}{%- endif -%}
+  <section class="blk blk-gallery" id="{{ bid }}">
+    <div class="wrap">
+      {%- if b.title or b.kicker %}<div class="blk-headrow">{% include blk-head.html kicker=b.kicker title=b.title %}</div>{% endif %}
+      <div class="masonry">
+        {%- for i in (1..gn) -%}{%- assign k = forloop.index0 -%}{%- assign im = gimgs[k] -%}{%- assign rk = k | modulo: 6 -%}{%- assign rr = rs[rk] -%}
+        {% include img.html src=im.image alt=im.alt caption=im.caption ratio=rr %}
+        {%- endfor %}
+      </div>
+    </div>
+  </section>
+
+{%- when "numbers" -%}
+  <section class="blk blk-numbers" id="{{ bid }}">
+    <div class="wrap">
+      {%- if b.title or b.kicker %}<div class="blk-headrow">{% include blk-head.html kicker=b.kicker title=b.title %}</div>{% endif %}
+      <ul class="nums">
+        {%- for it in b.items %}
+        <li data-reveal style="--d:{{ forloop.index0 }}"><strong class="num">{{ it.number }}</strong><span class="num-label">{{ it.label }}</span>{% if it.text and it.text != "" %}<span class="num-text">{{ it.text }}</span>{% endif %}</li>
+        {%- endfor %}
+      </ul>
+    </div>
+  </section>
+
+{%- when "doodles" -%}
+  <div class="blk blk-strip" aria-hidden="true">
+    <div class="strip" data-strip>{% include art/strip.svg %}</div>
+  </div>
+
+{%- endcase -%}
+{%- endfor -%}

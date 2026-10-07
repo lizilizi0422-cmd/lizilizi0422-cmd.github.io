@@ -1,0 +1,2 @@
+{%- comment -%} Loads site.md into the variable "s". {%- endcomment -%}
+{%- assign s = site.pages | where: "name", "site.md" | first -%}

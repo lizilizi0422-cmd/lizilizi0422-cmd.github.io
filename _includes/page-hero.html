@@ -1,0 +1,21 @@
+{%- comment -%}
+  Centered page hero (used by the "hero" block and as the default top of a page).
+  居中的大标题区（"大标题"模块，或页面默认顶部）。
+{%- endcomment -%}
+{%- assign _h = include.h | default: 1 -%}
+<header class="phero{% if include.hide_image %} no-media{% endif %}">
+  <div class="phero-marks" aria-hidden="true">
+    <div class="pm pm-a" data-draw data-speed="-0.06">{% include art/scatter-a.svg %}</div>
+    <div class="pm pm-b" data-draw data-speed="0.05">{% include art/scatter-b.svg %}</div>
+  </div>
+  <div class="wrap phero-inner">
+    {{ include.crumb }}
+    {%- if include.kicker and include.kicker != "" %}<p class="kicker" data-reveal>{{ include.kicker }}</p>{% endif %}
+    <h{{ _h }} class="display" data-split>{% include split.html text=include.title %}</h{{ _h }}>
+    {%- if include.text and include.text != "" %}<p class="phero-lede" data-reveal>{{ include.text }}</p>{% endif %}
+    {%- if include.facts %}{% include facts.html p=include.facts %}{% endif %}
+  </div>
+  {%- unless include.hide_image %}
+  <div class="wrap-wide phero-media">{% include img.html src=include.image alt=include.alt caption=include.caption ratio="16/9" loading="eager" %}</div>
+  {%- endunless %}
+</header>

@@ -1,0 +1,119 @@
+---
+layout: default
+---
+{%- include settings.html -%}
+{%- comment -%} ① HERO — centered, crayon marks scattered around the edges · 首屏：居中，蜡笔小记号散落在四周 {%- endcomment -%}
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-marks" aria-hidden="true">
+    <div class="hm hm-tl" data-draw data-speed="-0.10">{% include art/edge-tl.svg %}</div>
+    <div class="hm hm-tr" data-draw data-speed="-0.04">{% include art/edge-tr.svg %}</div>
+    <div class="hm hm-bl" data-draw data-speed="0.06">{% include art/edge-bl.svg %}</div>
+    <div class="hm hm-br" data-draw data-speed="0.10">{% include art/edge-br.svg %}</div>
+  </div>
+  <div class="hero-inner wrap">
+    {%- if s.hero_tag and s.hero_tag != "" %}<p class="kicker" data-reveal>{{ s.hero_tag }}</p>{% endif %}
+    <h1 id="hero-title" class="hero-name" data-split>{% include split.html text=s.my_name %}</h1>
+    <ul class="hero-roles" aria-label="Roles" data-reveal style="--d:2">{% for r in s.roles %}<li>{{ r }}</li>{% endfor %}</ul>
+    <p class="hero-question" data-split>{% include split.html text=s.hero_question %}</p>
+    <p class="hero-intro" data-reveal style="--d:4">{{ s.intro }}</p>
+    <p class="hero-cta" data-reveal style="--d:5">
+      <a class="btn" href="{{ '/projects/' | relative_url }}">See my projects <span class="arr" aria-hidden="true">→</span></a>
+      <a class="link-u" href="#kids">How I work with kids</a>
+    </p>
+  </div>
+</section>
+
+{%- comment -%} Full-width strip of crayon children (draws itself as you scroll) · 整条蜡笔小人，随滚动画出 {%- endcomment -%}
+<div class="blk-strip home-strip" aria-hidden="true"><div class="strip" data-strip>{% include art/strip.svg %}</div></div>
+
+{%- comment -%} ② EDUCATION — one quiet line · 教育背景：安静的一行 {%- endcomment -%}
+<section class="edu wrap" aria-label="Education" data-reveal>
+  <p class="mini">Education</p>
+  <ul class="edu-list">
+    {%- for e in s.education %}
+    <li><span class="edu-school">{{ e.school }}</span>{% if e.program and e.program != "" %}<span class="edu-program">{{ e.program }}</span>{% endif %}</li>
+    {%- endfor %}
+  </ul>
+</section>
+
+{%- comment -%} ③ RESEARCH DIRECTIONS — alternating, loosely placed rows · 研究方向：左右交替、错落排布 {%- endcomment -%}
+<section class="directions" id="directions" aria-labelledby="directions-title">
+  <div class="wrap sec-head center">
+    {%- if s.directions_kicker %}<p class="kicker" data-reveal>{{ s.directions_kicker }}</p>{% endif %}
+    <h2 id="directions-title" class="h1" data-split>{% include split.html text=s.directions_title %}</h2>
+    {%- if s.directions_text %}<p class="sec-lede" data-reveal>{{ s.directions_text }}</p>{% endif %}
+  </div>
+  <ol class="dir-list">
+    {%- for d in s.directions %}
+    {%- capture dp -%}art/d-{{ d.doodle | default: 'block' }}.svg{%- endcapture -%}
+    <li class="dir dir-{{ forloop.index }}">
+      <div class="wrap dir-grid">
+        <a class="dir-img" href="{{ d.link | relative_url }}" tabindex="-1" aria-hidden="true">
+          {% include img.html src=d.image alt="" ratio="4/3" %}
+          {%- if forloop.index == 3 %}<span class="dir-img-2">{% include img.html src="" alt="" ratio="1/1" %}</span>{% endif %}
+        </a>
+        <div class="dir-text">
+          <div class="dir-doodle" data-draw aria-hidden="true">{% include {{ dp }} %}</div>
+          <span class="dir-num" aria-hidden="true">0{{ forloop.index }}</span>
+          <h3 class="h2"><a href="{{ d.link | relative_url }}">{{ d.title }}</a></h3>
+          <p>{{ d.text }}</p>
+          {%- if d.projects %}
+          <ul class="sub-links" aria-label="Projects in {{ d.title }}">
+            {%- for l in d.projects %}<li><a href="{{ l.url | relative_url }}">{{ l.label }}</a></li>{% endfor %}
+          </ul>
+          {%- endif %}
+          <a class="btn btn-line" href="{{ d.link | relative_url }}">View <span class="visually-hidden">{{ d.title }}</span><span class="arr" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </li>
+    {%- endfor %}
+  </ol>
+</section>
+
+{%- comment -%} Your own blocks — add / remove / reorder in Pages CMS (Site settings → Home blocks) · 你自己的首页模块 {%- endcomment -%}
+{% include blocks.html list=s.home_blocks %}
+
+{%- comment -%} ④ HOW I WORK WITH KIDS — beliefs as loose notes · 我如何和孩子们一起工作 {%- endcomment -%}
+<section class="kids" id="kids" aria-labelledby="kids-title">
+  <div class="wrap sec-head center">
+    {%- if s.kids_kicker %}<p class="kicker" data-reveal>{{ s.kids_kicker }}</p>{% endif %}
+    <h2 id="kids-title" class="h1" data-split>{% include split.html text=s.kids_title %}</h2>
+    {%- if s.kids_question %}<p class="provocation" data-split>{% include split.html text=s.kids_question %}</p>{% endif %}
+    {%- if s.kids_text %}<p class="sec-lede" data-reveal>{{ s.kids_text }}</p>{% endif %}
+  </div>
+  {%- assign bdood = "block,heart,arch,sun" | split: "," -%}
+  <ol class="beliefs wrap">
+    {%- assign beliefs = site.beliefs | sort: "order" -%}
+    {%- for c in beliefs %}
+    {%- assign bi = forloop.index0 | modulo: 4 -%}{%- capture dp -%}art/d-{{ bdood[bi] }}.svg{%- endcapture -%}
+    <li class="belief" data-reveal>
+      <div class="belief-doodle" data-draw aria-hidden="true">{% include {{ dp }} %}</div>
+      <span class="belief-num" aria-hidden="true">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
+      <p class="belief-text">{{ c.belief }}</p>
+      <dl class="belief-meta">
+        {%- if c.source and c.source != "" %}<div><dt>Where it comes from</dt><dd>{{ c.source }}</dd></div>{% endif %}
+        {%- if c.design and c.design != "" %}<div><dt>How it changes my design</dt><dd>{{ c.design }}</dd></div>{% endif %}
+      </dl>
+      {%- if c.link and c.link != "" %}<a class="link-u" href="{{ c.link | relative_url }}">{{ c.link_text | default: "See the project" }} <span class="arr" aria-hidden="true">→</span></a>{% endif %}
+    </li>
+    {%- endfor %}
+  </ol>
+</section>
+
+{%- comment -%} ⑤ CONTACT + PHOTOS · 联系方式 + 照片墙 {%- endcomment -%}
+<section class="contact" id="contact" aria-labelledby="contact-title">
+  <div class="contact-loop" data-draw aria-hidden="true">{% include art/loop.svg %}</div>
+  <div class="wrap sec-head center">
+    <p class="kicker" data-reveal>Contact</p>
+    <h2 id="contact-title" class="h1" data-split>{% include split.html text=s.contact_title %}</h2>
+    <p class="sec-lede" data-reveal>{{ s.contact_text }}</p>
+    <p class="contact-actions" data-reveal>
+      <a class="btn" href="mailto:{{ s.email }}">Email me <span class="arr" aria-hidden="true">→</span></a>
+      {% if s.linkedin and s.linkedin != "" %}<a class="btn btn-line" href="{{ s.linkedin }}" rel="me noopener" target="_blank">LinkedIn<span class="visually-hidden"> (opens in a new tab)</span> <span class="arr" aria-hidden="true">↗</span></a>{% endif %}
+    </p>
+  </div>
+  <div class="wrap gallery-wrap">
+    <h3 class="gallery-title" data-reveal>{{ s.gallery_title }}</h3>
+    {% include folder-gallery.html photos=s.kids_gallery folder=s.gallery_folder label=s.gallery_title %}
+  </div>
+</section>
