@@ -2,13 +2,13 @@
 layout: default
 ---
 {%- include settings.html -%}
-{%- comment -%} ① HERO — centered, crayon marks scattered around the edges · 首屏：居中，蜡笔小记号散落在四周 {%- endcomment -%}
+{%- comment -%} ① HERO — centered, crayon toy blocks in the four corners · 首屏：居中，四角是蜡笔积木 {%- endcomment -%}
 <section class="hero" aria-labelledby="hero-title">
   <div class="hero-marks" aria-hidden="true">
-    <div class="hm hm-tl" data-draw data-speed="-0.10">{% include art/edge-tl.svg %}</div>
-    <div class="hm hm-tr" data-draw data-speed="-0.04">{% include art/edge-tr.svg %}</div>
-    <div class="hm hm-bl" data-draw data-speed="0.06">{% include art/edge-bl.svg %}</div>
-    <div class="hm hm-br" data-draw data-speed="0.10">{% include art/edge-br.svg %}</div>
+    <div class="hm hm-tl" data-draw data-speed="-0.10">{% include art/corner-tl.svg %}</div>
+    <div class="hm hm-tr" data-draw data-speed="-0.04">{% include art/corner-tr.svg %}</div>
+    <div class="hm hm-bl" data-draw data-speed="0.06">{% include art/corner-bl.svg %}</div>
+    <div class="hm hm-br" data-draw data-speed="0.10">{% include art/corner-br.svg %}</div>
   </div>
   <div class="hero-inner wrap">
     {%- if s.hero_tag and s.hero_tag != "" %}<p class="kicker" data-reveal>{{ s.hero_tag }}</p>{% endif %}

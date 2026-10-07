@@ -38,7 +38,7 @@
 
   /* stagger index for each crayon stroke (so a doodle draws mark by mark) */
   d.querySelectorAll('[data-draw]').forEach(function (el) {
-    var paths = el.querySelectorAll('.ln');
+    var paths = el.querySelectorAll('.ln, .blk-ln');
     var step = Math.max(1, Math.round(paths.length / 60));
     paths.forEach(function (p, i) { p.style.setProperty('--k', Math.floor(i / step)); });
   });
