@@ -4,7 +4,7 @@ order: 4
 theories:
   - Theory or reading
 status: placeholder
-published: false
+published: true
 ---
 **What the class or lab explored.** Body copy goes here: key readings, theories or activities, in your own words.
 

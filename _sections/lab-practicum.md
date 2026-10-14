@@ -21,9 +21,4 @@ blocks:
     image_alt: ""
     caption: ""
     hide_image: true
-  - type: text
-    kicker: "Overview"
-    title: "About this area"
-    body: "Body copy goes here. Two or three sentences introducing this area: why it matters to you, which ideas guide it, and what the projects below have in common."
-    align: left
 ---
