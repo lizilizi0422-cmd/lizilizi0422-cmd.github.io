@@ -1,5 +1,5 @@
 ---
-title: "What Design Means in Education"
+title: "Design"
 course: "Teaching and Learning Lab Practicum"
 type: "Class"
 term: "Fall 2026"

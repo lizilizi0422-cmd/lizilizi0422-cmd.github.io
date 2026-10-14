@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap");
 /* ════════════════════════════════════════════════════════════════
    Ziqi Li · portfolio v3 — "white page, crayon margins"
    Pure white, near-black ink, Instrument Serif display + Instrument Sans text.
@@ -466,3 +467,29 @@ main:focus { outline: none; }
 .r-refs { margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--rule); font-size: 15px; color: var(--ink-2); }
 .r-refs li { padding-left: 2em; text-indent: -2em; margin-bottom: 10px; word-break: break-word; }
 @media (max-width: 640px) { .r-toc { grid-template-columns: 1fr; } .r-box { padding-inline: 18px; } }
+
+/* Source fonts + reflection margin layout */
+:root{--serif:"Source Serif 4",Georgia,serif;--sans:"Source Sans 3",system-ui,sans-serif}
+body{font-size:18px}
+.reflection .phero-inner{text-align:left;max-width:1040px}
+.reflection .display{font-size:clamp(44px,6vw,72px);font-weight:600;letter-spacing:-.02em}
+.reflection .phero-lede{margin-left:0;font-style:normal;font-family:var(--sans);font-size:20px;color:var(--ink-2)}
+.reflection .tags{justify-content:flex-start;gap:0 18px}.reflection .tags li{border:0;padding:0;font-size:14px;color:var(--muted)}
+.reflection .tags li::before{content:"— "}
+.refl-body.narrow{max-width:calc(1040px + var(--pad)*2)}
+.refl-body>p,.refl-body>.r-toc,.r-refs{margin-left:248px}
+.r-toc{display:block;border-top:1px solid var(--ink);padding-top:10px}.r-toc a{border:0;padding:4px 0;border-radius:0}
+.r-sec{border-top:1px solid var(--ink);padding-top:22px}
+.row{display:grid;grid-template-columns:200px 1fr;column-gap:48px;margin-bottom:22px}
+.row>.side{color:var(--muted);font-size:14px;font-style:italic;line-height:1.4;padding-top:4px}
+.row>.side .r-num{background:none;color:var(--ink);font-family:var(--serif);font-size:44px;padding:0;font-weight:600;font-style:normal;margin:0}
+.row>.side .r-label{margin:0;color:inherit;text-transform:none;letter-spacing:0;font-size:14px;font-weight:400}
+.r-box,.r-mine{background:none;border:0;padding:0;margin:0}
+.r-mine .row>.side{color:var(--c);font-style:normal;font-weight:600}
+.r-sec h2{font-weight:600;font-size:32px;margin:0}
+.refl-body strong{background:none;font-weight:600}
+.r-fig img{border-radius:0}.r-fig figcaption{font-style:italic}
+.reflection .phero-inner{text-align:left;max-width:900px;border-top:2px solid var(--ink);padding-top:18px}
+.reflection .crumb{display:none}.reflection .display{font-family:var(--serif);font-weight:600;font-size:60px;line-height:1.05}
+.reflection .phero-lede{margin-left:0;font-size:20px;max-width:680px;color:var(--ink-2)}
+.reflection .tags{justify-content:flex-start}.reflection .tags li{border:0;padding:0 14px 0 0;color:var(--muted)}
