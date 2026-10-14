@@ -6,7 +6,8 @@ term: "Fall 2026"
 order: 2
 key_idea: "Every design decision influences what learners can do, how they can participate, and what becomes visible as learning."
 theories: ["ADDIE", "Backward Design", "Design Thinking", "Universal Design for Learning", "Cognitive Apprenticeship"]
-seo_title: "Module 2 Reflection: ADDIE, Design Thinking & Universal Design for Learning"
+seo_title: "What Design Means in Education: ADDIE, Design Thinking & UDL | Teaching and Learning Lab Practicum | Ziqi Li"
+seo_description: "Every design decision influences what learners can do, how they can participate, and what becomes visible as learning. A reflection on ADDIE, design thinking, Universal Design for Learning, and authentic assessment."
 related_project: ""
 ---
 
