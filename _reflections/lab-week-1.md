@@ -1,5 +1,6 @@
 ---
 title: "Reflection 1: Discover"
+course: Teaching and Learning Lab Practicum
 order: 1
 key_idea: "Theory of Learning and Theory of Knowing "
 theories:
