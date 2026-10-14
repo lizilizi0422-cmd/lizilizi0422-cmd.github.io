@@ -213,6 +213,7 @@ components:
   published:
     type: boolean
     label: 公开 · Published
+    default: true
     description: 关掉 = 草稿，网站上完全不显示 · Turn off to hide this page from the site completely (draft).
   area:
     type: select
@@ -362,15 +363,9 @@ content:
     type: collection
     path: _reflections
     filename: "{primary}.md"
-    view: { primary: title, fields: [title, course, term], sort: [order], default: { sort: order, order: asc } }
+    view: { primary: title, fields: [title, term, published], sort: [order], default: { sort: order, order: asc } }
     fields:
       - { name: title, type: string, label: 标题 · Title, required: true }
-      - name: course
-        type: select
-        label: 课程 · Course
-        description: 用于筛选。需要新课程？请在 .pages.yml 里加一个选项 · Used for the filter. New course? Add an option in .pages.yml
-        options:
-          values: ["Teaching and Learning Lab Practicum", "Art & Learning", "T550", "AI course"]
       - { name: type, type: string, label: 类型（如 读书反思、实验室笔记）· Type (e.g. reading response, lab notes) }
       - { name: term, type: string, label: 学期 · Term }
       - { name: order, type: number, label: 顺序 · Order }

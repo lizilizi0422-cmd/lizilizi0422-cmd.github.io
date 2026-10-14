@@ -15,7 +15,7 @@ layout: default
       <p class="kicker" data-reveal>Notes from class and lab</p>
       <h2 id="refl-title" class="h1" data-split>{% assign rt = page.reflections_title | default: "Reflections" %}{% include split.html text=rt %}</h2>
       {% if page.reflections_intro %}<p class="sec-lede" data-reveal>{{ page.reflections_intro }}</p>{% endif %}
-      <div class="filters" role="group" aria-label="Filter reflections by course" hidden>
+      <div class="filters" style="display:none!important" role="group" aria-label="Filter reflections by course" hidden>
         <button type="button" class="chip" aria-pressed="true" data-filter="all">All</button>
         {%- for c in courses %}<button type="button" class="chip" aria-pressed="false" data-filter="{{ c | escape }}">{{ c }}</button>{% endfor %}
       </div>
@@ -25,7 +25,7 @@ layout: default
       {%- for r in refl %}
       <li class="note" data-course="{{ r.course | escape }}" data-reveal>
         <a href="{{ r.url | relative_url }}">
-          <span class="note-meta">{{ r.course }}{% if r.term %} · {{ r.term }}{% endif %}</span>
+          <span class="note-meta">{{ r.term }}</span>
           <span class="note-title">{{ r.title }}</span>
           {% if r.key_idea %}<span class="note-idea">{{ r.key_idea }}</span>{% endif %}
           <span class="arr" aria-hidden="true">→</span>

@@ -15,7 +15,7 @@ theories:
   - Design Thinking
   - Universal Design for Learning
   - Cognitive Apprenticeship
-published: false
+published: true
 ---
 Module 2 reflection on educational design, learners, equity, and assessment.
 
