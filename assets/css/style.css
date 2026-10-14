@@ -443,3 +443,26 @@ main:focus { outline: none; }
   .hm-tl, .hm-tr { width: 50vw; top: 0; }
   .hm-bl, .hm-br { width: 44vw; bottom: 22px; }
 }
+
+/* ── Reflection article (textbook-style) · 反思文章排版 ── */
+.refl-body .r-intro { font-family: var(--serif); font-size: 24px; line-height: 1.35; color: var(--ink-2); margin-bottom: 28px; }
+.r-toc { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 36px 0 12px; }
+.r-toc a { display: flex; gap: 10px; align-items: baseline; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 12px; text-decoration: none; font-size: 15px; }
+.r-toc a span { font-size: 12px; font-weight: 600; color: var(--muted); }
+.r-toc a:hover { border-color: var(--ink); }
+.r-sec { --c: var(--cb); margin-top: 72px; padding-top: 28px; border-top: 3px solid var(--c); }
+.r-sec.c-b { --c: var(--cb); --t: #EEF3FA; } .r-sec.c-s { --c: var(--cs); --t: #F0F6EC; }
+.r-sec.c-c { --c: var(--cc); --t: #FBEFEB; } .r-sec.c-l { --c: var(--cl); --t: #F4F0FA; }
+.r-num { display: inline-block; margin: 0 0 10px; padding: 3px 10px; border-radius: 999px; background: var(--c); color: #fff; font-size: 13px; font-weight: 600; letter-spacing: .04em; }
+.r-sec h2 { font-family: var(--serif); font-size: clamp(30px, 4vw, 40px); line-height: 1.1; margin-bottom: 26px; }
+.r-label { margin: 28px 0 8px; font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--c, var(--ink-2)); }
+.r-box { background: var(--t); border-radius: 14px; padding: 4px 24px 8px; margin: 0 0 8px; }
+.r-box .r-label { margin-top: 20px; }
+.r-mine { border-left: 4px solid var(--c); padding: 2px 0 2px 22px; margin-top: 32px; }
+.r-mine .r-label::before { content: "My reflection · "; color: var(--ink); }
+.refl-body strong { background: linear-gradient(transparent 60%, var(--t, #FFF3C4) 60%); font-weight: 600; }
+.r-fig { margin: 32px 0; } .r-fig img { width: 100%; border: 1px solid var(--rule); border-radius: 12px; background: #fff; }
+.r-fig figcaption { margin-top: 10px; font-size: 14px; color: var(--muted); line-height: 1.5; }
+.r-refs { margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--rule); font-size: 15px; color: var(--ink-2); }
+.r-refs li { padding-left: 2em; text-indent: -2em; margin-bottom: 10px; word-break: break-word; }
+@media (max-width: 640px) { .r-toc { grid-template-columns: 1fr; } .r-box { padding-inline: 18px; } }

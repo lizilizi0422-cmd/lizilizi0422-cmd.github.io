@@ -4,7 +4,7 @@ title: "Reflection title goes here"
 course: "Art & Learning"            # used for the course filter (spell it the same each time) · 用于按课程筛选
 type: "Class"                # Class, Lab or Reading
 term: "Term"
-order: 2
+order: 5
 key_idea: "One-sentence key idea goes here."
 theories: ["Theory or reading"]
 related_project: ""          # optional, e.g. "/projects/findmy-voice/"
