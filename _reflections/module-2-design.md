@@ -2,6 +2,7 @@
 title: "Reflection 2: Design"
 course: Teaching and Learning Lab Practicum
 type: Reflection
+term: "Term "
 order: 2
 key_idea: |-
   Course design models  
@@ -24,7 +25,7 @@ I tended to associate design with visual elements and art. I now understand desi
 
 1.1
 
- ## Course Design as a System for Learning
+## Course Design as a System for Learning
 
 What course design is
 
@@ -50,7 +51,7 @@ Children could demonstrate their understanding through speech, drawing, construc
 
 1.2
 
- ## Learner-Centred Design as Understanding Before Designing
+## Learner-Centred Design as Understanding Before Designing
 
 What learner-centred design is
 
@@ -74,7 +75,7 @@ In practice, when designing for children, we should observe how they use materia
 
 1.3
 
- ## Equity and Accessibility as Conditions for Participation
+## Equity and Accessibility as Conditions for Participation
 
 What equity and accessibility mean in design
 
@@ -98,7 +99,7 @@ Applying equity and accessibility begins with identifying where access breaks do
 
 1.4
 
- ## Authentic Assessment as Evidence of Meaningful Learning
+## Authentic Assessment as Evidence of Meaningful Learning
 
 What authentic assessment is
 
@@ -125,5 +126,6 @@ Selected references
 - Reiser, B. J., & Tabak, I. (2014). Scaffolding. In R. K. Sawyer (Ed.), *The Cambridge handbook of the learning sciences* (2nd ed., pp. 44–62). Cambridge University Press. [https://doi.org/10.1017/CBO9781139519526.005](https://doi.org/10.1017/CBO9781139519526.005)
 - Wiggins, G., & McTighe, J. (2005). *Understanding by design* (Expanded 2nd ed.). ASCD.
 
-  
 
+
+&nbsp;
