@@ -493,3 +493,16 @@ body{font-size:18px}
 .reflection .crumb{display:none}.reflection .display{font-family:var(--serif);font-weight:600;font-size:60px;line-height:1.05}
 .reflection .phero-lede{margin-left:0;font-size:20px;max-width:680px;color:var(--ink-2)}
 .reflection .tags{justify-content:flex-start}.reflection .tags li{border:0;padding:0 14px 0 0;color:var(--muted)}
+
+/* Reflection colour accents */
+.r-sec.c-b{--ac:#2f5bd3;--tint:#e8eefc}
+.r-sec.c-s{--ac:#c2571a;--tint:#fdeee3}
+.r-sec.c-c{--ac:#7a4fd6;--tint:#efe8fd}
+.r-sec.c-l{--ac:#1f8a5b;--tint:#e3f4ec}
+.r-sec .r-num{color:var(--ac)!important;background:none!important}
+.r-sec h2{color:var(--ink)}
+.r-sec .r-label,.r-sec .row>.r-label{color:var(--ac)!important;font-style:normal!important;font-weight:600;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.r-sec strong{color:var(--ac);background:linear-gradient(transparent 62%,var(--tint) 62%);font-weight:600}
+.r-sec .r-mine{border-left:3px solid var(--ac)!important;background:var(--tint);padding:14px 18px;border-radius:0 6px 6px 0}
+.r-sec{border-top-color:var(--ac)!important}
+.r-toc a{color:inherit}
