@@ -1,6 +1,6 @@
 ---
 # One reflection · 一篇反思. Copy this file to add more · 复制这个文件就能新增一篇
-title: "Reflection title goes here"
+title: "Reflection 1"
 course: "Teaching and Learning Lab Practicum"            # used for the course filter (spell it the same each time) · 用于按课程筛选
 type: "Lab"                # Class, Lab or Reading
 term: "Term"
