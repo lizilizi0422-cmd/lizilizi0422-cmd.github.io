@@ -1,8 +1,6 @@
 ---
 title: Reflection 4
-course: Teaching and Learning Lab Practicum
 order: 4
-key_idea: "Theory of Learning and Theory of Knowing "
 theories:
   - Theory or reading
 status: placeholder
