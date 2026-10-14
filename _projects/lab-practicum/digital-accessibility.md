@@ -6,7 +6,7 @@ tagline: "UX design so every learner can use it"          # one line, also used 
 area: "lab-practicum"          # which project area this belongs to · 属于哪个作品板块
 seo_title: ""          # optional · 可选：搜索标题 (blank = "Title | Tagline | Ziqi Li")
 seo_description: ""    # optional · 可选：一句话简介 (blank = site description)
-part: "Part B"                 # small label above the title (optional) · 标题上方的小标签（可选）
+part: ""                 # small label above the title (optional) · 标题上方的小标签（可选）
 summary: "Summary copy goes here. One or two sentences shown on the project card."
 order: 2
 status: placeholder        # delete this line when the page is finished (hides it from Google until then) · 写完后删除

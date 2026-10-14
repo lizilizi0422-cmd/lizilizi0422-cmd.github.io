@@ -9,8 +9,8 @@ cover: ""
 cover_alt: ""
 list_style: "split"
 show_reflections: true      # list all files from _reflections/ on this page · 在这个页面显示所有反思
-reflections_title: "Part A · Reflection"
-reflections_intro: "Notes from the lab and from other classes. Filter by course."
+reflections_title: "Theory & Reflection"
+reflections_intro: "What I read, what I noticed, and how it changes my design."
 # ── PAGE BLOCKS · 页面模块 (see EDITING.md · 见 EDITING.md) ──────
 blocks:
   - type: hero
@@ -20,6 +20,7 @@ blocks:
     image: ""
     image_alt: ""
     caption: ""
+    hide_image: true
   - type: text
     kicker: "Overview"
     title: "About this area"
