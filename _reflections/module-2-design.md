@@ -1,6 +1,5 @@
 ---
 title: "Reflection 2: Design"
-course: Teaching and Learning Lab Practicum
 type: Reflection
 term: "Term "
 order: 2
@@ -33,7 +32,7 @@ What course design is
 
 Design models that shaped my thinking
 
- **ADDIE** provides a systematic cycle for planning, implementing, and evaluating learning experiences. **Backward Design** begins with the intended learning results and evidence before planning activities. The **5Ds framework** places greater emphasis on learner needs, context, delivery, and reflection. Together, these models helped me understand course design as a structured but iterative process.
+**ADDIE** provides a systematic cycle for planning, implementing, and evaluating learning experiences. **Backward Design** begins with the intended learning results and evidence before planning activities. The **5Ds framework** places greater emphasis on learner needs, context, delivery, and reflection. Together, these models helped me understand course design as a structured but iterative process.
 
 ![ADDIE cycle diagram: Analyze, Design, Development and Implement connected by revision arrows around a central Evaluation box](/images/reflections/module-2/addie.png)
 
@@ -116,6 +115,8 @@ Understanding and application
 In daily education, authentic assessment can be embedded in play, storytelling, or collaborative inquiry. For example, when asking a child to define balance, the educator could invite the child to build a bridge and explain why it stands or falls. Hands-on modeling, open-ended questions, and temporary visual support could guide the child before the support is gradually withdrawn. The evidence would include the child’s building process, like reasoning, persistence, and interaction, etc, not only whether the final bridge stands.
 
 
+
+&nbsp;
 
 Selected references
 
