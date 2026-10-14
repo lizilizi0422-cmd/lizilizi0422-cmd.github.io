@@ -506,3 +506,8 @@ body{font-size:18px}
 .r-sec .r-mine{border-left:3px solid var(--ac)!important;background:var(--tint);padding:14px 18px;border-radius:0 6px 6px 0}
 .r-sec{border-top-color:var(--ac)!important}
 .r-toc a{color:inherit}
+
+/* tighter gap below area hero */
+.phero.no-media{padding-bottom:16px}
+.reflections{padding-top:clamp(36px,4.5vw,64px)}
+.blk-text:not(:has(.bt-body *)):not(:has(h2)):not(:has(.kicker)){display:none}
