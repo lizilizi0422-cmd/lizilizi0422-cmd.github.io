@@ -36,31 +36,6 @@ layout: default
   </ul>
 </section>
 
-{%- comment -%} ②½ SELECTED WORK — the 4 project areas as playful tiles (order = "order" in each _sections file) · 四大作品板块 {%- endcomment -%}
-{%- assign areas = site.sections | sort: "order" -%}
-{%- assign tdood = "block,kite,pencil,chestnut" | split: "," -%}
-<section class="work" id="work" aria-labelledby="work-title">
-  <div class="wrap work-head">
-    <h2 id="work-title" class="mini">Selected work <span aria-hidden="true">↓</span></h2>
-  </div>
-  <ol class="wrap work-grid">
-    {%- for a in areas %}
-    {%- assign ti = forloop.index0 | modulo: 4 -%}{%- capture dp -%}art/d-{{ tdood[ti] }}.svg{%- endcapture -%}
-    {%- assign subs = site.projects | where_exp: "p", "p.path contains a.slug" -%}
-    <li class="tile tile-{{ forloop.index }}" data-reveal style="--d:{{ forloop.index }}">
-      <a class="tile-link" href="{{ a.url | relative_url }}">
-        <span class="tile-meta" aria-hidden="true"><span class="tile-count">0{{ forloop.index }} / 0{{ areas.size }}</span>{% if subs.size > 1 %}<span class="tile-n">{{ subs.size }} projects</span>{% endif %}</span>
-        <span class="tile-doodle" aria-hidden="true">{% include {{ dp }} %}</span>
-        <h3 class="tile-title">{{ a.display_title | default: a.title }}</h3>
-        {%- if a.tagline and a.tagline != "" %}<p class="tile-tag">{{ a.tagline }}</p>{% endif %}
-        {%- if a.summary and a.summary != "" %}<p class="tile-sum">{{ a.summary }}</p>{% endif %}
-        <span class="tile-go" aria-hidden="true">→</span>
-      </a>
-    </li>
-    {%- endfor %}
-  </ol>
-</section>
-
 {%- comment -%} ③ RESEARCH DIRECTIONS — alternating, loosely placed rows · 研究方向：左右交替、错落排布 {%- endcomment -%}
 <section class="directions" id="directions" aria-labelledby="directions-title">
   <div class="wrap sec-head center">

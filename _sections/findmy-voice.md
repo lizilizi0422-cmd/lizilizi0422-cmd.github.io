@@ -7,7 +7,7 @@ tagline: "AI Chatbot for Bilingual Students"
 seo_title: ""          # optional · 可选：搜索标题 (blank = "Title | Tagline | Ziqi Li")
 seo_description: ""    # optional · 可选：一句话简介 (blank = site description)
 summary: "Chestnut (栗子) is a bilingual desktop companion for 11–15-year-old students who recently moved from China to the US and feel nervous speaking English. She comforts first, then helps."
-order: 4
+order: 3
 cover: ""
 cover_alt: ""
 cover_caption: ""

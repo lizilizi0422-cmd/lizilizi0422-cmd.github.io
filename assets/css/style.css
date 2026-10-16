@@ -511,37 +511,3 @@ body{font-size:18px}
 .phero.no-media{padding-bottom:16px}
 .reflections{padding-top:clamp(36px,4.5vw,64px)}
 .blk-text:not(:has(.bt-body *)):not(:has(h2)):not(:has(.kicker)){display:none}
-
-/* ── Selected work tiles (v4 playful) · 四大作品板块彩色卡片 ─────────────
-   Ideas: numbered "01 / 04" counter (astha.design), area label + project count (kwasiadidako.com),
-   soft colour blocks (louisarosenheck.fun), wiggly hover toys (anamarini.com), crayon doodles (emergentinquirystudio.com). */
-.work { padding-block: clamp(48px, 7vw, 96px) 0; }
-.work-head { margin-bottom: 20px; }
-.work-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(18px, 2.4vw, 32px); }
-.tile { --tc: #FBF1D6; --ta: var(--cy); }
-.tile-2 { --tc: #FBE3DB; --ta: var(--cc); }
-.tile-3 { --tc: #E3EBF6; --ta: var(--cb); }
-.tile-4 { --tc: #E7F0E1; --ta: var(--cs); }
-.tile:nth-child(even) { margin-top: clamp(0px, 5vw, 64px); }
-.tile-link { position: relative; display: flex; flex-direction: column; height: 100%; min-height: 300px; padding: clamp(24px, 3vw, 40px); background: var(--tc); border-radius: 28px 28px 28px 6px; text-decoration: none; color: var(--ink); transition: transform .45s var(--ease), box-shadow .45s var(--ease), border-radius .45s var(--ease); }
-.tile-link:hover, .tile-link:focus-visible { transform: rotate(-1.2deg) translateY(-6px); box-shadow: 6px 8px 0 var(--ta); border-radius: 6px 28px 28px 28px; }
-.tile:nth-child(even) .tile-link:hover, .tile:nth-child(even) .tile-link:focus-visible { transform: rotate(1.2deg) translateY(-6px); }
-.tile-link:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
-.tile-meta { display: flex; gap: 14px; font: 600 13px/1 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
-.tile-doodle { position: absolute; top: 18px; right: 22px; width: clamp(64px, 8vw, 96px); transition: transform .6s var(--ease); }
-.tile-link:hover .tile-doodle, .tile-link:focus-visible .tile-doodle { animation: tile-wiggle .9s var(--ease); }
-.tile-title { margin-top: auto; padding-top: 72px; font: 400 clamp(28px, 3.2vw, 42px)/1.08 var(--serif); max-width: 16ch; }
-.tile-tag { margin: 10px 0 8px; font-weight: 600; color: var(--ink-2); }
-.tile-sum { margin: 0; color: var(--ink-2); max-width: 46ch; }
-.tile-go { position: absolute; right: 26px; bottom: 22px; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--ink); color: #fff; font-size: 20px; transition: transform .45s var(--ease); }
-.tile-link:hover .tile-go, .tile-link:focus-visible .tile-go { transform: translateX(6px) rotate(-12deg); }
-.tile-sum { padding-right: 48px; }
-@keyframes tile-wiggle { 0%,100% { transform: rotate(0) } 25% { transform: rotate(-10deg) scale(1.08) } 55% { transform: rotate(8deg) } 80% { transform: rotate(-3deg) } }
-/* hero name: each word hops when hovered (Ana Marini-style playful letters) · 名字悬停时跳一下 */
-.motion .hero-name .sw:hover > span { animation: word-hop .5s var(--ease); }
-@keyframes word-hop { 40% { transform: translateY(-.12em) rotate(-3deg) } }
-@media (max-width: 760px) { .work-grid { grid-template-columns: 1fr; } .tile:nth-child(even) { margin-top: 0; } .tile-link { min-height: 0; } }
-@media (prefers-reduced-motion: reduce) {
-  .tile-link, .tile-go, .tile-doodle { transition: none !important; animation: none !important; }
-  .tile-link:hover, .tile-link:focus-visible, .tile:nth-child(even) .tile-link:hover { transform: none !important; }
-}

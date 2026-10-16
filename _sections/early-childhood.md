@@ -6,7 +6,7 @@ tagline: "Pedagogical Documentation & Play Spaces"      # also used in the Googl
 seo_title: ""          # optional · 可选：搜索标题 (blank = "Title | Tagline | Ziqi Li")
 seo_description: ""    # optional · 可选：一句话简介 (blank = site description)
 summary: "How young children’s ideas become visible, through documentation, play spaces, and open-ended materials."
-order: 2                    # position on the Projects page · 在作品页的顺序
+order: 1                    # position on the Projects page · 在作品页的顺序
 cover: ""                   # image on the Projects page (empty = grey placeholder) · 作品页上的图片
 cover_alt: ""
 list_style: "split"         # "split" (alternating rows) or "grid" (staggered cards) · 子项目显示方式

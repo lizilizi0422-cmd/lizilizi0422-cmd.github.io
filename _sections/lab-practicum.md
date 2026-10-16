@@ -4,7 +4,7 @@ tagline: "Reflection & Digital Accessibility Design"
 seo_title: ""          # optional · 可选：搜索标题 (blank = "Title | Tagline | Ziqi Li")
 seo_description: ""    # optional · 可选：一句话简介 (blank = site description)
 summary: "A lab course where I reflected on teaching and learning, and designed for digital accessibility. Reflections from my other classes live here too."
-order: 3
+order: 2
 cover: ""
 cover_alt: ""
 list_style: "split"
