@@ -175,3 +175,8 @@ body.hv-d2{--acc:#E07A93}
 .hv-d2 .hf{padding-bottom:40px}
 .hv-d2 .d2-dirs{padding-top:40px}
 @media (max-width:700px){.hv-d2 .hf{padding-bottom:24px}.hv-d2 .d2-dirs{padding-top:24px}}
+/* one type system on the homepage: Outfit (display) + Lexend (text) */
+body.hv-d2,body.hv-d2 p,body.hv-d2 li,body.hv-d2 small,body.hv-d2 figcaption,body.hv-d2 .sub-links a,body.hv-d2 .btn,body.hv-d2 .ph-label,body.hv-d2 .kicker,body.hv-d2 .mini,body.hv-d2 .site-footer{font-family:"Lexend",system-ui,sans-serif}
+body.hv-d2 h1,body.hv-d2 h2,body.hv-d2 h3,body.hv-d2 h4,body.hv-d2 .h1,body.hv-d2 .h2,body.hv-d2 .dir-num,body.hv-d2 .brand,body.hv-d2 .site-header a,body.hv-d2 .m-track span,body.hv-d2 .d-down,body.hv-d2 .hf-stk,body.hv-d2 .footer-name,body.hv-d2 .site-footer h2,body.hv-d2 .site-footer .brand{font-family:"Outfit",system-ui,sans-serif}
+body.hv-d2 .nm-kw{font-family:"Baloo 2",sans-serif}
+body.hv-d2 button,body.hv-d2 .menu-label{font-family:"Outfit",system-ui,sans-serif}

@@ -48,6 +48,7 @@ layout: default
           <h3 class="h2"><a href="{{ d.link | relative_url }}">{{ wn[i] }}</a></h3>
           <p>{{ d.text }}</p>
           {%- if i == 0 %}<ul class="sub-links" aria-label="Projects in Toy Design"><li><a href="{{ d.link | relative_url }}">Toy design projects <mark class="d-tbd">[draft]</mark></a></li></ul>
+          {%- elsif i == 2 %}<ul class="sub-links" aria-label="Projects in {{ wn[i] }}"><li><a href="{{ '/projects/lab-practicum/#reflections' | relative_url }}">Reflection</a></li><li><a href="{{ '/projects/lab-practicum/digital-accessibility/' | relative_url }}">Digital Accessibility</a></li></ul>
           {%- elsif d.projects %}<ul class="sub-links" aria-label="Projects in {{ wn[i] }}">{%- for l in d.projects %}<li><a href="{{ l.url | relative_url }}">{{ l.label }}</a></li>{% endfor %}</ul>{%- endif %}
           <a class="btn btn-line" href="{{ d.link | relative_url }}">View <span class="visually-hidden">{{ wn[i] }}</span><span class="arr" aria-hidden="true">→</span></a>
         </div>
