@@ -1,0 +1,105 @@
+---
+layout: default
+---
+{%- include settings.html -%}
+<link rel="stylesheet" href="{{ '/assets/css/home-d.css' | relative_url }}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@800&family=Outfit:wght@500;700;800;900&family=Lexend:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="{{ '/assets/css/home-d2.css' | relative_url }}">
+<script src="{{ '/assets/js/home-d2.js' | relative_url }}" defer></script>
+{%- assign fv = site.sections | where: "title", "FindMy Voice" | first -%}
+
+{%- comment -%} ① OPENING {%- endcomment -%}
+<section class="d-open" aria-labelledby="d-name">
+  <div class="hero-marks" aria-hidden="true">
+    <div class="hm hm-tl" data-draw data-speed="-0.10">{% include art/corner-tl.svg %}</div>
+    <div class="hm hm-tr" data-draw data-speed="-0.04">{% include art/corner-tr.svg %}</div>
+    <div class="hm hm-bl" data-draw data-speed="0.06">{% include art/corner-bl.svg %}</div>
+    <div class="hm hm-br" data-draw data-speed="0.10">{% include art/corner-br.svg %}</div>
+  </div>
+  <div class="d-glow" aria-hidden="true"></div>
+  <div class="d-open-in wrap">
+    <div class="m-bg" aria-hidden="true"><div class="m-row m-r1"><div class="m-track"><span>Play &amp; Toy Design</span><span class="m-dot">·</span><span>Play &amp; Toy Design</span><span class="m-dot">·</span><span>Play &amp; Toy Design</span><span class="m-dot">·</span><span>Play &amp; Toy Design</span><span class="m-dot">·</span><span>Play &amp; Toy Design</span><span class="m-dot">·</span><span>Play &amp; Toy Design</span><span class="m-dot">·</span><span>Play &amp; Toy Design</span><span class="m-dot">·</span><span>Play &amp; Toy Design</span><span class="m-dot">·</span></div></div><div class="m-row m-r2"><div class="m-track"><span>Learning Experience &amp; UX Design</span><span class="m-dot">·</span><span>Learning Experience &amp; UX Design</span><span class="m-dot">·</span><span>Learning Experience &amp; UX Design</span><span class="m-dot">·</span><span>Learning Experience &amp; UX Design</span><span class="m-dot">·</span><span>Learning Experience &amp; UX Design</span><span class="m-dot">·</span><span>Learning Experience &amp; UX Design</span><span class="m-dot">·</span><span>Learning Experience &amp; UX Design</span><span class="m-dot">·</span><span>Learning Experience &amp; UX Design</span><span class="m-dot">·</span></div></div><div class="m-row m-r3"><div class="m-track"><span>AI-Powered Learning Tools</span><span class="m-dot">·</span><span>AI-Powered Learning Tools</span><span class="m-dot">·</span><span>AI-Powered Learning Tools</span><span class="m-dot">·</span><span>AI-Powered Learning Tools</span><span class="m-dot">·</span><span>AI-Powered Learning Tools</span><span class="m-dot">·</span><span>AI-Powered Learning Tools</span><span class="m-dot">·</span><span>AI-Powered Learning Tools</span><span class="m-dot">·</span><span>AI-Powered Learning Tools</span><span class="m-dot">·</span></div></div><div class="m-row m-r4"><div class="m-track"><span>Early Childhood Art Education</span><span class="m-dot">·</span><span>Early Childhood Art Education</span><span class="m-dot">·</span><span>Early Childhood Art Education</span><span class="m-dot">·</span><span>Early Childhood Art Education</span><span class="m-dot">·</span><span>Early Childhood Art Education</span><span class="m-dot">·</span><span>Early Childhood Art Education</span><span class="m-dot">·</span><span>Early Childhood Art Education</span><span class="m-dot">·</span><span>Early Childhood Art Education</span><span class="m-dot">·</span></div></div></div>
+    <h1 id="d-name" class="d-name m-name" tabindex="0"><span class="nm-a">Ziqi</span> <span class="nm-kw" aria-hidden="true"><span class="nm-kt"></span><svg class="nm-scr" viewBox="0 0 300 24" preserveAspectRatio="none" focusable="false"><path pathLength="1" d="M6 15 C70 6 120 20 180 12 S260 8 294 13"/></svg></span><span class="nm-b">Li</span></h1>
+    <ul class="visually-hidden" aria-label="What I do"><li>Play &amp; Toy Design</li><li>Learning Experience &amp; UX Design</li><li>AI-Powered Learning Tools</li><li>Early Childhood Art Education</li></ul>
+    <p class="d-line" data-draft>Learning designer creating toys, play spaces, and AI tools for children’s learning <span class="d-loc">· Boston / Remote</span></p>
+    <a class="d-down" href="#d-works"><span>See the work</span> <span aria-hidden="true">↓</span></a>
+  </div>
+</section>
+<div class="d2-scene" aria-hidden="true">
+  <div class="blk-strip home-strip"><div class="strip" data-strip>{% include art/strip.svg %}</div></div>
+</div>
+
+
+{% include h-feats.html %}
+
+{%- comment -%} ③ WORKS {%- endcomment -%}
+{%- capture m1 -%}toy designer · Industrial Design @RISD{%- endcapture -%}
+{%- capture m2 -%}art &amp; learning educator · learning design @Harvard GSE{%- endcapture -%}
+{%- capture m3 -%}UX designer · digital accessibility · Harvard GSE{%- endcapture -%}
+{%- capture m4 -%}designer &amp; builder · ongoing{%- endcapture -%}
+{%- assign metas = m1 | append: "§" | append: m2 | append: "§" | append: m3 | append: "§" | append: m4 | split: "§" -%}
+<section class="directions d2-dirs" id="d-works" aria-labelledby="d-works-t">
+  <div class="wrap sec-head center"><h2 id="d-works-t" class="h1">works</h2></div>
+  {%- assign wn = "Toy Design§Kids Play Space§Lab Course§FindMy Voice" | split: "§" -%}
+  <ol class="dir-list">
+    {%- for d in s.directions %}{%- assign i = forloop.index0 -%}
+    {%- capture dp -%}art/d-{{ d.doodle | default: 'block' }}.svg{%- endcapture -%}
+    {%- if i == 3 %}{% assign im = "/images/findmy-voice/02-chat.webp" %}{% assign ia = "FindMy Voice chat screen with Chestnut, the AI companion" %}{% else %}{% assign im = "" %}{% assign ia = "" %}{% endif %}
+    <li class="dir dir-{{ forloop.index }}">
+      <div class="wrap dir-grid">
+        <a class="dir-img" href="{{ d.link | relative_url }}" tabindex="-1" aria-hidden="true">{% include img.html src=im alt=ia ratio="4/3" %}</a>
+        <div class="dir-text">
+          <div class="dir-doodle" data-draw aria-hidden="true">{% include {{ dp }} %}</div>
+          <span class="dir-num" aria-hidden="true">0{{ forloop.index }}</span>
+          <h3 class="h2"><a href="{{ d.link | relative_url }}">{{ wn[i] }}</a></h3>
+          <p>{{ d.text }}</p>
+          {%- if i == 0 %}<ul class="sub-links" aria-label="Projects in Toy Design"><li><a href="{{ d.link | relative_url }}">Toy design projects <mark class="d-tbd">[draft]</mark></a></li></ul>
+          {%- elsif d.projects %}<ul class="sub-links" aria-label="Projects in {{ wn[i] }}">{%- for l in d.projects %}<li><a href="{{ l.url | relative_url }}">{{ l.label }}</a></li>{% endfor %}</ul>{%- endif %}
+          <a class="btn btn-line" href="{{ d.link | relative_url }}">View <span class="visually-hidden">{{ wn[i] }}</span><span class="arr" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </li>
+    {%- endfor %}
+  </ol>
+</section>
+
+{%- comment -%} ④ INTRO {%- endcomment -%}
+<section class="d-who wrap" id="d-who" aria-labelledby="d-who-t">
+  <div class="d-portrait" aria-hidden="true">{% include img.html src="" alt="" ratio="1/1" static=true %}</div>
+  <div class="d-who-txt">
+    <h2 id="d-who-t" class="d-hello" data-draft>Hi, I’m Ziqi, nice to meet you.</h2>
+    <div class="d-bio" data-draft>
+      <p>I’m a learning designer studying at the <strong>Harvard Graduate School of Education</strong>, with a background in <strong>Industrial Design from the Rhode Island School of Design</strong> and coursework in education at Brown University.</p>
+      <p>My work moves between toy and play design, early childhood art education, and EdTech UX. Right now I’m researching digital accessibility and building <strong>FindMy Voice</strong>, a bilingual AI companion for Chinese immigrant teens, with AI vibe coding.</p>
+      <p>I’m based in Boston and open to remote work.</p>
+    </div>
+    <p class="d-contact">
+      <span class="d-cq">Want to talk?</span>
+      <a href="{{ s.linkedin }}" rel="me noopener" target="_blank">LinkedIn<span class="visually-hidden"> (opens in a new tab)</span> ↗</a>
+      {%- if s.cv_file != "" %}<a href="{{ s.cv_file | relative_url }}">Résumé ↗</a>{% else %}<span class="d-off">Résumé <mark class="d-tbd">[draft: upload PDF]</mark></span>{% endif %}
+      <span>or write to <a href="mailto:{{ s.email }}">{{ s.email }}</a> <mark class="d-tbd">[placeholder email]</mark></span>
+    </p>
+  </div>
+</section>
+
+{%- comment -%} ⑤ MINI RÉSUMÉ (only groups with real entries) {%- endcomment -%}
+<section class="d-cv wrap" aria-labelledby="d-cv-t">
+  <h2 id="d-cv-t" class="visually-hidden">Résumé</h2>
+  <div class="d-cvg">
+    <h3 class="d-cvh">Learning</h3>
+    <ul>
+      <li><span class="d-cvs">Harvard Graduate School of Education</span><span class="d-cvp"><mark class="d-tbd">[draft: degree]</mark> · <mark class="d-tbd">[draft: years]</mark></span></li>
+      <li><span class="d-cvs">Rhode Island School of Design</span><span class="d-cvp">Industrial Design · <mark class="d-tbd">[draft: years]</mark></span></li>
+      <li><span class="d-cvs">Brown University</span><span class="d-cvp">Coursework in education</span></li>
+    </ul>
+  </div>
+</section>
+<script>
+(function(){
+var still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var L=document.querySelector('[data-cycle]');if(L){var it=L.children,i=0;it[0].classList.add('on');
+ if(!still){var t=setInterval(function(){it[i].classList.remove('on');i=(i+1)%it.length;it[i].classList.add('on');document.documentElement.style.setProperty('--glow',i);},2400);
+  L.addEventListener('mouseenter',function(){clearInterval(t)});}
+ [].forEach.call(it,function(li,j){li.addEventListener('mouseenter',function(){[].forEach.call(it,function(x){x.classList.remove('on')});li.classList.add('on');document.documentElement.style.setProperty('--glow',j);});});}
+})();
+</script>

@@ -55,36 +55,48 @@ education:
 #     link 是整张卡片跳转的地方；projects 是卡片下面的小链接。
 directions_title: "Research directions"
 directions_kicker: "What I explore"
-directions_text: "Three threads run through my work. Each card opens the projects behind it."
+directions_text: "Four threads run through my work. Each card opens the projects behind it."
 directions:
-  - title: "Art and Learning for Early Childhood"
+  - title: "Toy Design"
     doodle: "block"        # little drawing: block, chestnut, kite, star, sun, heart, arch, pencil, plane, spiral · 卡片小插画
-    text: "Documentation, play spaces, and open-ended materials that make young children’s thinking visible."
+    text: "Toys and play objects designed for how children explore, build, and imagine."
     image: ""             # photo for this row (empty = grey placeholder) · 这一行的图片（空着=灰色占位框）
+    link: "/projects/toy-design/"
+    projects:
+      - label: "Toy Project 1"
+        url: "/projects/toy-design/toy-1/"
+      - label: "Toy Project 2"
+        url: "/projects/toy-design/toy-2/"
+      - label: "Toy Project 3"
+        url: "/projects/toy-design/toy-3/"
+      - label: "Toy Project 4"
+        url: "/projects/toy-design/toy-4/"
+  - title: "Art and Learning Design for Early Childhood"
+    doodle: "sun"
+    text: "How young children’s ideas become visible, through documentation, play spaces, and open-ended materials."
+    image: ""
     link: "/projects/early-childhood/"
     projects:
-      - label: "Pedagogical Documentation"
+      - label: "Pedagogical Documentation for Preschool"
         url: "/projects/early-childhood/pedagogical-documentation/"
-      - label: "Play Space & Materials"
+      - label: "Play Space Design and Materials Exploration for Kids"
         url: "/projects/early-childhood/play-space-materials/"
-  - title: "AI Project / Research"
-    doodle: "chestnut"        # little drawing: block, chestnut, kite, star, sun, heart, arch, pencil, plane, spiral · 卡片小插画
-    text: "Warm, bilingual AI companions that lower the pressure of learning — starting with FindMy Voice."
+  - title: "Teaching and Learning Lab Practicum"
+    doodle: "kite"
+    text: "A lab course where I reflected on teaching and learning, and designed for digital accessibility. Reflections from my other classes live here too."
     image: ""
-    link: "/projects/findmy-voice/"
-    projects:
-      - label: "FindMy Voice — AI chatbot"
-        url: "/projects/findmy-voice/"
-  - title: "UX / Product Design"
-    doodle: "kite"        # little drawing: block, chestnut, kite, star, sun, heart, arch, pencil, plane, spiral · 卡片小插画
-    text: "Accessible digital experiences and physical products, tested with the people who use them."
-    image: ""
-    link: "/projects/"
+    link: "/projects/lab-practicum/"
     projects:
       - label: "Digital Accessibility Design"
         url: "/projects/lab-practicum/digital-accessibility/"
-      - label: "Toy Design"
-        url: "/projects/toy-design/"
+  - title: "FindMy Voice"
+    doodle: "chestnut"
+    text: "Chestnut (栗子) is a bilingual desktop companion for 11–15-year-old students who recently moved from China to the US and feel nervous speaking English. She comforts first, then helps."
+    image: ""
+    link: "/projects/findmy-voice/"
+    projects:
+      - label: "FindMy Voice: AI Chatbot Design for Bilingual Students"
+        url: "/projects/findmy-voice/"
 
 # (3½) Your own home blocks · 你自己的首页模块
 #      Shown between "Research directions" and "How I work with kids". Add, delete, reorder or
