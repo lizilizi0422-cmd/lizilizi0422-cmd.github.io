@@ -16,7 +16,7 @@ layout: default
     <h1 id="d-name" class="d-name m-name" tabindex="0"><span class="nm-a">Ziqi</span> <span class="nm-kw" aria-hidden="true"><span class="nm-kt"></span><svg class="nm-scr" viewBox="0 0 300 24" preserveAspectRatio="none" focusable="false"><path pathLength="1" d="M6 15 C70 6 120 20 180 12 S260 8 294 13"/></svg></span><span class="nm-b">Li</span></h1>
     <ul class="visually-hidden" aria-label="What I do"><li>Play &amp; Toy Design</li><li>Learning Experience &amp; UX Design</li><li>AI-Powered Learning Tools</li><li>Early Childhood Art Education</li></ul>
     <p class="d-line" data-draft>Learning designer creating toys, play spaces, and AI tools for children’s learning <span class="d-loc">· Boston / Remote</span></p>
-    <a class="d-down" href="#d-works"><span>See the work</span> <span aria-hidden="true">↓</span></a>
+    <a class="d-down" href="#projects"><span>See the projects</span> <span aria-hidden="true">↓</span></a>
   </div>
 </section>
 <div class="d2-scene" aria-hidden="true">
@@ -26,14 +26,14 @@ layout: default
 
 {% include h-feats.html %}
 
-{%- comment -%} ③ WORKS {%- endcomment -%}
+{%- comment -%} ③ PROJECTS {%- endcomment -%}
 {%- capture m1 -%}toy designer · Industrial Design @RISD{%- endcapture -%}
 {%- capture m2 -%}art &amp; learning educator · learning design @Harvard GSE{%- endcapture -%}
 {%- capture m3 -%}UX designer · digital accessibility · Harvard GSE{%- endcapture -%}
 {%- capture m4 -%}designer &amp; builder · ongoing{%- endcapture -%}
 {%- assign metas = m1 | append: "§" | append: m2 | append: "§" | append: m3 | append: "§" | append: m4 | split: "§" -%}
-<section class="directions d2-dirs" id="d-works" aria-labelledby="d-works-t">
-  <div class="wrap sec-head center"><h2 id="d-works-t" class="h1">works</h2></div>
+<section class="directions d2-dirs" id="projects" aria-labelledby="projects-t">
+  <div class="wrap sec-head center"><h2 id="projects-t" class="h1">Projects</h2></div>
   {%- assign wn = "Toy Design§Kids Play Space§Lab Course§FindMy Voice" | split: "§" -%}
   <ol class="dir-list">
     {%- for d in s.directions %}{%- assign i = forloop.index0 -%}

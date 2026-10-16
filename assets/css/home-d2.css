@@ -172,3 +172,6 @@ body.hv-d2{--acc:#E07A93}
 /* D2j: no hero blocks */
 .hv-d2 .d-open{padding:180px 0 90px!important}
 @media (max-width:700px){.hv-d2 .d-open{padding:130px 0 120px!important}}
+.hv-d2 .hf{padding-bottom:40px}
+.hv-d2 .d2-dirs{padding-top:40px}
+@media (max-width:700px){.hv-d2 .hf{padding-bottom:24px}.hv-d2 .d2-dirs{padding-top:24px}}
