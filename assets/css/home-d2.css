@@ -180,3 +180,18 @@ body.hv-d2,body.hv-d2 p,body.hv-d2 li,body.hv-d2 small,body.hv-d2 figcaption,bod
 body.hv-d2 h1,body.hv-d2 h2,body.hv-d2 h3,body.hv-d2 h4,body.hv-d2 .h1,body.hv-d2 .h2,body.hv-d2 .dir-num,body.hv-d2 .brand,body.hv-d2 .site-header a,body.hv-d2 .m-track span,body.hv-d2 .d-down,body.hv-d2 .hf-stk,body.hv-d2 .footer-name,body.hv-d2 .site-footer h2,body.hv-d2 .site-footer .brand{font-family:"Outfit",system-ui,sans-serif}
 body.hv-d2 .nm-kw{font-family:"Baloo 2",sans-serif}
 body.hv-d2 button,body.hv-d2 .menu-label{font-family:"Outfit",system-ui,sans-serif}
+/* D2m: marquee fills the hero */
+.hv-d2 .d-open-in{position:static!important}
+.hv-d2 .m-bg{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-evenly;z-index:0;padding:70px 0 10px}
+.hv-d2 .m-track span{font-size:clamp(46px,6.4vw,104px)!important;line-height:1!important;color:rgba(26,26,26,.045)!important}
+.hv-d2 .m-x.m-r1 .m-track{animation-direction:reverse;--t:76s}.hv-d2 .m-x.m-r2 .m-track{animation-direction:normal}
+.hv-d2 .m-x.m-r3 .m-track{animation-direction:reverse}.hv-d2 .m-x.m-r4 .m-track{animation-direction:normal}
+.hv-d2 .m-name,.hv-d2 .d-line,.hv-d2 .d-down{position:relative;z-index:2}
+.hv-d2 .d-down{background:#fff}
+.hv-d2 .d-line{background:radial-gradient(closest-side,#fff 60%,rgba(255,255,255,0))}
+@media (max-width:700px){.hv-d2 .m-track span{font-size:44px!important}.hv-d2 .m-bg{padding-top:60px}}
+.hv-d2 .d-open{min-height:calc(100vh - 70px)!important;padding:60px 0 60px!important;display:grid;place-items:center}
+.hv-d2 .m-bg{padding:20px 0}
+.hv-d2 .d-line{margin-top:34px!important}
+@media (max-width:700px){.hv-d2 .d-open{min-height:calc(88vh - 60px)!important}}
+.hv-d2 .d-line{margin-top:58px!important}@media (max-width:700px){.hv-d2 .d-line{margin-top:40px!important}}
