@@ -202,3 +202,12 @@ body.hv-d2 button,body.hv-d2 .menu-label{font-family:"Outfit",system-ui,sans-ser
 .hv-d2 .d-open{min-height:calc(82vh - 70px)!important}
 @media (max-width:700px){.hv-d2 .m-track span{font-size:40px!important}.hv-d2 .d-open{min-height:calc(76vh - 60px)!important}.hv-d2 .m-bg{inset:16% 0 12% 0!important}}
 .nm-kt{display:block}
+/* D2p: big keyword; tagline + button render above it */
+.nm-kt{display:inline}
+.hv-d2 .m-name{z-index:1!important}
+.hv-d2 .d-line,.hv-d2 .d-down{position:relative;z-index:3!important}
+.hv-d2 .d-line{background:radial-gradient(closest-side,rgba(255,255,255,.92) 55%,rgba(255,255,255,0));padding:6px 24px}
+/* Projects -> About spacing */
+.hv-d2 .d2-dirs{padding-bottom:140px}
+.hv-d2 .d-who{margin-top:0!important;padding-top:20px;clear:both;position:relative}
+@media (max-width:700px){.hv-d2 .d2-dirs{padding-bottom:80px}}
