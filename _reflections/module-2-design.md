@@ -100,7 +100,7 @@ What authentic assessment is
 
 Cognitive Apprenticeship teaches the thinking processes involved in complex tasks. Because reasoning is often invisible, educators make it visible through explanation and demonstration, enabling learners to observe, practice, discuss, and eventually apply these processes independently. 
 
-**Theories and models used.** 
+Theories and models used
 
 The framework includes "modeling, coaching, scaffolding, articulation, reflection, and exploration" (Collins & Kapur, 2014). It is connected to situated learning and social constructivism because knowledge develops through authentic activity, guided participation, and interaction with others. Formative assessment supports this process by making learners’ current thinking visible and informing feedback. Summative assessment evaluates what has been achieved after a period of learning. The distinction depends on how evidence is used: an observation becomes formative when it informs the next step, and summative when it contributes to an overall judgement of learning.
 
