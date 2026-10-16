@@ -4,7 +4,7 @@ tagline: "Four Projects"
 seo_title: ""          # optional · 可选：搜索标题 (blank = "Title | Tagline | Ziqi Li")
 seo_description: ""    # optional · 可选：一句话简介 (blank = site description)
 summary: "Toys and play objects designed for how children explore, build, and imagine."
-order: 4
+order: 1
 cover: ""
 cover_alt: ""
 list_style: "grid"
