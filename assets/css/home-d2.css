@@ -169,3 +169,6 @@ body.hv-d2{--acc:#E07A93}
 .d2-cur.on{opacity:.42!important}
 .d2-cur.big{width:92px!important;height:92px!important;margin:-46px 0 0 -46px!important;opacity:.32!important}
 .d2-cur.on{opacity:.5!important}.hv-d2 main a.d-down:hover,.hv-d2 main a.d-down:hover *{color:#fff!important}
+/* D2j: no hero blocks */
+.hv-d2 .d-open{padding:180px 0 90px!important}
+@media (max-width:700px){.hv-d2 .d-open{padding:130px 0 120px!important}}
