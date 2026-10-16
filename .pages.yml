@@ -112,7 +112,7 @@ components:
         fields:
           - { name: kicker, type: string, label: 小标签（如 01）· Small label (e.g. 01) }
           - { name: title, type: string, label: 标题 · Heading }
-          - { name: body, type: code, label: 正文（含排版代码，只改文字即可）· Text (keep the tags, edit the words) }
+          - { name: body, type: rich-text, label: 正文 · Text（"1.1" 单独一行开新小节；短句单独一行当小标签）}
           - name: align
             type: select
             label: 排版 · Layout
