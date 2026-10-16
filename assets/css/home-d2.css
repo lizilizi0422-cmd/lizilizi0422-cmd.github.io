@@ -195,3 +195,9 @@ body.hv-d2 button,body.hv-d2 .menu-label{font-family:"Outfit",system-ui,sans-ser
 .hv-d2 .d-line{margin-top:34px!important}
 @media (max-width:700px){.hv-d2 .d-open{min-height:calc(88vh - 60px)!important}}
 .hv-d2 .d-line{margin-top:58px!important}@media (max-width:700px){.hv-d2 .d-line{margin-top:40px!important}}
+/* D2n: middle ground, 6 rows over ~2/3 of hero */
+.hv-d2 .m-x.m-r3,.hv-d2 .m-x.m-r4{display:none}
+.hv-d2 .m-bg{inset:15% 0 13% 0!important;padding:0!important;justify-content:space-between}
+.hv-d2 .m-track span{font-size:clamp(40px,5.4vw,80px)!important}
+.hv-d2 .d-open{min-height:calc(82vh - 70px)!important}
+@media (max-width:700px){.hv-d2 .m-track span{font-size:40px!important}.hv-d2 .d-open{min-height:calc(76vh - 60px)!important}.hv-d2 .m-bg{inset:16% 0 12% 0!important}}
