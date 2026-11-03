@@ -38,7 +38,7 @@ description: "Ziqi Li's projects: art and learning design for early childhood, a
         <p>{{ sec.summary }}</p>
         {%- if subs.size > 0 or sec.show_reflections %}
         <ul class="sub-links" aria-label="Inside {{ sec.title }}">
-          {%- if sec.show_reflections %}<li><a href="{{ sec.url | relative_url }}#reflections">Reflection</a></li>{% endif %}
+          {%- if sec.show_reflections %}<li><a href="{{ sec.url | relative_url }}#reflections">{{ sec.reflections_title | default: "Reflection" }}</a></li>{% endif %}
           {%- for p in subs %}<li><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>{% endfor %}
         </ul>
         {%- endif %}

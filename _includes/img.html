@@ -12,9 +12,9 @@
   {%- else %}
     <div class="ph" role="img" aria-label="Image placeholder{% if include.alt and include.alt != '' %}: {{ include.alt | escape }}{% endif %}">
       <svg class="ph-x" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><line x1="0" y1="0" x2="100" y2="100"/><line x1="100" y1="0" x2="0" y2="100"/></svg>
-      <span class="ph-label" aria-hidden="true">Image</span>
+      {%- if include.caption and include.caption != "" %}<span class="ph-hint">{{ include.caption }}</span>{% else %}<span class="ph-label" aria-hidden="true">Image</span>{% endif %}
     </div>
   {%- endif %}
   </div>
-  {%- if include.caption and include.caption != "" %}<figcaption>{{ include.caption }}</figcaption>{% endif %}
+  {%- if include.caption and include.caption != "" and _src != "" %}<figcaption>{{ include.caption }}</figcaption>{% endif %}
 </figure>

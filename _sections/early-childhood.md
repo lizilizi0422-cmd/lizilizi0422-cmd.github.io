@@ -1,40 +1,39 @@
 ---
-# One of the 4 project areas. Its projects live in _projects/early-childhood/
-# 4 个作品板块之一。它的子项目在 _projects/early-childhood/ 文件夹里。
-title: "Art and Learning Design for Early Childhood"
-tagline: "Pedagogical Documentation & Play Spaces"      # also used in the Google title · 也用于搜索标题
-seo_title: ""          # optional · 可选：搜索标题 (blank = "Title | Tagline | Ziqi Li")
-seo_description: ""    # optional · 可选：一句话简介 (blank = site description)
-summary: "How young children’s ideas become visible, through documentation, play spaces, and open-ended materials."
-order: 2                    # position on the Projects page · 在作品页的顺序
-cover: ""                   # image on the Projects page (empty = grey placeholder) · 作品页上的图片
-cover_alt: ""
-list_style: "split"         # "split" (alternating rows) or "grid" (staggered cards) · 子项目显示方式
-# ── PAGE BLOCKS · 页面模块 (see EDITING.md · 见 EDITING.md) ──────
+# TEMPLATE PAGE · 模板页：每个灰色虚线框告诉你这里放什么。把框里的提示换成你的真实内容即可。
+# Grey boxes = guidance. Replace each with your real content; leave images "" to keep the hint box.
+title: Contemporary Art Learning Design for Early Childhood Education
+tagline: Design Experience for Preschool Kids & Documentation
+seo_title: ''
+seo_description: ''
+summary: How young children’s ideas become visible, through design experiences with materials and documentation.
+order: 4
+cover: ''
+cover_alt: ''
+list_style: split
 blocks:
-  - type: hero
-    kicker: ""
-    title: ""
-    text: ""
-    image: ""
-    image_alt: ""
-    caption: ""
-  - type: text
-    kicker: "Overview"
-    title: "About this area"
-    body: "Body copy goes here. Two or three sentences introducing this area: why it matters to you, which ideas guide it, and what the projects below have in common."
-    align: left
-  - type: images_3
-    kicker: ""
-    title: ""
-    images:
-      - image: ""
-        alt: ""
-        caption: "Caption goes here"
-      - image: ""
-        alt: ""
-        caption: "Caption goes here"
-      - image: ""
-        alt: ""
-        caption: "Caption goes here"
+- type: hero
+  kicker: ''
+  title: ''
+  text: ''
+  image: ''
+  image_alt: ''
+  caption: Cover · 这里放：孩子创作或活动现场的一张照片（不露脸）
+- type: text
+  kicker: Overview
+  title: About this area
+  body: <div class="tpl"><strong>Your approach to contemporary art learning for young children</strong><span class="zh">这里放：2–3 句：你如何理解幼儿的当代艺术学习；下面两个子项目的共同点</span></div>
+  align: left
+- type: images_3
+  kicker: ''
+  title: ''
+  images:
+  - image: ''
+    alt: ''
+    caption: Photo · 这里放：作品
+  - image: ''
+    alt: ''
+    caption: Photo · 这里放：材料
+  - image: ''
+    alt: ''
+    caption: Photo · 这里放：记录墙
 ---

@@ -74,13 +74,13 @@
     <div class="wrap">
       <div class="blk-headrow">{% include blk-head.html kicker=b.kicker title=b.title intro=b.intro %}</div>
       <ol class="tt">
-        <li class="tt-row tt-labels" aria-hidden="true"><span></span><span>Theory / principle</span><span>What I observed</span><span>Design decision</span></li>
+        <li class="tt-row tt-labels" aria-hidden="true"><span></span><span>{{ b.labels[0] | default: "Theory / principle" }}</span><span>{{ b.labels[1] | default: "What I observed" }}</span><span>{{ b.labels[2] | default: "Design decision" }}</span></li>
         {%- for row in b.rows %}
         <li class="tt-row" data-reveal>
           <span class="tt-n">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
-          <div><p class="mini">Theory / principle</p><p class="tt-p">{{ row.principle }}</p></div>
-          <div><p class="mini">What I observed</p><p>{{ row.observed }}</p></div>
-          <div><p class="mini">Design decision</p><p>{{ row.decision }}</p></div>
+          <div><p class="mini">{{ b.labels[0] | default: "Theory / principle" }}</p><p class="tt-p">{{ row.principle }}</p></div>
+          <div><p class="mini">{{ b.labels[1] | default: "What I observed" }}</p><p>{{ row.observed }}</p></div>
+          <div><p class="mini">{{ b.labels[2] | default: "Design decision" }}</p><p>{{ row.decision }}</p></div>
         </li>
         {%- endfor %}
       </ol>

@@ -17,7 +17,7 @@ roles:                      # shown under your name · 显示在名字下面
   - "UX Designer"
   - "Product Designer"
   - "Toy Designer"
-email: "your.email@example.com"          # TODO: your real email · 换成你的邮箱
+email: "lizilizi0422@gmail.com"
 linkedin: "https://www.linkedin.com/in/ziqi-li-1b1b33351/"
 instagram: ""                             # optional · 可留空
 cv_file: ""                               # e.g. "/images/site/Ziqi-Li-CV.pdf" — upload the PDF first · 先上传 PDF 再填
@@ -57,46 +57,43 @@ directions_title: "Research directions"
 directions_kicker: "What I explore"
 directions_text: "Four threads run through my work. Each card opens the projects behind it."
 directions:
-  - title: "Toy Design"
-    doodle: "block"        # little drawing: block, chestnut, kite, star, sun, heart, arch, pencil, plane, spiral · 卡片小插画
-    text: "Toys and play objects designed for how children explore, build, and imagine."
-    image: ""             # photo for this row (empty = grey placeholder) · 这一行的图片（空着=灰色占位框）
-    link: "/projects/toy-design/"
-    projects:
-      - label: "Toy Project 1"
-        url: "/projects/toy-design/toy-1/"
-      - label: "Toy Project 2"
-        url: "/projects/toy-design/toy-2/"
-      - label: "Toy Project 3"
-        url: "/projects/toy-design/toy-3/"
-      - label: "Toy Project 4"
-        url: "/projects/toy-design/toy-4/"
-  - title: "Art and Learning Design for Early Childhood"
-    doodle: "sun"
-    text: "How young children’s ideas become visible, through documentation, play spaces, and open-ended materials."
-    image: ""
-    link: "/projects/early-childhood/"
-    projects:
-      - label: "Pedagogical Documentation for Preschool"
-        url: "/projects/early-childhood/pedagogical-documentation/"
-      - label: "Play Space Design and Materials Exploration for Kids"
-        url: "/projects/early-childhood/play-space-materials/"
-  - title: "Teaching and Learning Lab Practicum"
-    doodle: "kite"
-    text: "A lab course where I reflected on teaching and learning, and designed for digital accessibility. Reflections from my other classes live here too."
-    image: ""
-    link: "/projects/lab-practicum/"
-    projects:
-      - label: "Digital Accessibility Design"
-        url: "/projects/lab-practicum/digital-accessibility/"
-  - title: "FindMy Voice"
-    doodle: "chestnut"
-    text: "Chestnut (栗子) is a bilingual desktop companion for 11–15-year-old students who recently moved from China to the US and feel nervous speaking English. She comforts first, then helps."
-    image: ""
+  - title: "AI Design for Education"
+    doodle: "chestnut"     # little drawing: block, chestnut, kite, star, sun, heart, arch, pencil, plane, spiral · 卡片小插画
+    text: "FindMy Voice: Chestnut (栗子) is a bilingual desktop companion for 11–15-year-old students who recently moved from China to the US and feel nervous speaking English. She comforts first, then helps."
+    image: "/images/findmy-voice/02-chat.webp"
+    image_alt: "FindMy Voice chat screen with Chestnut, the AI companion"
     link: "/projects/findmy-voice/"
     projects:
       - label: "FindMy Voice: AI Chatbot Design for Bilingual Students"
         url: "/projects/findmy-voice/"
+  - title: "Toy Design"
+    doodle: "block"
+    text: "Toys and play objects designed for how children explore, build, and imagine."
+    image: ""             # photo for this row (empty = grey placeholder) · 这一行的图片（空着=灰色占位框）
+    link: "/projects/toy-design/"
+    projects:
+      - label: "Toy design projects"
+        url: "/projects/toy-design/"
+  - title: "T127 Lab"
+    doodle: "kite"
+    text: "A lab course where I reflected on teaching and learning, and designed for digital accessibility."
+    image: ""
+    link: "/projects/lab-practicum/"
+    projects:
+      - label: "Theory"
+        url: "/projects/lab-practicum/#reflections"
+      - label: "Digital Accessibility"
+        url: "/projects/lab-practicum/digital-accessibility/"
+  - title: "Contemporary Art Learning Design for Early Childhood Education"
+    doodle: "sun"
+    text: "How young children’s ideas become visible, through design experiences with materials and documentation."
+    image: ""
+    link: "/projects/early-childhood/"
+    projects:
+      - label: "Design Experience for Preschool Kids"
+        url: "/projects/early-childhood/play-space-materials/"
+      - label: "Documentation"
+        url: "/projects/early-childhood/pedagogical-documentation/"
 
 # (3½) Your own home blocks · 你自己的首页模块
 #      Shown between "Research directions" and "How I work with kids". Add, delete, reorder or
