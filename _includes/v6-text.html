@@ -1,0 +1,2 @@
+{%- if include.body and include.body != "" -%}<div class="v6-prose">{{ include.body | markdownify }}</div>
+{%- else -%}<div class="v6-tpl"><span>这里放：</span>{{ include.hint | default: "这一段的内容" }}</div>{%- endif -%}

@@ -1,0 +1,89 @@
+---
+layout: default
+---
+{%- include settings.html -%}
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@400;500;600;700&family=Fira+Code:wght@500&display=swap">
+<link rel="stylesheet" href="{{ '/assets/v6/v6.css' | relative_url }}">
+<script src="{{ '/assets/v6/v6.js' | relative_url }}" defer></script>
+<div class="v6 v6-case">
+{%- assign c = page.c6 -%}
+{%- assign t = page.display_title | default: page.title -%}
+<section class="v6-chero">
+  <div class="v6-wrap">
+    {% if c.kicker %}<p class="v6-pill" data-rv>{{ c.kicker }}</p>{% endif %}
+    <h1 class="v6-ctitle" data-chars>{% include v6-split.html text=t %}</h1>
+    <p class="v6-outcome" data-rv>{% if c.outcome and c.outcome != "" %}{{ c.outcome }}{% else %}<span class="v6-hint">这里放：一句话结果 · one-line outcome（做了什么 → 带来了什么）</span>{% endif %}</p>
+    {% if c.tags %}<ul class="v6-tags" data-rv>{% for g in c.tags %}<li>{{ g }}</li>{% endfor %}</ul>{% endif %}
+  </div>
+</section>
+<section class="v6-showcase" data-rv>
+  <div class="v6-wrap">{% include v6-media.html src=c.cover alt=c.cover_alt hint=c.cover_hint ratio="16/9" class="v6-tilted" %}</div>
+</section>
+<section class="v6-wrap v6-meta" data-rv>
+  {%- assign mk = "Duration|Team|My Role|Organization" | split: "|" -%}
+  {%- assign mv = "duration|team|role|org" | split: "|" -%}
+  {%- for k in mk %}{% assign key = mv[forloop.index0] %}
+  <div><h2>{{ k }}</h2><p>{% if c.meta[key] and c.meta[key] != "" %}{{ c.meta[key] }}{% else %}<span class="v6-hint">这里放：{{ k }}</span>{% endif %}</p></div>
+  {%- endfor %}
+</section>
+
+{%- for x in c.sections %}
+<section class="v6-sec v6-k-{{ x.kind }}{% if x.tint %} v6-tint{% endif %}" id="{{ x.id | default: x.label | slugify }}">
+  <div class="v6-wrap">
+    <p class="v6-pill" data-rv>{{ x.label }}</p>
+    {% if x.title %}<h2 class="v6-h2" data-rv>{{ x.title }}</h2>{% endif %}
+    {%- case x.kind -%}
+    {%- when "split" -%}
+      <div class="v6-two{% if x.flip %} v6-flip{% endif %}">
+        <div data-rv>{% include v6-text.html body=x.body hint=x.hint %}</div>
+        <div data-rv>{% include v6-media.html src=x.image alt=x.alt hint=x.image_hint ratio=x.ratio %}</div>
+      </div>
+    {%- when "steps" -%}
+      <div class="v6-steps">
+        <div class="v6-steps-pin"><div class="v6-steps-stack">
+          {%- for it in x.items %}<div class="v6-step-img{% if forloop.first %} on{% endif %}" data-step-img="{{ forloop.index0 }}">{% include v6-media.html src=it.image alt=it.title hint=it.image_hint ratio="4/3" %}</div>{% endfor %}
+        </div></div>
+        <ol class="v6-steps-list">
+          {%- for it in x.items %}<li class="v6-step" data-step="{{ forloop.index0 }}"><span class="v6-num">0{{ forloop.index }}</span><h3>{{ it.title }}</h3>{% include v6-text.html body=it.body hint=it.hint %}<div class="v6-step-m">{% include v6-media.html src=it.image alt=it.title hint=it.image_hint ratio="4/3" %}</div></li>{% endfor %}
+        </ol>
+      </div>
+    {%- when "list" -%}
+      {% if x.body or x.hint %}<div class="v6-lede" data-rv>{% include v6-text.html body=x.body hint=x.hint %}</div>{% endif %}
+      <ol class="v6-methods">{% for it in x.items %}<li data-rv><span class="v6-num">0{{ forloop.index }}</span><div><h3>{{ it.title }}</h3>{% include v6-text.html body=it.body hint=it.hint %}</div></li>{% endfor %}</ol>
+    {%- when "insights" -%}
+      <ol class="v6-ins">{% for it in x.items %}<li class="v6-in" data-rv id="insight-{{ forloop.index }}">
+        <button type="button" class="v6-in-h" aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"><span class="v6-in-n">0{{ forloop.index }}</span><span class="v6-in-t">{% if it.title and it.title != "" %}{{ it.title }}{% else %}<span class="v6-hint">这里放：Insight {{ forloop.index }} 一句话</span>{% endif %}</span><span class="v6-plus" aria-hidden="true"></span></button>
+        <div class="v6-in-b"{% unless forloop.first %} hidden{% endunless %}>{% include v6-text.html body=it.body hint=it.hint %}</div>
+      </li>{% endfor %}</ol>
+    {%- when "principles" -%}
+      <ul class="v6-prin">{% for it in x.items %}<li data-rv><span class="v6-ico" aria-hidden="true">{{ forloop.index }}</span><h3>{% if it.title and it.title != "" %}{{ it.title }}{% else %}<span class="v6-hint">这里放：原则 {{ forloop.index }}</span>{% endif %}</h3>{% include v6-text.html body=it.body hint=it.hint %}{% if it.insight %}<a class="v6-driven" href="#insight-{{ it.insight }}">Driven by Insight {{ it.insight }}</a>{% endif %}</li>{% endfor %}</ul>
+    {%- when "statement" -%}
+      <p class="v6-hmw" data-rv>{% if x.parts %}{% for p in x.parts %}{% if p.c %}<mark class="v6-m{{ p.c }}">{{ p.t }}</mark>{% else %}{{ p.t }}{% endif %} {% endfor %}{% else %}<span class="v6-hint">这里放：How might we …（把 3 个关键短语分别标色，对应 3 条洞察）</span>{% endif %}</p>
+      {% if x.notes %}<ul class="v6-notes">{% for n in x.notes %}<li class="v6-n{{ forloop.index }}" data-rv>{{ n }}</li>{% endfor %}</ul>{% endif %}
+    {%- when "gallery" -%}
+      {% if x.body or x.hint %}<div class="v6-lede" data-rv>{% include v6-text.html body=x.body hint=x.hint %}</div>{% endif %}
+      <div class="v6-gal v6-gal-{{ x.items.size }}">{% for it in x.items %}<div data-rv>{% include v6-media.html src=it.image alt=it.alt hint=it.hint ratio=it.ratio %}{% if it.cap %}<p class="v6-cap">{{ it.cap }}</p>{% endif %}</div>{% endfor %}</div>
+    {%- when "quote" -%}
+      <blockquote class="v6-quote" data-rv>{% if x.body and x.body != "" %}{{ x.body }}{% else %}<span class="v6-hint">这里放：{{ x.hint }}</span>{% endif %}</blockquote>
+    {%- else -%}
+      <div class="v6-lede v6-wide" data-rv>{% include v6-text.html body=x.body hint=x.hint %}</div>
+    {%- endcase -%}
+  </div>
+</section>
+{%- endfor %}
+
+{%- comment -%} next projects {%- endcomment -%}
+{%- assign allp = site.sections | concat: site.projects -%}
+<section class="v6-next v6-wrap" aria-labelledby="nx">
+  <p class="v6-pill">Keep exploring</p>
+  <h2 id="nx" class="v6-h2">More projects</h2>
+  <div class="v6-next-g">
+  {%- assign shown = 0 -%}
+  {%- for d in s.directions %}{% if d.link != page.url and shown < 2 %}{% assign shown = shown | plus: 1 %}
+    <a class="v6-nx" href="{{ d.link | relative_url }}" data-cursor="View" data-rv><div class="v6-nx-img v6-g{{ forloop.index }}">{% include v6-media.html src=d.image alt="" hint=d.title ratio="16/10" %}</div><h3>{{ d.title }} <span class="v6-arr">→</span></h3></a>
+  {%- endif %}{% endfor %}
+  </div>
+</section>
+
+</div>

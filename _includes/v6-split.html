@@ -1,0 +1,2 @@
+{%- comment -%} letter split: text {%- endcomment -%}
+<span class="visually-hidden">{{ include.text }}</span><span aria-hidden="true" class="v6-chars">{%- assign ws = include.text | split: " " -%}{%- for w in ws -%}<span class="v6-w">{%- assign cs = w | split: "" -%}{%- for c in cs -%}<span class="v6-c">{{ c }}</span>{%- endfor -%}</span>{% unless forloop.last %}<span class="v6-sp"> </span>{% endunless %}{%- endfor -%}</span>

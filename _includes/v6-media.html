@@ -1,0 +1,5 @@
+{%- assign _s = include.src | default: "" | strip -%}
+<figure class="v6-media {{ include.class }}" style="--r:{{ include.ratio | default: '16/10' }}">
+{%- if _s != "" -%}<img src="{{ _s | relative_url }}" alt="{{ include.alt | escape }}" loading="lazy" decoding="async">
+{%- else -%}<div class="v6-ph" role="img" aria-label="Image placeholder"><span class="v6-ph-t">这里放：{{ include.hint | default: "一张图片" }}</span></div>{%- endif -%}
+</figure>
