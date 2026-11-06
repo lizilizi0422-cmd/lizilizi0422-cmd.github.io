@@ -10,7 +10,7 @@
 {%- assign shapes = "portrait:4/5,landscape:4/3,square:1/1,wide:16/10" | split: "," -%}
 {%- for b in include.list -%}
 {%- assign t = b.type -%}
-{%- assign bid = b.title | default: b.kicker | default: t | slugify -%}
+{%- assign bid = b.id | default: b.title | default: b.kicker | default: t | slugify -%}
 {%- case t -%}
 
 {%- when "hero" -%}
