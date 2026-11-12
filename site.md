@@ -72,10 +72,17 @@ directions:
     image: ""             # photo for this row (empty = grey placeholder) · 这一行的图片（空着=灰色占位框）
     link: "/projects/toy-design/"
     projects:
-      - label: "Game: Kitchen Quest"
-        url: "/projects/toy-design/kitchen-quest/"
       - label: "Toy design projects"
         url: "/projects/toy-design/"
+  - title: "Game Design"
+    doodle: "star"
+    text: "Games that let children learn real skills through play."
+    image: "/images/toy-design/kitchen-quest/cover.jpg"
+    image_alt: "Kitchen Quest cover with parent app screens"
+    link: "/projects/game-design/"
+    projects:
+      - label: "Game: Kitchen Quest"
+        url: "/projects/game-design/kitchen-quest/"
   - title: "T127 Lab"
     doodle: "kite"
     text: "A lab course where I reflected on teaching and learning, and designed for digital accessibility."

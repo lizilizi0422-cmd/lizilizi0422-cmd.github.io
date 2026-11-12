@@ -1,12 +1,12 @@
 ---
-# Game: Kitchen Quest — standalone case-study page (built from Ziqi's editor file, v10).
-# Edit in the editor HTML, then rebuild with toy-project1/mockup/v10src/build_v10.py.
+# Game: Kitchen Quest — standalone case-study page (built from Ziqi's editor file, v11).
+# Edit in the editor HTML, then rebuild with toy-project1/mockup/v11src/build_v11.py.
 title: "Game: Kitchen Quest"
 tagline: "Kitchen Quest is a VR game that teaches kids kitchen skills and sparks their interest in cooking."
-area: toy-design
+area: game-design
 order: 0
 layout: none
-permalink: /projects/toy-design/kitchen-quest/
+permalink: /projects/game-design/kitchen-quest/
 cover: /images/toy-design/kitchen-quest/cover.jpg
 cover_alt: "Kitchen Quest end cover with parent app screens"
 summary: "A VR cooking game that lets kids ages 6–12 practice real kitchen skills in a safe, playful space, with a parent app that brings families into the learning."
@@ -635,6 +635,102 @@ body.preview .slot:not(.is-filled):not(.video-slot){display:none!important}
 body.preview .video-slot:not(.is-filled){background:linear-gradient(160deg,#F5FAFF 0%,#EDF5FD 100%)!important;border:0!important;border-radius:var(--kq-r)}
 body.preview .proj-nav{display:none!important}
 
+/* ==== v11: playful text + list micro-interactions (Teachy-inspired) ==== */
+:root{--kq-spring:cubic-bezier(.34,1.56,.64,1);--kq-blue-2:#57B0F0;--kq-blue-3:#8FCBF6;--kq-blue-ink:#0E6FC4}
+
+/* section headings: ">" in brand blue, nudges on hover; blue shine sweeps across the words */
+.main .h-sec .mk{display:inline-block;transition:transform .45s var(--kq-spring),color .4s ease}
+.main .h-sec:hover .mk{transform:translateX(6px) scale(1.12)}
+.main .h-sec .kq-w{display:inline-block;white-space:pre;transition:color .35s ease,transform .45s var(--kq-spring)}
+.main .h-sec:hover .kq-w{color:var(--kq-blue)}
+.main .h-sec:hover .kq-w:nth-of-type(2n){transform:translateY(-2px)}
+.main .h-sec .kq-w{transition-delay:calc(var(--i,0) * 35ms)}
+
+/* HMW statement: words fill in with ink as you scroll (published) */
+.main .hmw .kq-w{display:inline;transition:color .5s ease}
+.main .hmw .kq-w.is-dim{color:#C9D6E2}
+.main .hmw .kq-w.is-key{color:var(--kq-blue)}
+
+/* pain points: the card under the pointer (or focus) becomes the open one */
+.pain-list li,.pain-item{padding-top:20px!important;padding-bottom:20px!important;
+  transition:transform .45s var(--kq-spring),background .35s ease,box-shadow .45s ease!important}
+.pain-item .pain-h{transition:color .35s ease}
+.pain-item.is-open .pain-h{color:var(--kq-blue-ink)}
+.pain-item.is-open{transform:scale(1.025)}
+.pain-item:not(.is-open) .pain-body{transition:color .35s ease}
+.pain-list.kq-hovering .pain-item:not(.is-open) .pain-body{color:#8a8f96}
+.pain-num{transition:background .35s ease,color .35s ease,transform .5s var(--kq-spring),width .45s var(--kq-spring),height .45s var(--kq-spring),box-shadow .35s ease!important}
+.pain-item.is-open .pain-num{transform:rotate(-8deg)}
+.pain-item.is-open .pain-num.kq-pop{animation:kqPop .5s var(--kq-spring)}
+@keyframes kqPop{0%{transform:scale(.7) rotate(-20deg)}100%{transform:scale(1) rotate(-8deg)}}
+.pain-num:focus-visible{outline:2px solid var(--kq-blue);outline-offset:3px}
+
+/* principle rings: hover fills the ring with its own colour */
+.feat{cursor:default}
+.feat-ring{position:relative;transition:transform .55s var(--kq-spring),box-shadow .45s ease,background .45s ease,opacity .4s ease!important}
+.feat-name{transition:color .35s ease,transform .45s var(--kq-spring)}
+.feat:hover .feat-ring{background:var(--ring);transform:translateY(-8px) scale(1.06) rotate(-3deg)!important}
+.feat:nth-child(-n+2):hover .feat-name{color:#fff}
+.feat:nth-child(n+3):hover .feat-name{color:var(--kq-blue-ink)}
+.feat:hover .feat-name{transform:scale(1.06)}
+.feat-row:hover .feat:not(:hover) .feat-ring{opacity:.55;transform:scale(.96)}
+
+/* How Parents Engage: heading turns blue, dot pulses */
+.main .engage-item .engage-h{transition:color .35s ease}
+.main .engage-item:hover .engage-h{color:var(--kq-blue-ink)}
+.main .engage-item .engage-h:before{transition:transform .45s var(--kq-spring)}
+.main .engage-item:hover .engage-h:before{transform:scale(1.5);animation:kqPulse 1.4s ease-out infinite}
+@keyframes kqPulse{0%{box-shadow:0 0 0 0 rgba(31,143,232,.45)}100%{box-shadow:0 0 0 10px rgba(31,143,232,0)}}
+.main .engage-grid:hover .engage-item:not(:hover){opacity:.7}
+.main .engage-item{transition:transform .45s var(--kq-spring),box-shadow .4s ease,background .3s,opacity .35s!important}
+
+/* sticky prototype lists: step title wipes in; active caption turns blue; dots clickable */
+.main .proto-step-title.kq-wipe{animation:kqWipe .55s cubic-bezier(.2,.7,.2,1)}
+@keyframes kqWipe{from{clip-path:inset(0 100% 0 0);transform:translateX(-6px)}to{clip-path:inset(0 0 0 0);transform:none}}
+.main .proto-cap{transition:color .35s ease,transform .45s var(--kq-spring)}
+.proto-shot.is-active .proto-cap{color:var(--kq-blue)}
+@media (min-width:769px){.proto-shot.is-active .proto-cap{transform:translateX(4px)}}
+.kq-dots i{cursor:pointer;transition:width .45s var(--kq-spring),background .3s,transform .3s var(--kq-spring)}
+.kq-dots i:hover{transform:scale(1.35);background:var(--kq-blue-2)}
+.kq-dots i.on:hover{transform:none}
+.main .proto-game-title{transition:color .35s ease}
+.proto:hover .proto-game-title{color:var(--kq-blue-ink)}
+
+/* parent app captions: hover previews colour, click switches screen */
+.phone-cap{transition:color .3s ease,transform .5s var(--kq-spring)!important}
+.phone-cap:before{transition:transform .45s var(--kq-spring),background .3s!important}
+.phone-cap:hover:not(.is-on){color:var(--kq-blue-2)!important;transform:translateX(8px)}
+.phone-cap:hover:not(.is-on):before{transform:scaleY(.55);background:var(--kq-blue-3)}
+.phone-cap.is-on{color:var(--kq-blue)!important;transform:translateX(6px)}
+.phone-cap:focus-visible{outline:2px solid var(--kq-blue);outline-offset:4px;border-radius:4px}
+.phone{transition:transform .6s var(--kq-spring),box-shadow .5s ease}
+.parent-app:hover .phone{transform:rotate(-1.5deg) translateY(-4px)}
+.phone-page.kq-flash>.slot-media{animation:kqScreen .5s ease}
+@keyframes kqScreen{from{opacity:.4;transform:scale(1.03)}to{opacity:1;transform:none}}
+
+/* split titles + captions */
+.main .split-h{transition:color .35s ease}
+.split:hover .split-h{color:var(--kq-blue-ink)}
+.main .story-cap{transition:color .3s ease,transform .45s var(--kq-spring)}
+.main .story-cap.is-hot{color:var(--kq-blue);transform:translateY(-3px)}
+
+/* footer "!" wiggles */
+.footer .mk{display:inline-block;transition:transform .4s var(--kq-spring)}
+.footer:hover .mk{animation:kqWiggle .7s ease}
+@keyframes kqWiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(18deg) scale(1.2)}60%{transform:rotate(-12deg)}}
+
+/* Teachy-style soft blob that trails the pointer (published page, fine pointers only) */
+.kq-blob{position:fixed;left:0;top:0;width:26px;height:26px;border-radius:50%;pointer-events:none;z-index:90;opacity:0;
+  mix-blend-mode:multiply;will-change:transform,opacity;transition:opacity .3s ease}
+@media (hover:none),(pointer:coarse){.kq-blob{display:none}}
+
+@media (prefers-reduced-motion:reduce){
+  .kq-blob{display:none}
+  .main .h-sec .kq-w,.pain-item,.feat-ring,.phone-cap{transform:none!important}
+  .main .engage-item:hover .engage-h:before{animation:none}
+}
+/* ==== v11: end ==== */
+
 /* ==== v10 published page: no editor chrome ==== */
 .toolbar,.ed-exit,.blk-bar,.slot-x,.slot-label,.tag,.phone-hint,.kq-panel,.ed-toast,.proj-nav{display:none!important}
 .slot:not(.is-filled):not(.kq-video-ph){display:none!important}
@@ -861,7 +957,7 @@ body.preview .proj-nav{display:none!important}
   function reveal() {
     if (reduce || !('IntersectionObserver' in window) || !Element.prototype.animate) return;
     var groups = [
-      ['.hero .h1', 0], ['.main > .b.text > :not(.engage-grid):not(.pain-list)', 0], ['.overview-row > div', 90], ['.b.full > .slot', 0],
+      ['.hero .h1', 0], ['.main > .b.text > :not(.engage-grid):not(.pain-list):not(.h-sec)', 0], ['.overview-row > div', 90], ['.b.full > .slot', 0],
       ['.split-text', 0], ['.split-media', 120], ['.pain-item', 90], ['.hmw', 0], ['.feat', 90],
       ['.proto-right .proto-shot > .slot', 0], ['.proto-right .proto-cap', 0], ['.proto-left > .proto-game-title, .proto-left > .proto-intro', 80],
       ['.engage-item', 80], ['.story-row > .slot', 80], ['.story-row > .story-cap', 80],
@@ -945,5 +1041,205 @@ body.preview .proj-nav{display:none!important}
   else setTimeout(init, 0);
 })();
 /* ==== Kitchen Quest v10: end ==== */
+
+/* ==== Kitchen Quest v11: playful text + list interactions (editor + published) ==== */
+(function () {
+  var D = document, H = D.documentElement;
+  function qsa(s, r) { return Array.prototype.slice.call((r || D).querySelectorAll(s)); }
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var PUB = H.classList.contains('kq-pub');
+  var EASE = 'cubic-bezier(.2,.7,.2,1)', SPRING = 'cubic-bezier(.34,1.56,.64,1)';
+
+  /* split a text node run into word spans (published page only, so the editor file never changes) */
+  function splitWords(el, skipSel) {
+    var i = 0;
+    Array.prototype.slice.call(el.childNodes).forEach(function (n) {
+      if (n.nodeType !== 3 || !n.nodeValue.trim()) return;
+      var frag = D.createDocumentFragment();
+      n.nodeValue.split(/(\s+)/).forEach(function (w) {
+        if (!w) return;
+        if (/^\s+$/.test(w)) { frag.appendChild(D.createTextNode(w)); return; }
+        var s = D.createElement('span'); s.className = 'kq-w'; s.style.setProperty('--i', i++); s.textContent = w; frag.appendChild(s);
+      });
+      n.parentNode.replaceChild(frag, n);
+    });
+    return qsa('.kq-w', el);
+  }
+
+  /* 1. Pain points: hover / focus follows; first card is open when nothing is hovered */
+  function painPoints() {
+    qsa('.pain-list').forEach(function (list) {
+      var items = qsa(':scope > li', list);
+      if (!items.length) return;
+      var home = items[0];
+      function open(li, pop) {
+        if (li.classList.contains('is-open')) return;
+        items.forEach(function (it) { it.classList.remove('is-open'); });
+        li.classList.add('is-open');
+        var n = li.querySelector('.pain-num');
+        if (n && pop && !reduce) { n.classList.remove('kq-pop'); void n.offsetWidth; n.classList.add('kq-pop'); }
+      }
+      items.forEach(function (li) {
+        li.addEventListener('mouseenter', function () { list.classList.add('kq-hovering'); open(li, true); });
+        li.addEventListener('focusin', function () { open(li, true); });
+      });
+      list.addEventListener('mouseleave', function () {
+        list.classList.remove('kq-hovering');
+        if (list.contains(D.activeElement)) return;
+        open(home, false);
+      });
+      list.addEventListener('focusout', function (e) { if (!list.contains(e.relatedTarget) && !list.matches(':hover')) open(home, false); });
+      /* clicks on the number should keep the clicked card open (not toggle it shut) */
+      list.addEventListener('click', function (e) {
+        var li = e.target.closest && e.target.closest('li'); if (!li || !list.contains(li)) return;
+        setTimeout(function () { if (!li.classList.contains('is-open')) open(li, false); }, 0);
+      });
+      if (!list.querySelector('.is-open')) open(home, false);
+    });
+  }
+
+  /* 2. section headings: ">" springs in, words rise with a stagger (Teachy: y 20→0, .5s power2.out, stagger .08) */
+  function headings() {
+    qsa('.main .h-sec').forEach(function (h) {
+      if (PUB) splitWords(h);
+      h._kqWords = qsa('.kq-w', h);
+    });
+    if (reduce || !('IntersectionObserver' in window) || !Element.prototype.animate) return;
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return; io.unobserve(e.target);
+        var h = e.target, mk = h.querySelector('.mk');
+        if (mk) mk.animate([{ opacity: 0, translate: '-18px 0', rotate: '-90deg' }, { opacity: 1, translate: '0 0', rotate: '0deg' }],
+          { duration: 700, easing: SPRING, fill: 'backwards' });
+        (h._kqWords || []).forEach(function (w, i) {
+          w.animate([{ opacity: 0, translate: '0 .55em', color: '#1F8FE8' }, { opacity: 1, translate: '0 0', color: '#1F8FE8', offset: .6 }, { opacity: 1, translate: '0 0' }],
+            { duration: 900, delay: 90 + i * 70, easing: EASE, fill: 'backwards' });
+        });
+      });
+    }, { rootMargin: '0px 0px -12% 0px' });
+    qsa('.main .h-sec').forEach(function (h) { io.observe(h); });
+  }
+
+  /* 3. HMW statement: words ink in as it scrolls through the middle of the screen (published) */
+  function hmw() {
+    if (!PUB) return;
+    var el = D.querySelector('.main .hmw'); if (!el) return;
+    var words = splitWords(el);
+    words.forEach(function (w) { if (/^(fun|parents)/i.test(w.textContent)) w.classList.add('is-key'); });
+    if (reduce) return;
+    function upd() {
+      var r = el.getBoundingClientRect(), vh = window.innerHeight;
+      var p = (vh * 0.85 - r.top) / (vh * 0.45); /* 0 at 85% → 1 at 40% */
+      p = Math.max(0, Math.min(1, p));
+      var n = Math.round(p * words.length);
+      words.forEach(function (w, i) { w.classList.toggle('is-dim', i >= n); });
+    }
+    var raf = 0;
+    window.addEventListener('scroll', function () { if (raf) return; raf = requestAnimationFrame(function () { raf = 0; upd(); }); }, { passive: true });
+    upd();
+  }
+
+  /* 4. sticky step title: wipe in on every change; dots jump to their clip */
+  function steps() {
+    qsa('.proto').forEach(function (block) {
+      var t = block.querySelector('.proto-step-title'); if (!t) return;
+      if (!reduce && 'MutationObserver' in window) {
+        new MutationObserver(function () {
+          t.classList.remove('kq-wipe'); void t.offsetWidth; t.classList.add('kq-wipe');
+        }).observe(t, { childList: true, characterData: true, subtree: true });
+      }
+      block.addEventListener('click', function (e) {
+        var dot = e.target.closest && e.target.closest('.kq-dots i'); if (!dot) return;
+        var i = Array.prototype.indexOf.call(dot.parentNode.children, dot);
+        var slot = qsa('.proto-shot', block)[i]; slot = slot && (slot.querySelector('.slot') || slot);
+        if (!slot) return;
+        var r = slot.getBoundingClientRect();
+        window.scrollTo({ top: r.top + window.scrollY + r.height / 2 - window.innerHeight * 0.45, behavior: reduce ? 'auto' : 'smooth' });
+      });
+    });
+  }
+
+  /* 5. parent app: keyboard access + screen flash on switch */
+  function phone() {
+    qsa('.parent-app').forEach(function (block) {
+      var caps = qsa('.phone-cap', block), pages = qsa('.phone-page', block), screen = block.querySelector('.phone-screen');
+      caps.forEach(function (c, i) {
+        if (PUB) { c.setAttribute('tabindex', '0'); c.setAttribute('role', 'button'); }
+        c.addEventListener('keydown', function (e) { if (PUB && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); c.click(); } });
+        c.addEventListener('click', function () {
+          var p = pages[i]; if (!p || reduce) return;
+          p.classList.remove('kq-flash'); void p.offsetWidth; p.classList.add('kq-flash');
+        });
+      });
+    });
+  }
+
+  /* 6. storyboard: hovering a drawing lights up its caption */
+  function story() {
+    qsa('.story-row').forEach(function (row) {
+      var slots = qsa(':scope > .slot', row), caps = qsa(':scope > .story-cap', row);
+      slots.forEach(function (s, i) {
+        if (!caps[i]) return;
+        s.addEventListener('mouseenter', function () { caps[i].classList.add('is-hot'); });
+        s.addEventListener('mouseleave', function () { caps[i].classList.remove('is-hot'); });
+      });
+    });
+  }
+
+  /* 7. rings pop in (Teachy timeline dots: scale back.out(2), .35s) */
+  function rings() {
+    if (reduce || !('IntersectionObserver' in window) || !Element.prototype.animate) return;
+    var row = D.querySelector('.feat-row'); if (!row) return;
+    var io = new IntersectionObserver(function (es) {
+      if (!es[0].isIntersecting) return; io.disconnect();
+      qsa('.feat-ring', row).forEach(function (r, i) {
+        r.animate([{ scale: '.6', opacity: 0 }, { scale: '1', opacity: 1 }], { duration: 650, delay: 120 + i * 110, easing: 'cubic-bezier(.34,1.8,.64,1)', fill: 'backwards' });
+      });
+    }, { rootMargin: '0px 0px -10% 0px' });
+    io.observe(row);
+  }
+
+  /* 8. Teachy-style blob trail: head eases 0.4/frame toward the pointer, tail 0.7 toward the dot ahead,
+        grows over interactive text, fades on idle (published page, mouse only) */
+  function blob() {
+    if (!PUB || reduce || !fine) return;
+    var N = 6, dots = [], pts = [], tgt = { x: -100, y: -100 }, vis = 0, want = 0, sc = 1, wantSc = 1, idle = 0, started = false;
+    var C0 = [31, 143, 232], C1 = [197, 229, 251];
+    for (var i = 0; i < N; i++) {
+      var d = D.createElement('div'); d.className = 'kq-blob'; d.setAttribute('aria-hidden', 'true');
+      var k = i / (N - 1), c = C0.map(function (v, j) { return Math.round(v + (C1[j] - v) * k); }).join(',');
+      d.style.background = 'radial-gradient(circle, rgba(' + c + ',.55) 0%, rgba(' + c + ',.22) 50%, rgba(' + c + ',0) 70%)';
+      D.body.appendChild(d); dots.push(d); pts.push({ x: -100, y: -100 });
+    }
+    var HOT = '.pain-item, .phone-cap, .feat, .engage-item, .h-sec, .story-row .slot, .kq-dots i, .split-media .slot';
+    D.addEventListener('mousemove', function (e) {
+      tgt.x = e.clientX; tgt.y = e.clientY;
+      if (!started) { pts.forEach(function (p) { p.x = tgt.x; p.y = tgt.y; }); started = true; }
+      var hot = e.target.closest && e.target.closest(HOT);
+      wantSc = hot ? 2.1 : 1; want = 1;
+      clearTimeout(idle); idle = setTimeout(function () { want = 0; }, 900);
+    }, { passive: true });
+    D.addEventListener('mouseleave', function () { want = 0; });
+    (function tick() {
+      pts[0].x += (tgt.x - pts[0].x) * 0.4; pts[0].y += (tgt.y - pts[0].y) * 0.4;
+      for (var i = 1; i < N; i++) { pts[i].x += (pts[i - 1].x - pts[i].x) * 0.7; pts[i].y += (pts[i - 1].y - pts[i].y) * 0.7; }
+      vis += (want - vis) * 0.12; sc += (wantSc - sc) * 0.12;
+      dots.forEach(function (d, i) {
+        var k = i / (N - 1);
+        d.style.opacity = String(vis * (1 - k * 0.6));
+        d.style.transform = 'translate(' + pts[i].x + 'px,' + pts[i].y + 'px) translate(-50%,-50%) scale(' + (sc * (1 - k * 0.8)) + ')';
+      });
+      requestAnimationFrame(tick);
+    })();
+  }
+
+  function init() {
+    [painPoints, headings, hmw, steps, phone, story, rings, blob].forEach(function (f) { try { f(); } catch (e) { if (window.console) console.warn('kq-v11', f.name, e); } });
+  }
+  if (D.readyState === 'loading') D.addEventListener('DOMContentLoaded', function () { setTimeout(init, 30); });
+  else setTimeout(init, 30);
+})();
+/* ==== Kitchen Quest v11: end ==== */
 
 </script></body></html>{% endraw %}

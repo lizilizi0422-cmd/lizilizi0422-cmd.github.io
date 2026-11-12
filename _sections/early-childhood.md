@@ -6,7 +6,7 @@ tagline: Design Experience for Preschool Kids & Documentation
 seo_title: ''
 seo_description: ''
 summary: How young children’s ideas become visible, through design experiences with materials and documentation.
-order: 4
+order: 5
 cover: ''
 cover_alt: ''
 list_style: split

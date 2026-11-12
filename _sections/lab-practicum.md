@@ -6,7 +6,7 @@ tagline: Theory & Digital Accessibility
 seo_title: ''
 seo_description: ''
 summary: A lab course where I reflected on teaching and learning, and designed for digital accessibility.
-order: 3
+order: 4
 cover: ''
 cover_alt: ''
 list_style: split
