@@ -285,7 +285,7 @@ main:focus { outline: none; }
 .area:nth-child(even) .area-text { grid-column: 1 / span 4; }
 .area-img-2 { position: absolute; width: 30%; left: -6%; bottom: -16%; border: 8px solid #fff; background: #fff; }
 .area:nth-child(even) .area-img-2 { left: auto; right: -5%; top: -12%; bottom: auto; }
-.area:nth-child(3) .area-img-2, .area:nth-child(4) .area-img-2 { display: none; }
+.area:nth-child(3) .area-img-2, .area:nth-child(4) .area-img-2, .area:nth-child(5) .area-img-2 { display: none; }
 .area:nth-child(3) .area-img { grid-column: 2 / span 6; }
 .area-tagline { font: italic 400 22px/1.3 var(--serif); color: var(--ink); margin: -6px 0 14px; }
 .area-text .h2 { margin-bottom: 18px; }

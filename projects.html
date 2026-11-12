@@ -24,25 +24,26 @@ description: "Ziqi Li's projects: art and learning design for early childhood, a
 {%- for sec in secs %}
   {%- include get-subs.html slug=sec.slug -%}
   {%- assign ai = forloop.index0 | modulo: 4 -%}{%- capture dp -%}art/d-{{ adood[ai] }}.svg{%- endcapture -%}
+  {%- assign go = sec.link | default: sec.url -%}
   <li class="area area-{{ forloop.index }}">
     <div class="wrap area-grid">
-      <a class="area-img" href="{{ sec.url | relative_url }}" tabindex="-1" aria-hidden="true">
+      <a class="area-img" href="{{ go | relative_url }}" tabindex="-1" aria-hidden="true">
         {% include img.html src=sec.cover alt="" ratio="4/3" loading="eager" %}
         <span class="area-img-2">{% include img.html src="" alt="" ratio="4/5" %}</span>
       </a>
       <div class="area-text">
         <div class="area-doodle" data-draw aria-hidden="true">{% include {{ dp }} %}</div>
         <span class="dir-num" aria-hidden="true">0{{ forloop.index }}</span>
-        <h2 class="h2" id="sec-{{ sec.slug }}"><a href="{{ sec.url | relative_url }}">{{ sec.title }}</a></h2>
+        <h2 class="h2" id="sec-{{ sec.slug }}"><a href="{{ go | relative_url }}">{{ sec.title }}</a></h2>
         {% if sec.tagline %}<p class="area-tagline">{{ sec.tagline }}</p>{% endif %}
         <p>{{ sec.summary }}</p>
-        {%- if subs.size > 0 or sec.show_reflections %}
+        {%- if sec.link == nil and subs.size > 0 or sec.show_reflections %}
         <ul class="sub-links" aria-label="Inside {{ sec.title }}">
           {%- if sec.show_reflections %}<li><a href="{{ sec.url | relative_url }}#reflections">{{ sec.reflections_title | default: "Reflection" }}</a></li>{% endif %}
           {%- for p in subs %}<li><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>{% endfor %}
         </ul>
         {%- endif %}
-        <a class="btn btn-line" href="{{ sec.url | relative_url }}">Open <span class="visually-hidden">{{ sec.title }}</span><span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn btn-line" href="{{ go | relative_url }}">{% if sec.link %}View{% else %}Open{% endif %} <span class="visually-hidden">{{ sec.title }}</span><span class="arr" aria-hidden="true">→</span></a>
       </div>
     </div>
   </li>

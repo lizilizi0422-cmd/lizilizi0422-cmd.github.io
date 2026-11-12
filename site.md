@@ -79,10 +79,7 @@ directions:
     text: "Games that let children learn real skills through play."
     image: "/images/toy-design/kitchen-quest/cover.jpg"
     image_alt: "Kitchen Quest cover with parent app screens"
-    link: "/projects/game-design/"
-    projects:
-      - label: "Game: Kitchen Quest"
-        url: "/projects/game-design/kitchen-quest/"
+    link: "/projects/game-design/kitchen-quest/"
   - title: "T127 Lab"
     doodle: "kite"
     text: "A lab course where I reflected on teaching and learning, and designed for digital accessibility."

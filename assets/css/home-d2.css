@@ -211,3 +211,8 @@ body.hv-d2 button,body.hv-d2 .menu-label{font-family:"Outfit",system-ui,sans-ser
 .hv-d2 .d2-dirs{padding-bottom:140px}
 .hv-d2 .d-who{margin-top:0!important;padding-top:20px;clear:both;position:relative}
 @media (max-width:700px){.hv-d2 .d2-dirs{padding-bottom:80px}}
+
+/* 5th project row: image left, text right (same as row 1) · 第 5 行 */
+.d2-dirs .dir-5 .dir-img{grid-column:1 / span 7;grid-row:1}
+.d2-dirs .dir-5 .dir-text{grid-column:9 / span 4;grid-row:1}
+@media (max-width:860px){.d2-dirs .dir-5 .dir-img,.d2-dirs .dir-5 .dir-text{grid-column:1/-1;grid-row:auto}}
