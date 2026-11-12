@@ -72,6 +72,8 @@ directions:
     image: ""             # photo for this row (empty = grey placeholder) · 这一行的图片（空着=灰色占位框）
     link: "/projects/toy-design/"
     projects:
+      - label: "Game: Kitchen Quest"
+        url: "/projects/toy-design/kitchen-quest/"
       - label: "Toy design projects"
         url: "/projects/toy-design/"
   - title: "T127 Lab"
