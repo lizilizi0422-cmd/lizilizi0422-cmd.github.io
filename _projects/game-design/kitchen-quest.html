@@ -639,9 +639,10 @@ body.preview .proj-nav{display:none!important}
 :root{--kq-spring:cubic-bezier(.34,1.56,.64,1);--kq-blue-2:#57B0F0;--kq-blue-3:#8FCBF6;--kq-blue-ink:#0E6FC4}
 
 /* section headings: ">" in brand blue, nudges on hover; blue shine sweeps across the words */
-.main .h-sec .mk{display:inline-block;transition:transform .45s var(--kq-spring),color .4s ease}
+.main .h-sec{display:block}
+.main .h-sec .mk{display:inline-block;margin-right:.08em;transition:transform .45s var(--kq-spring),color .4s ease}
 .main .h-sec:hover .mk{transform:translateX(6px) scale(1.12)}
-.main .h-sec .kq-w{display:inline-block;white-space:pre;transition:color .35s ease,transform .45s var(--kq-spring)}
+.main .h-sec .kq-w{display:inline-block;transition:color .35s ease,transform .45s var(--kq-spring)}
 .main .h-sec:hover .kq-w{color:var(--kq-blue)}
 .main .h-sec:hover .kq-w:nth-of-type(2n){transform:translateY(-2px)}
 .main .h-sec .kq-w{transition-delay:calc(var(--i,0) * 35ms)}
