@@ -107,6 +107,7 @@ h1 small{display:block;font-family:Nunito;font-size:.5em;color:#B08A78;font-weig
 @keyframes propIn{from{transform:translate(-50%,10%) scale(.2);opacity:0}}
 .prop .pic{width:110px;background:#fff;border:3px solid var(--ink);border-radius:6px;padding:6px;transform:rotate(-6deg);box-shadow:0 4px 10px rgba(0,0,0,.15)}.prop .pic img{width:100%;display:block}
 #rotate{display:grid}}
+#nextBtn{position:absolute;right:26px;bottom:34px;z-index:6;border:2.5px solid var(--ink);background:#E0473C;color:#fff;font:900 17px Nunito;padding:12px 16px;border-radius:999px;cursor:pointer;box-shadow:0 4px 0 var(--ink);display:flex;gap:6px;align-items:center;animation:nbIn .35s cubic-bezier(.3,1.6,.5,1),nbPulse 1.6s 1s ease-in-out infinite}#nextBtn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}@keyframes nbIn{from{opacity:0;transform:translateX(30px)}}@keyframes nbPulse{50%{transform:translateX(5px)}}
 </style></head>
 <body>
 <div id="rotate"><div><div style="font-size:54px">📱↻</div>Turn your phone sideways to read the diary.<br><span style="font-weight:600">请把手机横过来</span></div></div><div id="stage"><div class="book"><div class="ribbon"></div><div class="page" id="page"></div></div></div>
@@ -172,7 +173,7 @@ function place(pid,i,el,to){if(busy)return;busy=true;const s0=S.pages[pid].stick
   const sl=to?document.querySelector(`.slot[data-to="${to}"]`):$('#slot');document.querySelectorAll('.slot').forEach(x=>{x.classList.add('filled');x.textContent=''});SFX.pop();burst(parseFloat(sl.style.left),parseFloat(sl.style.top)-6);
   showBubble(S.pages[pid].slot,s.say[0],s.say[1]);const lb=[...$('#panel').querySelectorAll('.bubble')].pop();lb&&lb.classList.add('landed');
   let t=700;s.react.forEach(([w,st,en,zh,pr])=>{setTimeout(()=>{setState(w,st);if(en){const n=en.startsWith('(note)');showBubble(w,n?en.slice(7):en,zh,{note:n})}if(pr)prop(w,pr)},t);t+=en?1100:(pr?800:350)});
-  setTimeout(function nx(){if(document.querySelector('.wcard'))return setTimeout(nx,400);go(s.next)},t+1500)}
+  setTimeout(()=>{busy=false;const nb=document.createElement('button');nb.id='nextBtn';nb.innerHTML='Next<span>→</span>';nb.onclick=e=>{e.stopPropagation();nb.remove();go(s.next)};$('#page').appendChild(nb)},t+400)}
 function renderEnd(id){const E=S.endings[id];got.add(id);localStorage.setItem('cd_l1',JSON.stringify([...got]));busy=false;
   const line=curLine,hall=Object.keys(S.pages).find(k=>S.pages[k].line===line);
   const you=path.filter(l=>l&&l[0]&&l[0]!=='…');const they=heard||(line&&S.fallback[line]?[...S.fallback[line],'pia']:null);
