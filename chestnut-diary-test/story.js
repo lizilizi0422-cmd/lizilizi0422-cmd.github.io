@@ -109,7 +109,7 @@ function resolve(state,who,card){
     if(card==="look"){up(s,"ollie");say("ollie",null,"happy",{act:"掏出手机给你看他的游戏，说个不停",prop:"🎮"});set.push("games")}
     else if(card==="metoo"){
       if(pre.games){fr(s,"ollie");say("ollie","No way! Lunch, we play.","wave")}
-      else{up(s,"ollie");say("ollie","Me too! …Wait, what are we talking about?","confused")}
+      else{say("ollie","Me too! …Wait, what are we talking about?","confused")}
     }else if(card==="cute"){
       up(s,"ollie");
       if(pre.drawing)say("ollie","**Bro**, that's **sick**.","happy");
