@@ -1,5 +1,26 @@
+// Word cards. Level 1 v4 additions (highkey, save me a seat, bro, not now, lowkey) by dr eggbot 2026-11-24.
 // Word cards. Text by dr eggbot (2026-11-24); obsessed with / doodle / honestly / wait, really kept from v1.
 window.GLOSS={
+"highkey": [
+"超级、毫不掩饰地，跟 lowkey 相反",
+"Highkey my favorite.",
+"大方表达你很喜欢"
+],
+"save me a seat": [
+"帮我占个位子",
+"",
+"午饭、上课、看演出前对朋友说"
+],
+"bro": [
+"兄弟、哥们儿，朋友之间的称呼，不分男女都会说",
+"Bro, that's sick.",
+"只对熟人用"
+],
+"not now": [
+"现在不行",
+"",
+"不想被打扰的时候说，语气比较冷"
+],
 "no way": [
 "不会吧、真的假的",
 "No way, you like that game too?",
@@ -76,8 +97,8 @@ window.GLOSS={
 "聊游戏、电影或故事"
 ],
 "lowkey": [
-"悄悄地、有点、不张扬地",
-"I lowkey like this song.",
+"有点、悄悄地，不张扬",
+"Lowkey, this is so cute.",
 "说一件你有点不好意思承认的事"
 ],
 "stuck in my head": [
