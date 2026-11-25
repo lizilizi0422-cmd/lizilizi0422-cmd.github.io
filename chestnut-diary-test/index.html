@@ -121,7 +121,7 @@ confused:()=>{tone(500,380,.18,'sine',.14);tone(420,330,.22,'sine',.12,.16)},ner
 flip:()=>{try{AC=AC||new AudioContext();const b=AC.createBuffer(1,AC.sampleRate*.25,AC.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,2);const s=AC.createBufferSource(),f=AC.createBiquadFilter(),g=AC.createGain();f.type='bandpass';f.frequency.value=1800;g.gain.value=.25;s.buffer=b;s.connect(f).connect(g).connect(AC.destination);s.start()}catch(e){}}};
 const gkey=w=>w.toLowerCase().replace(/[.!?…]+$/,'').replace(/^i feel that$/,'feel that').trim();
 function wordCard(w,ev){ev&&ev.stopPropagation();const g=(window.GLOSS||{})[gkey(w)];if(!g)return;document.querySelectorAll('.wcard').forEach(x=>x.remove());SFX.pop();
-  const c=document.createElement('div');c.className='wcard';c.innerHTML=`<button class="x">×</button><div class="w">${w}</div><div class="m">${g[0]}</div><div class="r"><i>例句</i>${g[1]}</div><div class="r"><i>什么时候说</i>${g[2]}</div>`;
+  const c=document.createElement('div');c.className='wcard';c.innerHTML=`<button class="x">×</button><div class="w">${w}</div><div class="m">${g[0]}</div>${g[1]?`<div class="r"><i>例句</i>${g[1]}</div>`:''}<div class="r"><i>什么时候说</i>${g[2]}</div>`;
   document.body.appendChild(c);c.querySelector('.x').onclick=()=>c.remove();setTimeout(()=>document.addEventListener('pointerdown',function f(e){if(!c.contains(e.target)){c.remove();document.removeEventListener('pointerdown',f,true)}},true),50)}
 document.addEventListener('click',e=>{const k=e.target.closest('.k');if(k&&!e.target.closest('.ghost'))wordCard(k.textContent,e)},true);
 const md=t=>(t||'').replace(/\*\*(.+?)\*\*/g,'<b class="k">$1</b>');
