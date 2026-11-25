@@ -1,0 +1,884 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:,"><title>Chestnut's Diary · Level 1 (8-Page Prototype)</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;1,500&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cover:#F6A96B;--cover-edge:#E8775A;--paper:#FFFBF1;--paper-edge:#F3E7CF;
+  --ink:#3B2A22;--rose:#E06A4E;--gold:#F4B73E;--muted:#9A8678;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:#FCEBD6;font-family:Nunito,system-ui,sans-serif;color:var(--ink);overflow:hidden;user-select:none}
+#stage{position:fixed;inset:0;display:grid;place-items:center}
+.book{position:relative;width:min(96vw,1120px);aspect-ratio:16/10.4;max-height:96vh;background:var(--cover);border-radius:18px;padding:18px;box-shadow:0 14px 30px rgba(150,80,30,.25),inset 0 0 0 4px var(--cover-edge)}
+.book::before,.book::after{content:"";position:absolute;width:34px;height:34px;background:#FFD98A;border:3px solid var(--cover-edge)}
+.book::before{top:-3px;left:-3px;border-radius:16px 0 14px 0}.book::after{bottom:-3px;right:-3px;border-radius:14px 0 16px 0}
+.ribbon{position:absolute;top:0;right:88px;width:22px;height:52px;background:#EF5D5D;clip-path:polygon(0 0,100% 0,100% 100%,50% 82%,0 100%);z-index:5;pointer-events:none}
+.page{position:absolute;inset:18px;background:var(--paper);border-radius:8px;box-shadow:inset 0 0 40px var(--paper-edge);display:flex;flex-direction:column;padding:16px 32px 12px;overflow:hidden;transform-origin:left center}
+.page.flip-out{animation:flipOut .45s ease-in forwards}.page.flip-in{animation:flipIn .45s ease-out}
+@keyframes flipOut{to{transform:perspective(1600px) rotateY(-75deg);opacity:0}}
+@keyframes flipIn{from{transform:perspective(1600px) rotateY(60deg);opacity:0}to{transform:none;opacity:1}}
+
+/* Top task bar */
+.top{display:flex;align-items:center;gap:10px;min-height:42px;z-index:8}
+.dots{display:flex;gap:6px;flex:none}
+.dot{width:14px;height:14px;border-radius:50%;border:2.5px solid var(--rose);background:transparent}
+.dot.past{background:#F7C3B6;border-color:var(--rose)}
+.dot.now{background:var(--rose);box-shadow:0 0 0 3px rgba(224,106,78,.22)}
+.task{flex:1;margin:0;font-family:Fraunces,serif;font-weight:600;font-size:clamp(18px,2.2vw,26px);color:var(--rose);cursor:pointer;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.task .zh{display:none;font-family:Nunito,sans-serif;font-size:.56em;color:#8A6A58;font-weight:700;margin-left:8px}
+.task.showzh .zh{display:inline}
+.icons{display:flex;gap:8px;flex:none}
+.icons button{width:36px;height:36px;border-radius:50%;border:2px solid #E7D3B5;background:#fff;font:800 15px Nunito;color:#8A6A58;cursor:pointer}
+.icons button:hover{border-color:var(--gold);color:var(--ink)}
+
+/* Middle scene */
+.panel{position:relative;flex:1;margin:8px 0;border:3px solid var(--ink);border-radius:14px;overflow:hidden;background:#FFF7EA;min-height:0}
+.panel .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 38%;pointer-events:none;transition:transform .5s ease}
+.panel.zoom-pia .bg{transform:scale(1.18) translate(10%,4%)}
+.panel.zoom-ollie .bg{transform:scale(1.18) translate(-2%,4%)}
+.panel.zoom-benny .bg{transform:scale(1.18) translate(-12%,4%)}
+
+/* Groups & characters */
+.grp{position:absolute;bottom:2%;width:29%;height:86%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;transition:filter .3s,opacity .3s}
+.grp.p1-pia{left:18%}.grp.p1-ollie{left:50%}.grp.p1-benny{left:82%}
+.grp .stage-chars{position:relative;display:flex;align-items:flex-end;justify-content:center;width:100%;height:60%}
+.grp .ch{position:relative;width:54%;max-width:168px;transition:transform .25s}
+.grp .ch img,.grp .ch svg{width:100%;display:block;pointer-events:none}
+.grp .ch.mate{width:46%;max-width:142px;margin-left:-16%;margin-bottom:2%;filter:saturate(.55)}
+.grp .ch.hop{animation:hop .38s ease}
+@keyframes hop{40%{transform:translateY(-14px)}}
+
+/* Interactive glow + gentle bounce vs dimmed unclickable */
+.interactive{cursor:pointer;pointer-events:auto}
+.interactive.glow-bounce .stage-chars{animation:charBounce 1.8s ease-in-out infinite}
+.interactive.glow-bounce .ch img,.interactive.glow-bounce .ch svg,.interactive.glow-bounce .drop-ring{
+  filter:drop-shadow(0 0 10px rgba(244,183,62,.85)) drop-shadow(0 0 3px rgba(224,106,78,.55));
+}
+@keyframes charBounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-7px)}
+}
+.dimmed{filter:grayscale(.82) opacity(.42)!important;pointer-events:none!important;animation:none!important}
+.unclickable{pointer-events:none}
+
+/* Heard group subtle highlight (still clickable to re-read) */
+.grp.heard{cursor:pointer}
+.grp.heard .ch img,.grp.heard .ch svg{filter:drop-shadow(0 0 6px rgba(244,183,62,.45))}
+.grp.active-focus .ch img,.grp.active-focus .ch svg{filter:drop-shadow(0 0 12px rgba(244,183,62,.95))}
+
+/* Topic label above group */
+.topic-pill{
+  position:absolute;top:2%;left:50%;transform:translateX(-50%) scale(.9);
+  background:#FFF9E2;border:3px solid var(--ink);border-radius:999px;
+  padding:5px 14px;display:flex;align-items:center;gap:6px;white-space:nowrap;
+  box-shadow:0 4px 0 var(--ink),0 0 14px rgba(244,183,62,.45);
+  font:900 clamp(13px,1.5vw,18px) Nunito;color:var(--ink);z-index:7;
+  animation:popIn .32s cubic-bezier(.3,1.6,.5,1) forwards;cursor:pointer
+}
+.topic-pill .ti{font-size:1.25em;line-height:1}
+.topic-pill .tz{display:none;font-size:.78em;font-weight:700;color:#8A6A58;margin-left:2px}
+.topic-pill.showzh .tz{display:inline}
+@keyframes popIn{from{opacity:0;transform:translateX(-50%) scale(.5)}to{opacity:1;transform:translateX(-50%) scale(1)}}
+
+/* Speech bubbles inside panel */
+.bbl{
+  position:absolute;z-index:6;background:#fff;border:2.5px solid var(--ink);border-radius:16px;
+  padding:7px 12px;font-size:clamp(12px,1.35vw,16px);font-weight:800;line-height:1.28;
+  max-width:94%;width:max-content;box-shadow:0 3px 0 rgba(59,42,34,.15);
+  animation:bblIn .28s cubic-bezier(.3,1.6,.5,1);cursor:pointer
+}
+@keyframes bblIn{from{transform:scale(.6);opacity:0}}
+.bbl::after{content:"";position:absolute;bottom:-9px;width:12px;height:12px;background:inherit;border-right:2.5px solid var(--ink);border-bottom:2.5px solid var(--ink);transform:rotate(45deg)}
+.bbl.b1{left:4%;top:19%}.bbl.b1::after{left:22%}
+.bbl.b2{right:2%;top:35%}.bbl.b2::after{right:22%}
+.bbl.me{left:6%;top:18%;max-width:38%;background:#FFFDF5}.bbl.me::after{left:26%}
+.bbl.they{right:6%;top:27%;max-width:42%}.bbl.they::after{right:24%}
+.bbl.warn{background:#FFF3EC;border-color:var(--rose)}.bbl.warn::after{background:#FFF3EC;border-color:var(--rose)}
+.bbl .who-tag{display:block;font-size:10.5px;font-weight:900;color:var(--rose);text-transform:uppercase;letter-spacing:.04em;margin-bottom:1px}
+.bbl .zh{display:none;font-weight:700;font-size:.82em;color:#8A6A58;margin-top:2px}
+.bbl.showzh .zh{display:block}
+
+/* Sketchbook prop for Benny */
+.sketchbook{
+  position:absolute;left:50%;top:20%;transform:translateX(-50%) rotate(-3deg);
+  background:#fff;border:3px solid var(--ink);border-radius:10px;padding:7px 10px 6px;
+  box-shadow:4px 4px 0 rgba(59,42,34,.18);display:flex;flex-direction:column;align-items:center;gap:3px;
+  z-index:6;animation:bblIn .32s cubic-bezier(.3,1.6,.5,1);cursor:pointer
+}
+.sketchbook .spiral{width:76%;height:6px;border-bottom:2.5px dashed #B08A78;margin-bottom:2px}
+.sketchbook .hero-wrap{position:relative;width:62px;height:52px;display:grid;place-items:center}
+.sketchbook .cape{position:absolute;width:54px;height:36px;background:#EF5D5D;border:2px solid var(--ink);border-radius:6px 14px 10px 6px;transform:rotate(-12deg) translate(-6px,6px);z-index:0}
+.sketchbook img{position:relative;width:48px;z-index:1;pointer-events:none}
+.sketchbook .cap-txt{font:800 11.5px Nunito;color:var(--ink);white-space:nowrap}
+.sketchbook .zh{display:none;font:700 11px Nunito;color:#8A6A58}
+.sketchbook.showzh .zh{display:block}
+
+/* P2 drop zones */
+.drop-ring{
+  position:absolute;bottom:6%;left:50%;transform:translateX(-50%);
+  width:74px;height:74px;border-radius:50%;border:3px dashed var(--gold);
+  background:rgba(255,249,226,.9);display:grid;place-items:center;font-size:26px;
+  box-shadow:0 0 0 5px rgba(244,183,62,.22);z-index:5;
+  animation:ringPulse 1.6s ease-in-out infinite;pointer-events:none
+}
+@keyframes ringPulse{50%{transform:translateX(-50%) scale(1.08);box-shadow:0 0 0 10px rgba(244,183,62,.35)}}
+.grp.hot .drop-ring{background:#FFE7A8;border-style:solid;transform:translateX(-50%) scale(1.16);box-shadow:0 0 0 10px rgba(244,183,62,.55)}
+.p2-chestnut{position:relative;width:48%;max-width:148px;margin-right:-10%;animation:landPop .35s cubic-bezier(.3,1.6,.5,1);pointer-events:none}
+.p2-chestnut img{width:100%;display:block}
+@keyframes landPop{from{transform:scale(.5) translateY(-20px);opacity:0}50%{transform:scale(1.12,.9)}to{transform:none;opacity:1}}
+
+/* P3 focused stage */
+.p3-stage{position:absolute;inset:0}
+.p3-me{position:absolute;left:25%;bottom:2%;width:24%;max-width:190px;transform:translateX(-50%);pointer-events:none;transition:transform .3s}
+.p3-me img{width:100%;display:block}
+.p3-they{position:absolute;left:69%;bottom:2%;width:42%;height:88%;transform:translateX(-50%);display:flex;align-items:flex-end;justify-content:center;pointer-events:none}
+.p3-they .ch{position:relative;width:50%;max-width:190px}
+.p3-they .ch img,.p3-they .ch svg{width:100%;display:block}
+.p3-they .ch.mate{width:42%;max-width:155px;margin-left:-12%;margin-bottom:2%;filter:saturate(.6)}
+.p3-they .ch.hop img,.p3-they .ch.hop svg{animation:hop .38s ease}
+.p3-they.turned .ch{transform:scaleX(-1)}
+.p3-they.turned .ch.turned-keep{transform:none}
+
+/* 💬 Timing beacon above Chestnut on P3 */
+.beacon{
+  position:absolute;left:25%;top:14%;transform:translateX(-50%);
+  padding:8px 16px;border-radius:999px;border:3px dashed #C7B299;
+  background:rgba(255,255,255,.78);font:900 18px Nunito;color:#9A8678;
+  display:flex;align-items:center;gap:6px;z-index:7;transition:all .2s;pointer-events:none
+}
+.beacon .say-now{display:none;font-size:13px;color:var(--ink)}
+.beacon.pause-on{
+  border:3px solid var(--ink);background:#FFE7A8;color:var(--ink);
+  box-shadow:0 0 0 8px rgba(244,183,62,.45),0 4px 0 var(--ink);
+  animation:beaconBounce 1s ease-in-out infinite
+}
+.beacon.hidden{display:none}
+.beacon.pause-on .say-now{display:inline}
+@keyframes beaconBounce{50%{transform:translateX(-50%) translateY(-6px) scale(1.05)}}
+
+.p3-topic-badge{
+  position:absolute;right:14px;top:12px;z-index:7;
+  background:#FFF9E2;border:2.5px solid var(--ink);border-radius:999px;
+  padding:4px 12px;font:900 13px Nunito;display:flex;align-items:center;gap:5px;
+  box-shadow:0 2px 0 var(--ink)
+}
+.act-note{
+  position:absolute;left:69%;top:12%;transform:translateX(-50%);z-index:7;
+  background:#FFF6B8;border:2.5px solid var(--ink);border-radius:8px;
+  padding:5px 12px;font:800 clamp(12px,1.3vw,15px) Nunito;color:var(--ink);
+  box-shadow:3px 3px 0 rgba(59,42,34,.15);white-space:nowrap;max-width:86%;
+  animation:bblIn .28s ease;cursor:pointer
+}
+.act-note .zh{display:none;font-weight:700;font-size:.86em;color:#8A6A58;margin-left:6px}
+.act-note.showzh .zh{display:inline}
+
+.retry-toast{
+  position:absolute;left:50%;bottom:8%;transform:translateX(-50%);z-index:9;
+  background:#FFF3EC;border:2.5px solid var(--rose);border-radius:999px;
+  padding:5px 14px;font:800 13px Nunito;color:var(--rose);white-space:nowrap;
+  box-shadow:0 4px 10px rgba(0,0,0,.12);animation:bblIn .25s ease
+}
+.drawing-anim{
+  position:absolute;left:54%;bottom:24%;z-index:6;font-size:26px;
+  animation:scribble .55s ease-in-out infinite alternate;pointer-events:none
+}
+@keyframes scribble{from{transform:translate(-5px,0) rotate(-14deg)}to{transform:translate(8px,-4px) rotate(6deg)}}
+
+/* Bottom tray (MAX 3 items) */
+.tray{display:flex;justify-content:center;align-items:center;gap:14px;min-height:80px;padding:2px 110px 2px 16px;position:relative;z-index:7}
+.tray-hint{font:700 14px Nunito;color:#B08A78}
+.sticker{cursor:pointer;touch-action:none;transition:transform .15s,opacity .2s;display:flex;flex-direction:column;align-items:center;gap:3px}
+.sticker.glow-card .t,.sticker.glow-card .s{animation:cardBounce 1.8s ease-in-out infinite}
+@keyframes cardBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.sticker.glow-card .t,.sticker.glow-card .s{box-shadow:0 0 0 4px #fff,0 0 14px rgba(244,183,62,.75),0 3px 8px rgba(0,0,0,.12)}
+.sticker .t{width:78px;height:68px;border:3px solid var(--ink);border-radius:16px;background:#fff;display:grid;place-items:center}
+.sticker .t img{max-width:74%;max-height:78%;pointer-events:none}
+.sticker .lbl{font:800 13px Nunito;color:var(--ink)}
+.sticker .s{max-width:290px;background:#fff;border:2.5px solid var(--ink);border-radius:16px;padding:9px 14px;font:800 clamp(12.5px,1.3vw,15px) Nunito;line-height:1.28;text-align:center}
+.sticker .s .zh{display:none;font-weight:700;font-size:.82em;color:#8A6A58;margin-top:2px}
+.sticker.showzh .s .zh{display:block}
+.sticker.locked{opacity:.42;pointer-events:none;animation:none}
+
+/* P4 Diary line strip in tray area */
+.diary-strip{
+  display:flex;align-items:center;gap:12px;background:#FFFDF5;
+  border:2.5px solid var(--ink);border-left:8px solid var(--rose);border-radius:12px;
+  padding:10px 20px;box-shadow:0 4px 0 rgba(59,42,34,.12);cursor:pointer;
+  animation:bblIn .4s cubic-bezier(.3,1.6,.5,1)
+}
+.diary-strip .pen{font-size:24px}
+.diary-strip .dtxt{font-family:Fraunces,serif;font-size:clamp(17px,2vw,23px);font-weight:600;color:var(--ink)}
+.diary-strip .zh{display:none;font-family:Nunito,sans-serif;font-size:13px;font-weight:700;color:#8A6A58;margin-left:8px}
+.diary-strip.showzh .zh{display:inline}
+
+/* Red words & wordCard */
+.k{color:#E0473C;font-weight:900;cursor:pointer;text-decoration:underline dotted 2px;text-underline-offset:3px}
+.wcard{position:fixed;left:50%;top:50%;z-index:80;width:min(340px,88vw);background:#fff;border:3px solid var(--ink);border-radius:18px;padding:16px 18px 14px;box-shadow:0 0 0 6px #fff,0 14px 34px rgba(0,0,0,.25);transform:translate(-50%,-50%);animation:cardIn .32s cubic-bezier(.3,1.6,.5,1);text-align:left}
+@keyframes cardIn{from{transform:translate(-50%,-30%) scale(.6) rotate(-6deg);opacity:0}}
+.wcard .w{font:900 24px Nunito;color:#E0473C}.wcard .m{font-weight:800;font-size:16px;margin:4px 0 10px;color:var(--ink)}
+.wcard .r{font-size:14px;color:#3B2A22;margin-top:6px}.wcard .r i{display:block;font-style:normal;font-size:11px;font-weight:800;color:#C0795A;letter-spacing:.06em}
+.wcard .x{position:absolute;right:10px;top:6px;border:none;background:none;font-size:22px;cursor:pointer;color:#B08A78}
+
+/* Ghost, burst, idle hand, nextBtn */
+.ghost{position:fixed;z-index:50;pointer-events:none;transform:translate(-50%,-50%) scale(1.08) rotate(-4deg);filter:drop-shadow(0 10px 10px rgba(0,0,0,.22))}
+.burst{position:absolute;pointer-events:none;z-index:8}
+.burst i{position:absolute;width:4px;height:14px;background:var(--gold);border-radius:3px;animation:ray .45s ease-out forwards}
+@keyframes ray{from{opacity:1;transform:rotate(var(--r)) translateY(-10px)}to{opacity:0;transform:rotate(var(--r)) translateY(-38px)}}
+.hand{position:fixed;z-index:60;font-size:40px;opacity:.85;pointer-events:none;transition:all .95s ease-in-out;filter:drop-shadow(0 3px 4px rgba(0,0,0,.25))}
+
+#nextBtn{
+  position:absolute;right:24px;bottom:22px;z-index:10;
+  border:2.5px solid var(--ink);background:#E0473C;color:#fff;
+  font:900 17px Nunito;padding:11px 18px;border-radius:999px;cursor:pointer;
+  box-shadow:0 4px 0 var(--ink);display:flex;gap:6px;align-items:center;
+  animation:nbIn .35s cubic-bezier(.3,1.6,.5,1),nbPulse 1.6s 1s ease-in-out infinite
+}
+#nextBtn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
+@keyframes nbIn{from{opacity:0;transform:translateX(26px)}}
+@keyframes nbPulse{50%{transform:translateX(5px)}}
+
+/* End card */
+.end{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:8px 12px}
+.end .crew{display:flex;align-items:flex-end;gap:10px}.end .crew img{width:clamp(76px,10vw,120px)}
+.stamp{font-family:Fraunces,serif;font-size:clamp(22px,3vw,34px);font-weight:600;color:var(--rose);border:3px double var(--rose);padding:8px 24px;border-radius:12px;background:#FFFDF5;animation:stampIn .4s cubic-bezier(.3,1.6,.5,1)}
+@keyframes stampIn{from{transform:scale(1.4) rotate(-4deg);opacity:0}}
+.end .sub{font:800 14px Nunito;color:#8A6A58}
+.end .vg{background:#fff;border:2px solid #E9D8C4;border-radius:14px;padding:8px 12px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:680px}
+.end .vw{border:1.5px solid #F1D9C9;background:#FFF8F1;border-radius:10px;padding:4px 10px;cursor:pointer;font:700 13px Nunito;color:#3B2A22}
+.end .vw b{color:#E0473C}.end .vw:hover{border-color:var(--gold)}
+.endbtns button{border:2.5px solid var(--ink);background:#fff;border-radius:999px;padding:9px 20px;font:900 15px Nunito;color:var(--ink);cursor:pointer;box-shadow:0 3px 0 var(--ink)}
+.endbtns button:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+
+#rotate{display:none;position:fixed;inset:0;z-index:99;background:#FCEBD6;place-items:center;text-align:center;font:800 18px Nunito;color:#8A6A58;padding:30px}
+@media (orientation:portrait) and (max-width:700px){#rotate{display:grid}}
+
+/* Compact landscape mobile (844x390) */
+@media (max-height:560px){
+  .book{padding:10px;border-radius:14px}
+  .page{inset:10px;padding:8px 16px 6px}
+  .ribbon{display:none}
+  .top{min-height:30px;gap:8px}
+  .dot{width:10px;height:10px;border-width:2px}
+  .task{font-size:16px}
+  .icons button{width:28px;height:28px;font-size:13px}
+  .panel{margin:5px 0;border-width:2.5px}
+  .topic-pill{font-size:11.5px;padding:3px 9px;border-width:2px;box-shadow:0 2px 0 var(--ink)}
+  .bbl{font-size:11px;padding:4px 8px;border-width:2px;border-radius:11px}
+  .bbl.b1{top:20%}.bbl.b2{top:39%}
+  .sketchbook{top:20%;padding:4px 7px}.sketchbook .hero-wrap{width:40px;height:34px}.sketchbook img{width:32px}.sketchbook .cape{width:36px;height:24px}.sketchbook .cap-txt{font-size:9.5px}
+  .drop-ring{width:46px;height:46px;font-size:18px;border-width:2.5px}
+  .beacon{top:10%;padding:4px 10px;font-size:13px;border-width:2px}.beacon .say-now{font-size:11px}
+  .act-note{font-size:11px;padding:3px 9px;border-width:2px;top:11%}
+  .retry-toast{font-size:10.5px;padding:3px 10px;border-width:2px}
+  .tray{min-height:48px;gap:8px;padding:1px 92px 1px 10px}
+  .tray-hint{font-size:11.5px}
+  .sticker .t{width:46px;height:40px;border-radius:11px;border-width:2px}
+  .sticker .lbl{font-size:10.5px}
+  .sticker .s{font-size:11px;padding:5px 9px;border-width:2px;border-radius:11px;max-width:210px}
+  .diary-strip{padding:5px 12px;border-width:2px;border-left-width:6px}.diary-strip .pen{font-size:16px}.diary-strip .dtxt{font-size:14px}
+  #nextBtn{right:12px;bottom:10px;font-size:13px;padding:7px 12px;border-width:2px;box-shadow:0 3px 0 var(--ink)}
+  .end{gap:6px}.end .crew img{width:56px}.stamp{font-size:18px;padding:5px 14px}.end .sub{font-size:11.5px}.end .vg{padding:5px 8px}.end .vw{font-size:11px;padding:2px 7px}.endbtns button{font-size:12px;padding:6px 14px}
+}
+</style></head>
+<body>
+<div id="rotate"><div><div style="font-size:54px">📱↻</div>Turn your phone sideways to read the diary.<br><span style="font-weight:600">请把手机横过来</span></div></div>
+<div id="stage"><div class="book"><div class="ribbon"></div><div class="page" id="page"></div></div></div>
+<script src="story.js"></script><script src="gloss.js"></script>
+<script>
+const S=window.STORY8, $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+
+// ---------- sound (WebAudio, after user tap). No voice. ----------
+let AC;
+function tone(f1,f2,d,type='sine',vol=.18,delay=0){
+  try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const t=AC.currentTime+delay,o=AC.createOscillator(),g=AC.createGain();
+    o.type=type;o.frequency.setValueAtTime(f1,t);o.frequency.exponentialRampToValueAtTime(f2,t+d);
+    g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g).connect(AC.destination);o.start(t);o.stop(t+d)}catch(e){}
+}
+const SFX={
+  pop:()=>tone(520,180,.12,'triangle',.22),
+  happy:()=>{tone(660,660,.12,'sine',.15);tone(880,880,.18,'sine',.15,.1)},
+  confused:()=>{tone(500,380,.18,'sine',.14);tone(420,330,.22,'sine',.12,.16)},
+  nervous:()=>tone(300,260,.25,'triangle',.12),
+  levelup:()=>{tone(660,660,.1,'sine',.13);tone(880,880,.1,'sine',.13,.09);tone(1175,1175,.18,'sine',.13,.18)},
+  flip:()=>{try{AC=AC||new AudioContext();const b=AC.createBuffer(1,AC.sampleRate*.22,AC.sampleRate),d=b.getChannelData(0);
+    for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,2);
+    const s=AC.createBufferSource(),f=AC.createBiquadFilter(),g=AC.createGain();
+    f.type='bandpass';f.frequency.value=1800;g.gain.value=.22;s.buffer=b;s.connect(f).connect(g).connect(AC.destination);s.start()}catch(e){}}
+};
+
+// ---------- word cards & helpers ----------
+const gkey=w=>w.toLowerCase().replace(/[.!?…]+$/,'').replace(/^i feel that$/,'feel that').trim();
+function wordCard(w,ev){
+  ev&&ev.stopPropagation();
+  const g=(window.GLOSS||{})[gkey(w)];if(!g)return;
+  $$('.wcard').forEach(x=>x.remove());SFX.pop();
+  p3PausedByCard=true;
+  const c=document.createElement('div');c.className='wcard';
+  c.innerHTML=`<button class="x">×</button><div class="w">${w.replace(/[.!?]+$/,'')}</div><div class="m">${g[0]}</div>${g[1]?`<div class="r"><i>例句</i>${g[1]}</div>`:''}<div class="r"><i>什么时候说</i>${g[2]}</div>`;
+  document.body.appendChild(c);
+  const close=()=>{c.remove();p3PausedByCard=false};
+  c.querySelector('.x').onclick=close;
+  setTimeout(()=>document.addEventListener('pointerdown',function f(e){if(!c.contains(e.target)){close();document.removeEventListener('pointerdown',f,true)}},true),50);
+}
+document.addEventListener('click',e=>{const k=e.target.closest('.k');if(k&&!e.target.closest('.ghost')&&!e.target.closest('#tray')){e.stopPropagation();wordCard(k.textContent,e)}},true);
+
+const md=t=>(t||'').replace(/\*\*(.+?)\*\*/g,'<b class="k">$1</b>');
+const zh=t=>S.ZH[t]||'';
+const img=(id,st='neutral')=>`assets/${id}_${st}.png`;
+function tapZh(el){
+  if(!el)return;
+  let t=null;
+  el.addEventListener('click',ev=>{
+    if(ev.target.closest('.k')&&!ev.target.closest('#tray'))return;
+    if(t){clearTimeout(t);t=null;el.classList.toggle('showzh');return}
+    t=setTimeout(()=>{t=null},260);
+  });
+}
+
+// Dimmed generic classmate SVGs for Jade & Max (keeps apple_*.png free for Ms. Apple)
+function mateSVG(who,mood='neutral'){
+  const isJade=who==='jade';
+  const fill=isJade?'#C7D8B6':'#C6C4D8';
+  const cheek=isJade?'#DFBAAD':'#D6B4BE';
+  const mouth=mood==='frown'
+    ?'<path d="M43 68 Q50 62 57 68" stroke="#3B2A22" stroke-width="3.2" fill="none" stroke-linecap="round"/>'
+    :(mood==='smile'?'<path d="M42 63 Q50 71 58 63" stroke="#3B2A22" stroke-width="3.2" fill="none" stroke-linecap="round"/>'
+    :'<line x1="44" y1="65" x2="56" y2="65" stroke="#3B2A22" stroke-width="3.2" stroke-linecap="round"/>');
+  const brows=mood==='frown'
+    ?'<line x1="34" y1="45" x2="44" y2="49" stroke="#3B2A22" stroke-width="3" stroke-linecap="round"/><line x1="66" y1="45" x2="56" y2="49" stroke="#3B2A22" stroke-width="3" stroke-linecap="round"/>'
+    :'<path d="M35 46 Q40 43 44 46" stroke="#3B2A22" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M56 46 Q60 43 65 46" stroke="#3B2A22" stroke-width="2.5" fill="none" stroke-linecap="round"/>';
+  const top=isJade
+    ?'<path d="M48 16 C48 10 56 8 60 13 C55 18 51 19 48 16 Z" fill="#9BB683" stroke="#3B2A22" stroke-width="2.8"/>'
+    :'<circle cx="50" cy="14" r="7" fill="#A4A0BE" stroke="#3B2A22" stroke-width="2.8"/>';
+  const shape=isJade
+    ?'<path d="M50 20 C36 20 26 35 23 54 C20 74 31 88 50 88 C69 88 80 74 77 54 C74 35 64 20 50 20 Z" fill="'+fill+'" stroke="#3B2A22" stroke-width="3.5"/>'
+    :'<rect x="22" y="21" width="56" height="66" rx="26" fill="'+fill+'" stroke="#3B2A22" stroke-width="3.5"/>';
+  return `<svg viewBox="0 0 100 105" aria-label="${who}">
+    <line x1="40" y1="86" x2="40" y2="101" stroke="#3B2A22" stroke-width="3.8" stroke-linecap="round"/>
+    <line x1="60" y1="86" x2="60" y2="101" stroke="#3B2A22" stroke-width="3.8" stroke-linecap="round"/>
+    ${top}${shape}${brows}
+    <circle cx="39" cy="54" r="3.4" fill="#3B2A22"/><circle cx="61" cy="54" r="3.4" fill="#3B2A22"/>
+    <circle cx="32" cy="61" r="4.2" fill="${cheek}" opacity=".6"/><circle cx="68" cy="61" r="4.2" fill="${cheek}" opacity=".6"/>
+    ${mouth}
+  </svg>`;
+}
+
+function charHTML(who,mood='neutral',cls=''){
+  if(who==='jade'||who==='max') return `<div class="ch mate ${cls}" data-who="${who}">${mateSVG(who,mood)}</div>`;
+  return `<div class="ch ${cls}" data-who="${who}"><img src="${img(who,mood)}" alt="${who}"></div>`;
+}
+
+// ---------- idle 4s hand hint ----------
+let idleTimer=null,handTimers=[],handEl=null;
+function clearIdle(){
+  if(idleTimer){clearTimeout(idleTimer);idleTimer=null}
+  handTimers.forEach(clearTimeout);handTimers=[];
+  if(handEl){handEl.remove();handEl=null}
+}
+function armIdle(fn){
+  clearIdle();
+  idleTimer=setTimeout(fn,4000);
+}
+function showTapHand(targetEl){
+  if(!targetEl)return;
+  const r=targetEl.getBoundingClientRect();
+  handEl=document.createElement('div');handEl.className='hand';handEl.textContent='👆';
+  handEl.style.left=(r.left+r.width/2-12)+'px';handEl.style.top=(r.top+r.height*0.58)+'px';
+  document.body.appendChild(handEl);
+  let n=0;
+  const bob=()=>{if(!handEl)return;handEl.style.transform=n%2?'translateY(0)':'translateY(-10px)';n++;handTimers.push(setTimeout(bob,550))};
+  bob();
+}
+function showDragHand(fromEl,toEl){
+  if(!fromEl||!toEl)return;
+  handEl=document.createElement('div');handEl.className='hand';handEl.textContent='👆';
+  document.body.appendChild(handEl);
+  const a=fromEl.getBoundingClientRect(),b=toEl.getBoundingClientRect();
+  const loop=()=>{if(!handEl)return;
+    handEl.style.transition='none';handEl.style.left=(a.left+a.width/2-12)+'px';handEl.style.top=(a.top+a.height/2)+'px';handEl.style.opacity=.85;
+    handTimers.push(setTimeout(()=>{if(!handEl)return;handEl.style.transition='all 1.05s ease-in-out';handEl.style.left=(b.left+b.width/2-12)+'px';handEl.style.top=(b.top+b.height*0.6)+'px'},260));
+    handTimers.push(setTimeout(loop,1850));
+  };loop();
+}
+
+function burstAt(panel,xPct,yPct){
+  const b=document.createElement('div');b.className='burst';b.style.left=xPct+'%';b.style.top=yPct+'%';
+  for(let i=0;i<8;i++)b.insertAdjacentHTML('beforeend',`<i style="--r:${i*45}deg"></i>`);
+  panel.appendChild(b);setTimeout(()=>b.remove(),520);
+}
+
+// ---------- game state ----------
+let pageNum=1, heard=new Set(), activeListen=null, chosen=null;
+let p3Phase='talk', p3LoopTimers=[], p3PausedByCard=false, p3Busy=false, p3Done=false, p3Success=false, p3Fails=0, p3ChoiceId=null;
+
+function stopP3Timers(){p3LoopTimers.forEach(clearTimeout);p3LoopTimers=[]}
+
+function topHTML(p){
+  const t=S.TASKS[p];
+  const dots=[1,2,3,4].map(i=>`<span class="dot ${i<p?'past':(i===p?'now':'')}"></span>`).join('');
+  return `<div class="top">
+    <div class="dots">${dots}</div>
+    <h1 class="task" id="taskBar" title="Double-tap for Chinese · 双击看中文">${t.en}<small class="zh">${t.zh}</small></h1>
+    <div class="icons"><button id="backBtn" title="Start over · 重来">↺</button></div>
+  </div>`;
+}
+
+function showNext(onClick){
+  if($('#nextBtn'))return;
+  const nb=document.createElement('button');nb.id='nextBtn';nb.innerHTML='Next <span>→</span>';
+  nb.onclick=e=>{e.stopPropagation();clearIdle();stopP3Timers();nb.remove();flipTo(onClick)};
+  $('#page').appendChild(nb);
+}
+
+function flipTo(fn){
+  clearIdle();stopP3Timers();
+  const pg=$('#page');SFX.flip();pg.classList.add('flip-out');
+  setTimeout(()=>{pg.classList.remove('flip-out');fn();pg.classList.add('flip-in');setTimeout(()=>pg.classList.remove('flip-in'),460)},430);
+}
+
+function resetAll(){
+  clearIdle();stopP3Timers();
+  pageNum=1;heard=new Set();activeListen=null;chosen=null;
+  p3Phase='talk';p3PausedByCard=false;p3Busy=false;p3Done=false;p3Success=false;p3Fails=0;p3ChoiceId=null;
+  renderP1();
+}
+
+// ==================== PAGE 1: Eavesdrop ====================
+function renderP1(){
+  pageNum=1;clearIdle();stopP3Timers();
+  $('#page').innerHTML=topHTML(1)+`
+    <div class="panel" id="panel"><img class="bg" src="assets/classroom.png" alt=""></div>
+    <div class="tray" id="tray"><span class="tray-hint">Tap any glowing group above · 点上方发光的同学</span></div>`;
+  tapZh($('#taskBar'));$('#backBtn').onclick=resetAll;
+  drawP1Groups();
+  if(heard.size>=1)showNext(renderP2);
+  const firstUnheard=$('.grp.glow-bounce');
+  if(firstUnheard)armIdle(()=>showTapHand(firstUnheard));
+}
+
+function drawP1Groups(){
+  const panel=$('#panel');
+  panel.querySelectorAll('.grp').forEach(g=>g.remove());
+  ['pia','ollie','benny'].forEach(id=>{
+    const G=S.GROUPS[id], isHeard=heard.has(id), isFocus=activeListen===id;
+    const g=document.createElement('div');
+    g.className=`grp p1-${id} interactive ${isHeard?(isFocus?'active-focus':'heard'):'glow-bounce'}`;
+    g.dataset.id=id;
+    let html='';
+    if(isHeard){
+      html+=`<div class="topic-pill"><span class="ti">${G.topicIcon}</span><span>${G.topicLabel}</span><span class="tz">${G.topicZh}</span></div>`;
+    }
+    if(isFocus){
+      if(id==='benny'){
+        html+=`<div class="sketchbook"><div class="spiral"></div>
+          <div class="hero-wrap"><div class="cape"></div><img src="assets/apple_neutral.png" alt="Apple superhero"></div>
+          <div class="cap-txt">Apple superhero</div><div class="zh">苹果超级英雄</div></div>`;
+      }else{
+        G.lines.forEach((ln,idx)=>{
+          html+=`<div class="bbl b${idx+1}"><span class="who-tag">${ln.who}</span>${md(ln.en)}<div class="zh">${zh(ln.en)}</div></div>`;
+        });
+      }
+    }
+    html+=`<div class="stage-chars">${charHTML(G.main,'neutral')}${G.friend?charHTML(G.friend,'neutral'):''}</div>`;
+    g.innerHTML=html;
+    g.onclick=e=>{
+      
+      if(e.target.closest('.bbl,.sketchbook,.topic-pill'))return;
+      clearIdle();
+      SFX.pop();
+      heard.add(id);activeListen=id;
+      drawP1Groups();
+      const ch=$(`.grp.p1-${id} .ch`);if(ch){ch.classList.add('hop')}
+      if(heard.size>=1)showNext(renderP2);
+    };
+    g.querySelectorAll('.bbl,.sketchbook,.topic-pill').forEach(tapZh);
+    panel.appendChild(g);
+  });
+}
+
+// ==================== PAGE 2: Walk over (drag Chestnut) ====================
+function renderP2(){
+  pageNum=2;clearIdle();stopP3Timers();
+  $('#page').innerHTML=topHTML(2)+`
+    <div class="panel" id="panel"><img class="bg" src="assets/classroom.png" alt=""></div>
+    <div class="tray" id="tray"></div>`;
+  tapZh($('#taskBar'));$('#backBtn').onclick=resetAll;
+  drawP2Scene();
+  if(!chosen){
+    const st=document.createElement('div');
+    st.className='sticker glow-card';st.id='chestnutSticker';
+    st.innerHTML=`<div class="t"><img src="assets/chestnut_neutral.png" alt="Chestnut"></div><div class="lbl">Chestnut</div>`;
+    enableChestnutDrag(st);
+    $('#tray').appendChild(st);
+    armIdle(()=>showDragHand(st,$(`.grp.p1-pia .drop-ring`)));
+  }else{
+    $('#tray').innerHTML=`<span class="tray-hint">Heading over to ${S.GROUPS[chosen].name} · 去找 ${S.GROUPS[chosen].name}</span>`;
+    showNext(renderP3);
+  }
+}
+
+function drawP2Scene(){
+  const panel=$('#panel');
+  panel.querySelectorAll('.grp').forEach(g=>g.remove());
+  ['pia','ollie','benny'].forEach(id=>{
+    const G=S.GROUPS[id], isChosen=chosen===id, isDimmed=chosen&&!isChosen;
+    const g=document.createElement('div');
+    g.className=`grp p1-${id} ${isDimmed?'dimmed':(isChosen?'active-focus unclickable':'interactive glow-bounce')}`;
+    g.dataset.id=id;
+    let html='';
+    if(heard.has(id)||isChosen){
+      html+=`<div class="topic-pill"><span class="ti">${G.topicIcon}</span><span>${G.topicLabel}</span></div>`;
+    }
+    if(!chosen) html+=`<div class="drop-ring">🌰</div>`;
+    html+=`<div class="stage-chars">${isChosen?`<div class="p2-chestnut"><img src="assets/chestnut_happy.png" alt="Chestnut"></div>`:''}${charHTML(G.main,isChosen?'happy':'neutral')}${G.friend?charHTML(G.friend,isChosen?'smile':'neutral'):''}</div>`;
+    g.innerHTML=html;
+    panel.appendChild(g);
+  });
+}
+
+function chooseGroup(id){
+  clearIdle();chosen=id;SFX.pop();
+  drawP2Scene();
+  const xMap={pia:18,ollie:50,benny:82};
+  burstAt($('#panel'),xMap[id],55);
+  $('#tray').innerHTML=`<span class="tray-hint">Heading over to ${S.GROUPS[id].name} · 去找 ${S.GROUPS[id].name}</span>`;
+  showNext(renderP3);
+}
+
+function enableChestnutDrag(el){
+  let g=null,sx=0,sy=0,moved=false,armedTap=false;
+  el.addEventListener('pointerdown',e=>{
+    if(chosen)return;
+    clearIdle();sx=e.clientX;sy=e.clientY;moved=false;
+    el.setPointerCapture(e.pointerId);
+    const findHit=(x,y)=>{
+      let best=null;
+      $$('.grp.interactive').forEach(grp=>{
+        const r=grp.getBoundingClientRect();
+        if(x>=r.left-12&&x<=r.right+12&&y>=r.top-10&&y<=r.bottom+20)best=grp;
+      });
+      return best;
+    };
+    const mv=ev=>{
+      if(!moved&&Math.hypot(ev.clientX-sx,ev.clientY-sy)>6){
+        moved=true;g=el.cloneNode(true);g.classList.remove('glow-card');g.classList.add('ghost');
+        document.body.appendChild(g);el.style.opacity=.25;
+      }
+      if(moved){
+        g.style.left=ev.clientX+'px';g.style.top=ev.clientY+'px';
+        $$('.grp').forEach(c=>c.classList.remove('hot'));
+        const hit=findHit(ev.clientX,ev.clientY);if(hit)hit.classList.add('hot');
+      }
+    };
+    const up=ev=>{
+      el.removeEventListener('pointermove',mv);el.removeEventListener('pointerup',up);
+      const hit=$('.grp.hot');$$('.grp').forEach(c=>c.classList.remove('hot'));
+      if(g){g.remove();g=null}
+      el.style.opacity='';
+      if(moved&&hit){chooseGroup(hit.dataset.id)}
+      else if(!moved){
+        // Helpful tap fallback: tap Chestnut then tap any group
+        armedTap=!armedTap;
+        el.style.transform=armedTap?'scale(1.08)':'';
+        $$('.grp.interactive').forEach(grp=>{
+          grp.onclick=()=>{if(!chosen)chooseGroup(grp.dataset.id)};
+        });
+      }
+    };
+    el.addEventListener('pointermove',mv);el.addEventListener('pointerup',up);
+  });
+}
+
+// ==================== PAGE 3: Timing + Say something ====================
+function renderP3(){
+  pageNum=3;clearIdle();stopP3Timers();
+  p3Phase='talk';p3PausedByCard=false;p3Busy=false;p3Done=false;p3Success=false;p3Fails=0;p3ChoiceId=null;
+  const G=S.GROUPS[chosen];
+  $('#page').innerHTML=topHTML(3)+`
+    <div class="panel zoom-${chosen}" id="panel">
+      <img class="bg" src="assets/classroom.png" alt="">
+      <div class="p3-topic-badge">${G.topicIcon} ${G.topicLabel}</div>
+      <div class="p3-stage" id="p3Stage">
+        <div class="beacon" id="beacon">💬 <span class="say-now">Now!</span></div>
+        <div class="p3-me"><img id="p3MeImg" src="assets/chestnut_neutral.png" alt="Chestnut"></div>
+        <div class="p3-they" id="p3They">${charHTML(G.main,'neutral')}${G.friend?charHTML(G.friend,'neutral'):''}</div>
+      </div>
+    </div>
+    <div class="tray" id="tray"></div>`;
+  tapZh($('#taskBar'));$('#backBtn').onclick=resetAll;
+
+  // Build 3 stickers in tray (max 3!)
+  const tray=$('#tray');
+  G.stickers.forEach(st=>{
+    const d=document.createElement('div');
+    d.className='sticker glow-card';d.dataset.id=st.id;
+    d.innerHTML=`<div class="s">${md(st.en)}<div class="zh">${zh(st.en)}</div></div>`;
+    enableStickerAction(d,st);
+    tray.appendChild(d);
+  });
+
+  startP3Loop();
+}
+
+function setBeacon(isPause,hide=false){
+  p3Phase=isPause?'pause':'talk';
+  const b=$('#beacon');if(!b)return;
+  b.classList.toggle('hidden',hide);
+  b.classList.toggle('pause-on',isPause);
+}
+
+function clearP3Popups(){
+  $$('#p3Stage .bbl, #p3Stage .act-note, #p3Stage .drawing-anim, #p3Stage .retry-toast, #p3Stage .sketchbook').forEach(x=>x.remove());
+}
+
+function setTheyMood(mainMood,mateMood='neutral',turned=false){
+  const G=S.GROUPS[chosen], they=$('#p3They');if(!they)return;
+  they.classList.toggle('turned',turned);
+  they.innerHTML=charHTML(G.main,mainMood)+(G.friend?charHTML(G.friend,mateMood):'');
+}
+
+function startP3Loop(){
+  stopP3Timers();
+  if(p3Done||p3Busy)return;
+  const G=S.GROUPS[chosen];
+
+  const runCycle=()=>{
+    if(p3Done||p3Busy)return;
+    if(p3PausedByCard){p3LoopTimers.push(setTimeout(runCycle,350));return}
+    clearP3Popups();
+    setTheyMood('neutral','neutral',false);
+    setBeacon(false);
+
+    if(chosen==='benny'){
+      // Benny drawing phase -> then pause (stops and looks at drawing)
+      $('#p3Stage').insertAdjacentHTML('beforeend',`<div class="drawing-anim">✏️</div>`);
+      p3LoopTimers.push(setTimeout(()=>{
+        if(p3Done||p3Busy)return;
+        if(p3PausedByCard){p3LoopTimers.push(setTimeout(runCycle,400));return}
+        clearP3Popups();
+        $('#p3Stage').insertAdjacentHTML('beforeend',`<div class="sketchbook" style="left:69%;top:18%"><div class="spiral"></div><div class="hero-wrap"><div class="cape"></div><img src="assets/apple_neutral.png" alt="Apple superhero"></div><div class="cap-txt">Apple superhero</div></div>`);
+        setBeacon(true);
+        armIdle(()=>{const first=$('#tray .sticker');if(first&&!p3Done)showTapHand(first)});
+        p3LoopTimers.push(setTimeout(()=>{clearIdle();runCycle()},2600));
+      },2200));
+    }else{
+      // Pia or Ollie: line 1 -> line 2 -> pause
+      const l1=G.lines[0], l2=G.lines[1];
+      const addLine=(ln,cls)=>{
+        const b=document.createElement('div');b.className=`bbl ${cls}`;
+        b.style.left=cls==='l1'?'52%':'64%';b.style.top=cls==='l1'?'18%':'34%';
+        b.innerHTML=`<span class="who-tag">${ln.who}</span>${md(ln.en)}<div class="zh">${zh(ln.en)}</div>`;
+        tapZh(b);$('#p3Stage').appendChild(b);
+      };
+      addLine(l1,'l1');
+      p3LoopTimers.push(setTimeout(()=>{
+        if(p3Done||p3Busy)return;
+        addLine(l2,'l2');
+      },1750));
+      p3LoopTimers.push(setTimeout(()=>{
+        if(p3Done||p3Busy)return;
+        if(p3PausedByCard){p3LoopTimers.push(setTimeout(runCycle,400));return}
+        clearP3Popups();
+        setBeacon(true);
+        armIdle(()=>{const first=$('#tray .sticker');if(first&&!p3Done)showTapHand(first)});
+        p3LoopTimers.push(setTimeout(()=>{clearIdle();runCycle()},2600));
+      },3700));
+    }
+  };
+  runCycle();
+}
+
+function enableStickerAction(el,st){
+  let g=null,sx=0,sy=0,moved=false;
+  el.addEventListener('pointerdown',e=>{
+    if(p3Busy||p3Done)return;
+    
+    clearIdle();
+    sx=e.clientX;sy=e.clientY;moved=false;
+    el.setPointerCapture(e.pointerId);
+    const mv=ev=>{
+      if(!moved&&Math.hypot(ev.clientX-sx,ev.clientY-sy)>8){
+        moved=true;g=el.cloneNode(true);g.classList.remove('glow-card');g.classList.add('ghost');
+        document.body.appendChild(g);el.style.opacity=.3;
+      }
+      if(moved){g.style.left=ev.clientX+'px';g.style.top=ev.clientY+'px'}
+    };
+    const up=ev=>{
+      el.removeEventListener('pointermove',mv);el.removeEventListener('pointerup',up);
+      if(g){g.remove();g=null}
+      el.style.opacity='';
+      if(moved){
+        const pr=$('#panel').getBoundingClientRect();
+        if(ev.clientY<pr.bottom+25)triggerSticker(st);
+      }else{
+        triggerSticker(st);
+      }
+    };
+    el.addEventListener('pointermove',mv);el.addEventListener('pointerup',up);
+  });
+}
+
+function triggerSticker(st){
+  if(p3Busy||p3Done)return;
+  p3Busy=true;clearIdle();stopP3Timers();
+  const inPause=(p3Phase==='pause');
+  const G=S.GROUPS[chosen];
+  clearP3Popups();
+  setBeacon(false,true);SFX.pop();
+
+  // Show Chestnut's bubble
+  const meB=document.createElement('div');meB.className='bbl me';
+  meB.innerHTML=`${md(st.en)}<div class="zh">${zh(st.en)}</div>`;
+  tapZh(meB);$('#p3Stage').appendChild(meB);
+
+  const stage=$('#p3Stage');
+
+  if(!st.topic){
+    // "Hi, I'm new." -> ignored, retry allowed
+    p3Fails++;
+    setTimeout(()=>{
+      $('#p3MeImg').src=img('chestnut','nervous');
+      SFX.confused();
+      const note=document.createElement('div');note.className='act-note';
+      note.innerHTML=`${G.onNew.act}<span class="zh">${zh(G.onNew.act)}</span>`;
+      tapZh(note);stage.appendChild(note);
+      stage.insertAdjacentHTML('beforeend',`<div class="retry-toast">Ignored! Try a topic sticker at the 💬 pause · 没人接话，等 💬 停顿时用话题卡再试</div>`);
+      if(p3Fails>=2){p3Success=false;showNext(renderP4)}
+    },480);
+    setTimeout(()=>{
+      p3Busy=false;$('#p3MeImg').src=img('chestnut','neutral');
+      startP3Loop();
+    },2500);
+    return;
+  }
+
+  if(!inPause){
+    // Interrupted during speech / drawing -> retry allowed
+    p3Fails++;
+    setTimeout(()=>{
+      $('#p3MeImg').src=img('chestnut','nervous');
+      const r=G.onInterrupt;
+      if(chosen==='benny'){
+        SFX.nervous();
+        stage.insertAdjacentHTML('beforeend',`<div class="drawing-anim">✏️</div>`);
+      }else{
+        SFX.confused();
+        setTheyMood(r.mood,'frown',false);
+        const tb=document.createElement('div');tb.className='bbl they warn';
+        tb.innerHTML=`<span class="who-tag">${r.who}</span>${md(r.en)}<div class="zh">${zh(r.en)}</div>`;
+        tapZh(tb);stage.appendChild(tb);
+      }
+      const note=document.createElement('div');note.className='act-note';
+      note.innerHTML=`${r.act}<span class="zh">${zh(r.act)}</span>`;
+      tapZh(note);stage.appendChild(note);
+      stage.insertAdjacentHTML('beforeend',`<div class="retry-toast">Too soon! Wait for 💬 to glow · 太急了！等 💬 亮起来再说</div>`);
+      if(p3Fails>=2){p3Success=false;showNext(renderP4)}
+    },480);
+    setTimeout(()=>{
+      p3Busy=false;$('#p3MeImg').src=img('chestnut','neutral');
+      startP3Loop();
+    },2400);
+    return;
+  }
+
+  // Success! Topic sticker during pause
+  p3Done=true;p3Success=true;p3ChoiceId=st.id;
+  $$('#tray .sticker').forEach(x=>x.classList.add('locked'));
+  setTimeout(()=>{
+    const r=G.onSuccess[st.id];
+    $('#p3MeImg').src=img('chestnut','happy');
+    setTheyMood(r.mood,'smile',chosen!=='benny');
+    const ch=$('#p3They .ch');if(ch)ch.classList.add('hop');
+    if(r.en){
+      const tb=document.createElement('div');tb.className='bbl they';
+      tb.innerHTML=`<span class="who-tag">${r.who}</span>${md(r.en)}<div class="zh">${zh(r.en)}</div>`;
+      tapZh(tb);stage.appendChild(tb);
+    }
+    if(chosen==='benny'){
+      stage.insertAdjacentHTML('beforeend',`<div class="sketchbook" style="left:69%;top:27%;transform:translateX(-50%) rotate(3deg)"><div class="spiral"></div><div class="hero-wrap"><div class="cape"></div><img src="assets/apple_neutral.png" alt="Apple superhero"></div><div class="cap-txt">Apple superhero</div></div>`);
+    }
+    const note=document.createElement('div');note.className='act-note';
+    note.innerHTML=`${r.act}<span class="zh">${zh(r.act)}</span>`;
+    tapZh(note);stage.appendChild(note);
+    burstAt($('#panel'),66,52);
+    SFX.happy();setTimeout(()=>SFX.levelup(),160);
+    p3Busy=false;
+    showNext(renderP4);
+  },460);
+}
+
+// ==================== PAGE 4: Reaction & Diary line ====================
+function renderP4(){
+  pageNum=4;clearIdle();stopP3Timers();
+  const G=S.GROUPS[chosen];
+  const lineText=p3Success?"They turned to me!":"They didn't hear me.";
+  const r=p3Success?G.onSuccess[p3ChoiceId||'s1']:G.onNew;
+  $('#page').innerHTML=topHTML(4)+`
+    <div class="panel zoom-${chosen}" id="panel">
+      <img class="bg" src="assets/classroom.png" alt="">
+      <div class="p3-stage" id="p4Stage">
+        <div class="p3-me"><img src="${img('chestnut',p3Success?'happy':'nervous')}" alt="Chestnut"></div>
+        <div class="p3-they ${p3Success&&chosen!=='benny'?'turned':''}" id="p4They">${charHTML(G.main,p3Success?r.mood:'neutral')}${G.friend?charHTML(G.friend,p3Success?'smile':'neutral'):''}</div>
+      </div>
+    </div>
+    <div class="tray" id="tray">
+      <div class="diary-strip" id="diaryLine" title="Double-tap for Chinese · 双击看中文">
+        <span class="pen">✏️</span>
+        <span class="dtxt">${lineText}<span class="zh">${zh(lineText)}</span></span>
+      </div>
+    </div>`;
+  tapZh($('#taskBar'));tapZh($('#diaryLine'));$('#backBtn').onclick=resetAll;
+
+  const st=$('#p4Stage');
+  if(p3Success){
+    if(r.en){
+      const tb=document.createElement('div');tb.className='bbl they';
+      tb.innerHTML=`<span class="who-tag">${r.who}</span>${md(r.en)}<div class="zh">${zh(r.en)}</div>`;
+      tapZh(tb);st.appendChild(tb);
+    }
+    if(chosen==='benny'){
+      st.insertAdjacentHTML('beforeend',`<div class="sketchbook" style="left:69%;top:27%;transform:translateX(-50%) rotate(3deg)"><div class="spiral"></div><div class="hero-wrap"><div class="cape"></div><img src="assets/apple_neutral.png" alt="Apple superhero"></div><div class="cap-txt">Apple superhero</div></div>`);
+    }
+    const note=document.createElement('div');note.className='act-note';
+    note.innerHTML=`${r.act}<span class="zh">${zh(r.act)}</span>`;
+    tapZh(note);st.appendChild(note);
+    SFX.happy();
+  }else{
+    const note=document.createElement('div');note.className='act-note';
+    note.innerHTML=`${r.act}<span class="zh">${zh(r.act)}</span>`;
+    tapZh(note);st.appendChild(note);
+    SFX.nervous();
+  }
+  setTimeout(()=>showNext(renderEnd),850);
+}
+
+// ==================== END CARD ====================
+function renderEnd(){
+  clearIdle();stopP3Timers();
+  const G=S.GROUPS[chosen];
+  const texts=[...G.lines.map(l=>l.en),...G.stickers.map(s=>s.en)];
+  const words=[...new Set(texts.flatMap(t=>(t.match(/\*\*(.+?)\*\*/g)||[]).map(m=>m.slice(2,-2))))];
+  const mood=(w)=>w==='chestnut'?(p3Success?'happy':'nervous'):(w===chosen&&p3Success?'happy':'neutral');
+  $('#page').innerHTML=`
+    <div class="top">
+      <div class="dots">${[1,2,3,4].map(()=>'<span class="dot now"></span>').join('')}</div>
+      <h1 class="task" id="taskBar">${S.TITLE}<small class="zh">Chestnut's Diary · Day 1</small></h1>
+      <div class="icons"><button id="backBtn" title="Play again · 再试一次">↺</button></div>
+    </div>
+    <div class="end">
+      <div class="crew">${['chestnut','pia','ollie','benny'].map(w=>`<img src="${img(w,mood(w))}" alt="${w}">`).join('')}</div>
+      <div class="stamp">Pages 5–8 coming next</div>
+      <div class="sub">第 5–8 页即将上线 · Played: ${G.topicIcon} ${G.name} (${p3Success?'They turned to me!':'They didn\'t hear me.'})</div>
+      <div class="vg">${words.map(w=>{const g=window.GLOSS[gkey(w)];return `<button class="vw" data-w="${w}"><b>${w}</b>${g?` · ${g[0].split('（')[0].split('，')[0]}`:''}</button>`}).join('')}</div>
+      <div class="endbtns"><button id="retryBtn">↺ Play again · 再试一次</button></div>
+    </div>`;
+  tapZh($('#taskBar'));
+  $$('.vw').forEach(b=>b.onclick=e=>wordCard(b.dataset.w,e));
+  $('#retryBtn').onclick=resetAll;$('#backBtn').onclick=resetAll;
+  SFX.levelup();
+}
+
+renderP1();
+</script></body></html>
